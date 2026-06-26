@@ -1,14 +1,16 @@
 # 依存関係
 node_modules/
+.wrangler/
 
 # OS
 .DS_Store
 Thumbs.db
 
 # ビルド作業用（内部管理）
-*/preview/
-*/assets/images/reference/
-*/assets/original/
+preview/
+public/preview/
+public/assets/images/reference/
+public/assets/original/
 
 # 内部管理ファイル
 cloud.md

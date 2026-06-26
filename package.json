@@ -1,0 +1,17 @@
+{
+  "name": "lucia-eyelash-salon-site",
+  "private": true,
+  "config": {
+    "cloudflare_project_name": "lucia-eyelash-salon"
+  },
+  "scripts": {
+    "dev": "wrangler pages dev public",
+    "deploy": "wrangler pages deploy public --project-name $npm_package_config_cloudflare_project_name",
+    "check:links": "node scripts/check-local-refs.mjs",
+    "check:assets": "node scripts/check-unused-assets.mjs",
+    "check": "npm run check:links && npm run check:assets"
+  },
+  "devDependencies": {
+    "wrangler": "^4.0.0"
+  }
+}
