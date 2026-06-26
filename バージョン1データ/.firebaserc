@@ -1,0 +1,12 @@
+{
+  "projects": {
+    "default": "hp-kakuninyou"
+  },
+  "targets": {
+    "hp-kakuninyou": {
+      "hosting": {
+        "lucia-hp": ["lucia-hp"]
+      }
+    }
+  }
+}

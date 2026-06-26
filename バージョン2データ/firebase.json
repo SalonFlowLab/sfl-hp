@@ -1,0 +1,18 @@
+{
+  "hosting": [
+    {
+      "site": "lucia-hp-v2",
+      "public": "public",
+      "ignore": [
+        "**/.*",
+        "**/node_modules/**"
+      ],
+      "headers": [
+        {
+          "source": "**/*.@(jpg|jpeg|png|svg|webp|woff2)",
+          "headers": [{ "key": "Cache-Control", "value": "public, max-age=86400" }]
+        }
+      ]
+    }
+  ]
+}
