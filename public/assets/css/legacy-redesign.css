@@ -23,7 +23,7 @@ body{background:#edf4ff;color:#0b1760}
 .legacy-redesign.page-reservation{--legacy-page-bg:url("../textures/page-bg-04-reservation.png")}
 .legacy-redesign.page-school{--legacy-page-bg:url("../textures/page-bg-06-school.png")}
 .legacy-redesign.page-operation{--legacy-page-bg:url("../textures/page-bg-07-operation-system.png")}
-.legacy-redesign.page-lcp{--legacy-page-bg:url("../textures/page-bg-08-lash-cycle-pro.png")}
+.legacy-redesign.page-lcp{--legacy-page-bg:url("../textures/page-bg-08-management-system.png")}
 .legacy-redesign.page-consulting{--legacy-page-bg:url("../textures/page-bg-09-consulting.png")}
 .legacy-redesign.page-access{--legacy-page-bg:url("../textures/page-bg-10-access.png")}
 .legacy-redesign.page-contact{--legacy-page-bg:url("../textures/page-bg-11-contact.png")}
@@ -126,7 +126,7 @@ body{background:#edf4ff;color:#0b1760}
 .legacy-redesign .school-redesign .sch-line-btn{border-radius:7px;color:#2638d6;border-color:#cbd8ff}
 .legacy-redesign.page-lcp{background-image:linear-gradient(180deg,rgba(239,246,255,.72),rgba(231,240,255,.82)),var(--legacy-page-bg)}
 .legacy-redesign.page-lcp .lcp-hero{position:relative;min-height:620px;display:grid;grid-template-columns:1fr;background:radial-gradient(circle at 82% 22%,rgba(78,119,255,.28),transparent 31%),radial-gradient(circle at 92% 72%,rgba(28,219,255,.18),transparent 30%),linear-gradient(135deg,#f5f9ff 0%,#eaf1ff 42%,#d7e4ff 100%);border-bottom:1px solid rgba(139,169,255,.3);overflow:hidden}
-.legacy-redesign.page-lcp .lcp-hero::before{content:"";position:absolute;inset:0;background:url("../textures/page-bg-08-lash-cycle-pro.png") center/cover no-repeat;opacity:.68;mix-blend-mode:screen;pointer-events:none}
+.legacy-redesign.page-lcp .lcp-hero::before{content:"";position:absolute;inset:0;background:url("../textures/page-bg-08-management-system.png") center/cover no-repeat;opacity:.68;mix-blend-mode:screen;pointer-events:none}
 .legacy-redesign.page-lcp .lcp-hero::after{content:"";position:absolute;inset:0;z-index:1;background:linear-gradient(90deg,rgba(244,248,255,.98) 0%,rgba(236,244,255,.96) 35%,rgba(222,233,255,.55) 58%,rgba(222,233,255,.08) 82%);pointer-events:none}
 .legacy-redesign.page-lcp .lcp-hero-copy{grid-column:1;grid-row:1;position:relative;z-index:3;width:min(620px,46vw);padding:82px 0 66px min(6vw,64px)}
 .legacy-redesign.page-lcp .lcp-hero-visual{grid-column:1!important;grid-row:1!important;position:absolute;left:0!important;right:0!important;top:0!important;bottom:0!important;width:100%!important;z-index:2;min-height:100%;pointer-events:none}

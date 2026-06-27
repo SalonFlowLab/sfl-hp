@@ -1,4 +1,4 @@
-// Lucia Eyelash Salon — common scripts
+// Sample Eyelash Salon — common scripts
 
 // current year in footer
 document.querySelectorAll('[data-year]').forEach((el) => {

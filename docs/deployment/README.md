@@ -7,7 +7,7 @@
 - Framework preset: `None`
 - Build command: 空欄
 - Build output directory: `public`
-- Cloudflare Pages project name: `lucia-eyelash-salon`
+- Cloudflare Pages project name: `hp-template-site`
 - Wrangler config: `wrangler.jsonc`
 
 ## コマンド

@@ -1,8 +1,8 @@
 {
-  "name": "lucia-eyelash-salon-site",
+  "name": "hp-template-site",
   "private": true,
   "config": {
-    "cloudflare_project_name": "lucia-eyelash-salon"
+    "cloudflare_project_name": "hp-template-site"
   },
   "scripts": {
     "dev": "wrangler pages dev public",

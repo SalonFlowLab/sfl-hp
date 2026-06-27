@@ -8,8 +8,8 @@
   ];
   const ownerKeys = new Set(['support', 'school', 'operation', 'lcp', 'ai', 'consulting']);
   const ownerItems = [
-    { slug: '08-lash-cycle-pro', label: 'Lush Cycle Pro', key: 'lcp' },
-    { slug: '13-ai-tools', label: 'AI・Lark活用', key: 'ai' },
+    { slug: '08-management-system', label: 'サロン運営システム', key: 'lcp' },
+    { slug: '13-ai-tools', label: 'AI・業務ツール活用', key: 'ai' },
     { slug: '07-operation-system', label: 'サロン運営の仕組み', key: 'operation' },
     { slug: '09-consulting', label: '同業者向け相談', key: 'consulting' },
     { slug: '06-school', label: 'スクール', key: 'school' },
@@ -19,8 +19,8 @@
     { slug: '02-salon', label: 'サロン紹介' },
     { slug: '03-menu-price', label: 'メニュー・料金' },
     { slug: '04-reservation', label: 'ご予約・来店案内' },
-    { slug: '08-lash-cycle-pro', label: 'Lush Cycle Pro' },
-    { slug: '13-ai-tools', label: 'AI・Lark活用' },
+    { slug: '08-management-system', label: 'サロン運営システム' },
+    { slug: '13-ai-tools', label: 'AI・業務ツール活用' },
     { slug: '07-operation-system', label: 'サロン運営の仕組み' },
     { slug: '09-consulting', label: '同業者向け相談' },
     { slug: '06-school', label: 'スクール' },
@@ -34,9 +34,9 @@
   const navLinks = navItems.map((item) => `<a href="${pageHref(item.slug)}" class="${active === item.key ? 'active' : ''}">${item.label}</a>`).join('');
   const dropdownLinks = ownerItems.map((item) => `<li><a href="${pageHref(item.slug)}" class="${active === item.key ? 'active' : ''}">${item.label}</a></li>`).join('');
   if (headerMount) {
-    headerMount.outerHTML = `<header class="site-header"><div class="nav-wrap"><a class="brand" href="${pageHref('01-top')}"><img src="../../assets/images/logo.jpg" alt="Lucia" class="brand-logo"><span class="brand-text"><span class="brand-mark">Eyelash Salon</span><span class="brand-sub">Lucia</span></span></a>
+    headerMount.outerHTML = `<header class="site-header"><div class="nav-wrap"><a class="brand" href="${pageHref('01-top')}"><img src="../../assets/images/logo.jpg" alt="サンプルサロン" class="brand-logo"><span class="brand-text"><span class="brand-mark">Eyelash Salon</span><span class="brand-sub">サンプルサロン</span></span></a>
 <nav class="nav">${navLinks}<div class="nav-dropdown"><a href="${pageHref('06-school')}" class="nav-dd-trigger ${ownerKeys.has(active) ? 'active' : ''}">開業・運営サポート<svg class="dd-caret" viewBox="0 0 10 6" aria-hidden="true"><polyline points="1,1 5,5 9,1"/></svg></a><ul class="nav-dd-menu">${dropdownLinks}</ul></div></nav>
-<div class="header-actions"><a class="btn small btn-business" href="https://lin.ee/oEVKAsJ">${lineSvg}事業者様向けLINE</a><a class="btn small line" href="https://line.me/R/ti/p/@427yvnxn">${lineSvg}お客様のご予約</a></div>
+<div class="header-actions"><a class="btn small btn-business" href="https://example.com/business-line">${lineSvg}事業者様向けLINE</a><a class="btn small line" href="https://example.com/customer-line">${lineSvg}お客様のご予約</a></div>
 <button class="mobile-toggle" aria-label="メニューを開く" data-open-drawer><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="3" y1="7" x2="21" y2="7"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="17" x2="21" y2="17"/></svg></button>
 </div></header>`;
   }
@@ -49,18 +49,18 @@
       '<a href="../10-access/index.html">アクセス</a>',
       '<a href="../11-contact/index.html">お問い合わせ</a>',
     ].join('');
-    drawerMount.outerHTML = `<div class="drawer" data-drawer><div class="drawer-panel"><button class="d-close" aria-label="閉じる" data-close-drawer><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="6" y1="6" x2="18" y2="18"/><line x1="18" y1="6" x2="6" y2="18"/></svg></button>${drawerLinks}<div class="d-actions"><div class="footer-btn-group"><a class="btn btn-business" href="https://lin.ee/oEVKAsJ">${lineSvg}事業者様向けLINE</a><a class="btn line" href="https://line.me/R/ti/p/@427yvnxn">${lineSvg}お客様のご予約</a></div></div></div></div>`;
+    drawerMount.outerHTML = `<div class="drawer" data-drawer><div class="drawer-panel"><button class="d-close" aria-label="閉じる" data-close-drawer><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="6" y1="6" x2="18" y2="18"/><line x1="18" y1="6" x2="6" y2="18"/></svg></button>${drawerLinks}<div class="d-actions"><div class="footer-btn-group"><a class="btn btn-business" href="https://example.com/business-line">${lineSvg}事業者様向けLINE</a><a class="btn line" href="https://example.com/customer-line">${lineSvg}お客様のご予約</a></div></div></div></div>`;
   }
   const footerMount = document.querySelector('[data-site-footer]');
   if (footerMount) {
     const footerLinks = footerItems.map((item) => `<a href="${pageHref(item.slug)}">${item.label}</a>`).join('');
     footerMount.outerHTML = `<footer class="site-footer"><div class="container-wide footer-grid">
-<div class="footer-brand"><a class="brand" href="${pageHref('01-top')}"><img src="../../assets/images/logo.jpg" alt="Lucia" class="brand-logo"><span class="brand-text"><span class="brand-mark">Eyelash Salon</span><span class="brand-sub">Lucia</span></span></a>
-<p class="addr">〒525-0055<br>滋賀県草津市野路町3001番地（日替わりサロンTallyテナント内）<br>営業時間 10:00〜19:30<br>定休日 日曜日・祝日</p></div>
+<div class="footer-brand"><a class="brand" href="${pageHref('01-top')}"><img src="../../assets/images/logo.jpg" alt="サンプルサロン" class="brand-logo"><span class="brand-text"><span class="brand-mark">Eyelash Salon</span><span class="brand-sub">サンプルサロン</span></span></a>
+<p class="addr">〒000-0000<br>サンプル県サンプル市サンプル町1-2-3<br>営業時間 10:00〜19:30<br>定休日 日曜日・祝日</p></div>
 <nav class="footer-nav">${footerLinks}</nav>
-<div class="footer-contact"><div class="footer-btn-group"><a class="btn btn-business" href="https://lin.ee/oEVKAsJ">${lineSvg}事業者様向けLINE</a><a class="btn line" href="https://line.me/R/ti/p/@427yvnxn">${lineSvg}お客様のご予約</a></div>
-<div class="socials"><a href="https://line.me/R/ti/p/@427yvnxn" aria-label="LINE"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5h16v11H9l-4 3.5V16H4Z"/><path d="M8 9.5h8M8 12.5h5"/></svg></a><a href="https://www.instagram.com/azm.eyelash/" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="3.6"/><circle cx="17" cy="7" r="1" fill="currentColor" stroke="none"/></svg></a></div></div>
-</div><p class="copyright">© <span data-year></span> Eyelash Salon Lucia. All Rights Reserved.</p></footer>`;
+<div class="footer-contact"><div class="footer-btn-group"><a class="btn btn-business" href="https://example.com/business-line">${lineSvg}事業者様向けLINE</a><a class="btn line" href="https://example.com/customer-line">${lineSvg}お客様のご予約</a></div>
+<div class="socials"><a href="https://example.com/customer-line" aria-label="LINE"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5h16v11H9l-4 3.5V16H4Z"/><path d="M8 9.5h8M8 12.5h5"/></svg></a><a href="https://example.com/instagram" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="3.6"/><circle cx="17" cy="7" r="1" fill="currentColor" stroke="none"/></svg></a></div></div>
+</div><p class="copyright">© <span data-year></span> Sample Eyelash Salon. All Rights Reserved.</p></footer>`;
   }
   document.querySelectorAll('[data-year]').forEach((el) => { el.textContent = new Date().getFullYear(); });
   const drawer = document.querySelector('[data-drawer]');

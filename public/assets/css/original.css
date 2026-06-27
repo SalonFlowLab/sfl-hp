@@ -1,5 +1,5 @@
 /* =========================================================
-   Lucia Eyelash Salon — common stylesheet
+   Sample Eyelash Salon — common stylesheet
    Warm ivory & gold, Mincho serif headings
    ========================================================= */
 
@@ -137,7 +137,7 @@ p,li,.kpi span,.step p,.flow .node p{text-wrap:pretty}
 .hero .lead{max-width:28em;color:var(--ink-soft);font-size:15px;text-wrap:pretty}
 .hero-actions{display:flex;gap:13px;margin-top:30px;flex-wrap:wrap}
 .hero .accent-line{width:60px;height:2px;background:var(--gold-soft);margin:0 0 22px}
-/* ---------- Lash Cycle Pro achievement section ---------- */
+/* ---------- サロン運営システム achievement section ---------- */
 .lcpro-achievement{position:relative;width:100%;max-width:1672px;margin-inline:auto;overflow:hidden;aspect-ratio:1672/941;background:#f7efe7;isolation:isolate}
 .lcpro-achievement__visual,.lcpro-achievement__visual picture,.lcpro-achievement__visual img{display:block;width:100%;height:100%}
 .lcpro-achievement__visual{position:absolute;inset:0;z-index:0}
@@ -852,7 +852,7 @@ p,li,.kpi span,.step p,.flow .node p{text-wrap:pretty}
 }
 
 /* =========================================================
-   Lash Cycle Pro — page-specific styles (.lcp-*)
+   サロン運営システム — page-specific styles (.lcp-*)
    ========================================================= */
 
 /* ── Hero ── */

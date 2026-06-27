@@ -36,7 +36,7 @@
 <rect x="128" y="174" width="238" height="254" rx="26" fill="rgba(255,255,255,.82)" stroke="#b8c9ff"/>
 <circle cx="202" cy="254" r="38" fill="#eef4ff" stroke="#adc1ff"/>
 <path d="M190 254h24M202 242v24" stroke="#2638d6" stroke-width="6" stroke-linecap="round"/>
-<text x="176" y="334" font-family="Georgia,serif" font-size="34" fill="#07104d">Lucia</text>
+<text x="176" y="334" font-family="Georgia,serif" font-size="34" fill="#07104d">サンプルサロン</text>
 <text x="176" y="372" font-family="Georgia,serif" font-size="20" fill="#31427f">Salon Owners</text>
 <rect x="176" y="392" width="116" height="12" rx="6" fill="url(#cyan)"/>
 </g>
