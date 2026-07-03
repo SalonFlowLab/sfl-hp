@@ -19,6 +19,15 @@
       payload.formType = form.getAttribute('data-form-type') || 'お問い合わせ';
       payload.pageUrl = window.location.href;
 
+      if (window.location.hostname.endsWith('github.io')) {
+        if (status) {
+          status.textContent = 'GitHub Pagesのプレビューではフォーム送信は利用できません。本番公開後に送信できます。';
+          status.className = 'sfl-form-status error';
+        }
+        if (submit) submit.disabled = false;
+        return;
+      }
+
       fetch('/api/contact', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },

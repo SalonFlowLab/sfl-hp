@@ -37,6 +37,14 @@ npm run deploy
 
 Cloudflare PagesのBuild output directoryは `public` です。
 
+## GitHub Pages プレビュー
+
+GitHub Actionsで `public/` をGitHub Pagesに公開します。
+
+- workflow: `.github/workflows/deploy-github-pages.yml`
+- 公開対象: `public/`
+- 注意: GitHub Pagesは静的配信のみのため、`functions/api/contact.js` のフォーム送信APIは動きません。フォーム送信はCloudflare Pages本番で有効化します。
+
 ## フォーム送信
 
 お問い合わせと資料請求は `/api/contact` へ送信します。送信内容はメール送信し、Lark webhookが設定されている場合はLarkチャットにも通知します。

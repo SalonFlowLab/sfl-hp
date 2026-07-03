@@ -15,6 +15,3 @@ public/assets/original/
 # 内部管理ファイル
 cloud.md
 *.zip
-
-# Firebase内部
-.firebase/
