@@ -20,7 +20,7 @@
   }));
   const siteFooterItems = [
     ...navItems,
-    { slug: 'salon-flow-one', label: 'よくある質問', key: 'faq', hash: '#faq' }
+    { slug: 'faq', label: 'よくある質問', key: 'faq' }
   ];
   const footerServiceItems = [
     ...serviceNavItems,

@@ -482,9 +482,9 @@ html.sfl-motion-ready .sfl-section-head[data-sfl-line-left].sfl-is-visible::afte
 .sfl-faq-accordion .sfl-faq-item[open] summary::after{content:"−"}
 .sfl-faq-accordion .sfl-faq-item p{margin:0;padding:0 20px 18px;color:var(--sfl-muted);font-weight:700;line-height:1.8}
 
-/* Services hub — 2×2 on desktop */
-.sfl-service-catalog{display:grid;grid-template-columns:repeat(2,minmax(260px,340px));justify-content:center;gap:24px;width:100%;max-width:720px;margin-inline:auto}
+/* Services hub — 2×2 on desktop, full container width */
+.sfl-service-catalog{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:28px;width:100%}
 .sfl-service-catalog .sfl-service-card{display:flex;flex-direction:column;height:100%}
 .sfl-service-catalog .sfl-service-card ul{flex:1}
 .sfl-service-card-action{margin-top:20px;margin-bottom:0}
-@media(max-width:720px){.sfl-service-catalog{grid-template-columns:minmax(0,480px);max-width:480px}}
+@media(max-width:720px){.sfl-service-catalog{grid-template-columns:1fr;gap:24px}}
