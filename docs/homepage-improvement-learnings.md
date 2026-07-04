@@ -182,7 +182,31 @@ site-chrome.js → sfl-lead-form.js → contact-form.js
 
 ---
 
-## 7. 余白・フォーム UX（簡易メモ）
+## 7. マルチサービス構成（2026-07-04）
+
+SFL は複数の伴走型サービスを提供する前提で URL・ナビを整理した。
+
+| 役割 | URL | 備考 |
+|------|-----|------|
+| **サービス一覧（ハブ）** | `/pages/services/` | カードで各商品LPへ。将来サービス追加はここにカードを足す |
+| **商品LP** | `/pages/{slug}/` | 例: `salon-flow-one`, `lark-flow-one`。`data-active="{slug}"` でヘッダー「サービス」が active |
+| **商品固有の下層** | 既存ページ | SF ONE 専用: `pricing`, `cycle-pro`（フッター「SALON FLOW ONE」グループ） |
+
+**拡張手順（新サービス追加時）:**
+
+1. `site-chrome.js` の `servicesCatalog` に `{ slug, label, summary }` を追加
+2. `public/pages/{slug}/index.html` を新規作成（`data-active="{slug}"`）
+3. `public/pages/services/index.html` にカードを1枚追加
+4. `sitemap.xml` に URL を追加
+5. 必要なら `sfl-lead-form.js` の topic に選択肢を追加
+
+**リダイレクト:** 旧 `/pages/lark/` → `/pages/lark-flow-one/`（Lark単体商品LPへ）
+
+**注意:** サービス一覧と商品LPを混同しない。旧 `services` が SF ONE LP だった頃のリンクは `salon-flow-one` に更新済み。
+
+---
+
+## 8. 余白・フォーム UX（簡易メモ）
 
 - モバイル縦スクロール削減のため section padding を desktop 80px / mobile 48px 付近に調整。
 - フォーム placeholder を全フィールドに追加（電話だけ例示、は不十分だった）。
@@ -190,7 +214,7 @@ site-chrome.js → sfl-lead-form.js → contact-form.js
 
 ---
 
-## 8. 変更時の作業手順
+## 9. 変更時の作業手順
 
 1. 対象ページをローカル表示: `python3 -m http.server 8123 --directory public`
 2. 確認: ルート `index.html`、ネストページ1つ、直接編集ページ。390px + デスクトップ。
@@ -200,7 +224,7 @@ site-chrome.js → sfl-lead-form.js → contact-form.js
 
 ---
 
-## 9. 関連ファイル早見表
+## 10. 関連ファイル早見表
 
 ```
 public/assets/js/site-chrome.js    … ヘッダー / ドロワー / フッター
@@ -214,7 +238,7 @@ public/pages/contact/index.html   … フォームページの参照実装
 
 ---
 
-## 10. 用語
+## 11. 用語
 
 | 用語 | 意味 |
 |------|------|

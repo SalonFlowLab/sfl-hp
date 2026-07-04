@@ -1,11 +1,23 @@
 (() => {
+  const servicesCatalog = [
+    {
+      slug: 'salon-flow-one',
+      label: 'SALON FLOW ONE',
+      summary: '美容サロン向け月額伴走サポート'
+    },
+    {
+      slug: 'lark-flow-one',
+      label: 'LARK FLOW ONE',
+      summary: 'Lark活用の業務改善伴走支援'
+    }
+  ];
   const navItems = [
     { slug: 'home', label: 'ホーム', key: 'home' },
-    { slug: 'services', label: 'SALON FLOW ONE', key: 'services' },
+    { slug: 'services', label: 'サービス', key: 'services' },
     { slug: 'case-study', label: '導入事例', key: 'case' },
     { slug: 'company', label: '会社概要', key: 'company' }
   ];
-  const productItems = [
+  const salonProductItems = [
     { slug: 'pricing', label: '料金プラン', key: 'pricing' },
     { slug: 'cycle-pro', label: 'Cycle Proとは', key: 'cycle' }
   ];
@@ -13,12 +25,23 @@
     { slug: 'download', label: '資料請求', key: 'download' },
     { slug: 'contact', label: 'お問い合わせ', key: 'contact' }
   ];
+  const serviceNavItems = servicesCatalog.map((service) => ({
+    slug: service.slug,
+    label: service.label,
+    key: service.slug
+  }));
   const footerGroups = [
     { title: 'サイト', items: navItems },
-    { title: 'SALON FLOW ONE', items: productItems },
+    { title: 'サービス', items: serviceNavItems },
+    { title: 'SALON FLOW ONE', items: salonProductItems },
     { title: 'お問い合わせ', items: contactItems }
   ];
-  const drawerItems = [...navItems, ...productItems, { slug: 'contact', label: 'お問い合わせ', key: 'contact' }];
+  const drawerItems = [
+    ...navItems,
+    ...serviceNavItems,
+    ...salonProductItems,
+    { slug: 'contact', label: 'お問い合わせ', key: 'contact' }
+  ];
   const pageHref = (slug) => '../' + slug + '/index.html';
   const linkList = (items) => items.map((item) => '<a href="' + pageHref(item.slug) + '">' + item.label + '</a>').join('');
   const prefetched = new Set();
@@ -49,7 +72,11 @@
   };
   const mount = document.querySelector('[data-site-header]');
   const active = mount?.dataset.active || '';
-  const navLinks = navItems.map((item) => '<a href="' + pageHref(item.slug) + '" class="' + (active === item.key ? 'active' : '') + '">' + item.label + '</a>').join('');
+  const serviceSlugs = servicesCatalog.map((service) => service.slug);
+  const navLinks = navItems.map((item) => {
+    const isActive = active === item.key || (item.key === 'services' && serviceSlugs.includes(active));
+    return '<a href="' + pageHref(item.slug) + '" class="' + (isActive ? 'active' : '') + '">' + item.label + '</a>';
+  }).join('');
   if (mount) {
     mount.outerHTML = '<header class="sfl-header"><div class="sfl-nav-wrap"><a class="sfl-brand" href="' + pageHref('home') + '" aria-label="合同会社SFL SALON FLOW LAB."><img class="sfl-logo" src="../../assets/images/sfl-logo-primary.png" alt="合同会社SFL SALON FLOW LAB."></a><nav class="sfl-nav">' + navLinks + '</nav><div class="sfl-header-actions"><a class="sfl-btn sfl-btn-gold" href="' + pageHref('contact') + '">お問い合わせ</a><a class="sfl-btn sfl-btn-outline" href="' + pageHref('download') + '">資料請求</a></div><button class="sfl-menu" type="button" aria-label="メニューを開く" aria-expanded="false" aria-controls="sfl-drawer" data-open-drawer><span></span><span></span><span></span></button></div></header>';
   }

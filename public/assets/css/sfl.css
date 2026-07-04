@@ -481,3 +481,10 @@ html.sfl-motion-ready .sfl-section-head[data-sfl-line-left].sfl-is-visible::afte
 .sfl-faq-accordion .sfl-faq-item summary::after{content:"+";margin-left:auto;color:var(--sfl-gold);font-size:22px;font-weight:700;line-height:1}
 .sfl-faq-accordion .sfl-faq-item[open] summary::after{content:"−"}
 .sfl-faq-accordion .sfl-faq-item p{margin:0;padding:0 20px 18px;color:var(--sfl-muted);font-weight:700;line-height:1.8}
+
+/* Services hub */
+.sfl-service-catalog .sfl-service-card{display:flex;flex-direction:column;height:100%}
+.sfl-service-catalog .sfl-service-card ul{flex:1}
+.sfl-service-card-action{margin-top:20px;margin-bottom:0}
+.sfl-service-note{text-align:center;margin-top:36px;color:var(--sfl-muted);font-weight:700;line-height:1.8}
+.sfl-service-note a{color:var(--sfl-gold);font-weight:800}

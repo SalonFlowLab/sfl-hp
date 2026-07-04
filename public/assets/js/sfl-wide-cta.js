@@ -40,10 +40,10 @@
     },
     'home-services': {
       title: 'ツールの導入だけでなく、定着と運用改善まで伴走します。',
-      description: '3本柱の詳細、月額プラン、導入の流れをご案内します。',
+      description: 'SALON FLOW ONE・LARK FLOW ONE など、各サービスの詳細をご案内します。',
       actions: [
-        { label: 'SALON FLOW ONEの詳細', href: '../services/index.html', className: 'sfl-btn sfl-btn-gold' },
-        { label: '導入事例を見る', href: '../case-study/index.html', className: 'sfl-btn sfl-btn-outline' }
+        { label: 'SALON FLOW ONEの詳細', href: '../salon-flow-one/index.html', className: 'sfl-btn sfl-btn-gold' },
+        { label: 'サービス一覧', href: '../services/index.html', className: 'sfl-btn sfl-btn-outline' }
       ]
     }
   };
