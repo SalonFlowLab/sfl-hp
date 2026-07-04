@@ -471,7 +471,7 @@ html.sfl-motion-ready .sfl-section-head[data-sfl-line-left].sfl-is-visible::afte
 .sfl-notice-banner a{color:var(--sfl-gold);font-weight:800}
 
 /* Pricing page — anchors & FAQ accordion */
-#flow,#faq{scroll-margin-top:calc(var(--sfl-header-height) + 24px)}
+#pricing,#flow,#faq{scroll-margin-top:calc(var(--sfl-header-height) + 24px)}
 .sfl-page-actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:20px}
 @media(max-width:720px){.sfl-page-actions{display:grid;grid-template-columns:1fr}.sfl-page-actions .sfl-btn{width:100%}}
 .sfl-faq-accordion{display:flex;flex-direction:column;gap:12px}
@@ -482,7 +482,9 @@ html.sfl-motion-ready .sfl-section-head[data-sfl-line-left].sfl-is-visible::afte
 .sfl-faq-accordion .sfl-faq-item[open] summary::after{content:"−"}
 .sfl-faq-accordion .sfl-faq-item p{margin:0;padding:0 20px 18px;color:var(--sfl-muted);font-weight:700;line-height:1.8}
 
-/* Services hub */
+/* Services hub — 2×2 on desktop */
+.sfl-service-catalog{display:grid;grid-template-columns:repeat(2,minmax(260px,340px));justify-content:center;gap:24px;width:100%;max-width:720px;margin-inline:auto}
 .sfl-service-catalog .sfl-service-card{display:flex;flex-direction:column;height:100%}
 .sfl-service-catalog .sfl-service-card ul{flex:1}
 .sfl-service-card-action{margin-top:20px;margin-bottom:0}
+@media(max-width:720px){.sfl-service-catalog{grid-template-columns:minmax(0,480px);max-width:480px}}
