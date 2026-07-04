@@ -1,6 +1,6 @@
 # SFL / SALON FLOW LAB. — Webサイト
 
-合同会社SFLの静的Webサイトです。HTML/CSS/JavaScriptのみで構成し、Cloudflare Pagesで `public/` をそのまま配信します。
+合同会社SFL（SALON FLOW LAB.）の静的Webサイトです。HTML/CSS/JavaScriptのみで構成し、Cloudflare Pagesで `public/` をそのまま配信します。
 
 ## 公開先
 
@@ -11,40 +11,87 @@
 ## 構成
 
 - `public/index.html`: ルート入口ページ。`/pages/home/` へリダイレクトします。
-- `public/pages/`: 各ページのHTML。
-- `public/assets/`: CSS、JavaScript、画像、PDFなどの静的アセット。
+- `public/pages/`: 各ページのHTML（`pages/{slug}/index.html`）。
 - `public/assets/css/sfl.css`: SFL用の共通スタイル。
 - `public/assets/js/site-chrome.js`: 共通ヘッダー、ドロワー、フッター生成。
-- `public/assets/js/contact-form.js`: お問い合わせ・資料請求フォーム送信。
+- `public/assets/js/sfl-services-catalog.js`: サービス定義（ナビ・フォームの単一ソース）。
+- `public/assets/js/sfl-lead-form.js`: お問い合わせ・資料請求フォームのマークアップ生成。
+- `public/assets/js/contact-form.js`: フォーム送信・クライアント側バリデーション。
+- `public/assets/js/sfl-wide-cta.js`: ページ下部の共通CTAブロック生成。
+- `public/assets/js/sfl-motion.js`: ホームFVアニメーション・スクロールリビール。
+- `public/assets/images/`, `public/assets/icons/`, `public/assets/pdf/`: 画像・アイコン・PDF。
 - `public/_headers`: Cloudflare Pagesのセキュリティ・キャッシュヘッダー。
+- `public/_redirects`: 旧URLから現行ページへの301リダイレクト。
 - `public/robots.txt`, `public/sitemap.xml`: SEO用ファイル。
 - `functions/api/contact.js`: Cloudflare Pages Functionsのフォーム受付API。
 - `scripts/check-local-refs.mjs`: HTML/CSS内のローカル参照チェック。
 - `scripts/check-unused-assets.mjs`: 未使用アセット検出。
 - `docs/deployment/README.md`: Cloudflare Pagesデプロイメモ。
 - `wrangler.jsonc`: Cloudflare Pages設定。
+- `AGENTS.md`: リポジトリ作業ガイド（エージェント向け）。
+
+ビルド工程はありません。静的ファイルを直接編集します。
 
 ## ページ
 
-- ホーム
-- サービス
-- Cycle Proとは
-- 機能
-- 導入の流れ
-- 料金プラン
-- 導入事例
-- コラム
-- 会社概要
-- よくある質問
-- お問い合わせ
-- 資料請求
+### メインナビ（ヘッダー）
+
+| ページ | パス |
+|---|---|
+| ホーム | `/pages/home/` |
+| サービス | `/pages/services/` |
+| 導入事例 | `/pages/case-study/` |
+| 会社概要 | `/pages/company/` |
+
+### サービス・商品LP
+
+| ページ | パス | 備考 |
+|---|---|---|
+| SALON FLOW ONE | `/pages/salon-flow-one/` | 美容サロン向け月額伴走。料金・FAQ・導入の流れを集約 |
+| LARK FLOW ONE | `/pages/lark-flow-one/` | Lark活用伴走支援 |
+| AI FLOW ONE | `/pages/ai-flow-one/` | 企業向けAI顧問 |
+| Cycle Pro | `/pages/cycle-pro/` | 業務改善パッケージ |
+
+サービス定義の更新元は `public/assets/js/sfl-services-catalog.js` です。
+
+### その他
+
+| ページ | パス |
+|---|---|
+| よくある質問 | `/pages/faq/` |
+| お問い合わせ | `/pages/contact/` |
+| 資料請求 | `/pages/download/` |
+
+`sitemap.xml` に載せる公開対象は上記です。
+
+### 旧URLリダイレクト（`public/_redirects`）
+
+| 旧パス | 転送先 |
+|---|---|
+| `/pages/features/` | `/pages/cycle-pro/` |
+| `/pages/lark/` | `/pages/lark-flow-one/` |
+| `/pages/flow/` | `/pages/salon-flow-one/#flow` |
+| `/pages/pricing/` | `/pages/salon-flow-one/#pricing` |
+
+`public/pages/` 配下に旧ページHTMLが残っていても、本番では `_redirects` 経由で現行URLへ誘導します。
+
+## サービス追加・変更
+
+新しい FLOW ONE 系サービスを増やす場合は、少なくとも以下を更新します。
+
+1. `public/assets/js/sfl-services-catalog.js` — サービス定義
+2. `public/pages/services/index.html` — サービス一覧カード
+3. `public/pages/{slug}/index.html` — 商品LPの新規作成
+4. `public/sitemap.xml` — 公開URLの追加
+
+ナビ・フッター・お問い合わせの「興味を持ったサービス」は `sfl-services-catalog.js` を参照するため、通常は同ファイルの更新だけで連動します。
 
 ## デザイン・CTA方針
 
 - ベースカラーはブランドガイド準拠: `#F8F5EF`, `#103A71`, `#C99A1A`, `#E7D3A0`, `#1E88E5`, `#333333`。
 - CTAは「お問い合わせ」と「資料請求」に統一しています。
 - 公式LINEへの直接誘導CTAは使いません。
-- 共通ヘッダー・フッター・ドロワーは `public/assets/js/site-chrome.js` で生成します。
+- 共通ヘッダー・フッター・ドロワーは `site-chrome.js` で生成します。
 
 ## コマンド
 
@@ -57,7 +104,16 @@ npm run check
 npm run deploy
 ```
 
-ビルド工程はありません。Cloudflare PagesのBuild output directoryは `public` です。
+ローカル確認（静的サーバー）:
+
+```bash
+python3 -m http.server 8123 --directory public
+# http://127.0.0.1:8123/pages/home/index.html
+```
+
+`npm run dev` は Wrangler による Cloudflare Pages 相当のプレビューです。フォームAPIの動作確認にはこちらを使います。
+
+Cloudflare PagesのBuild output directoryは `public` です。
 
 ## GitHub Pages プレビュー
 
@@ -114,9 +170,16 @@ npm run check
 git diff --check
 ```
 
+見た目やナビゲーションを変更した場合は、ホーム・変更したページ・ネストされたページを1つずつブラウザで確認します。レスポンシブ表示、リンク、画像、PDF、コンソールエラーも見てください。
+
 フォーム周りを変更した場合は、以下も確認します。
 
 ```bash
 node --check public/assets/js/contact-form.js
+node --check public/assets/js/sfl-lead-form.js
 node --check functions/api/contact.js
 ```
+
+## テンプレートとして再利用する場合
+
+`package.json` の `name`、`config.cloudflare_project_name`、`wrangler.jsonc` の `name` を同じ案件名に更新してください。公開前に住所・電話番号・料金・スタッフ名・実績値が実データか確認してください。
