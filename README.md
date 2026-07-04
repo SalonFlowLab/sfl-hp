@@ -67,6 +67,7 @@ GitHub Actionsで `public/` をGitHub Pagesに公開します。
 - 公開対象: `public/`
 - 公開URL: `https://shoma-endo.github.io/sfl-hp/`
 - 注意: GitHub Pagesは静的配信のみのため、`functions/api/contact.js` のフォーム送信APIは動きません。フォーム送信はCloudflare Pages本番で有効化します。
+- デプロイ失敗時: Actions の「Re-run failed jobs」は artifact が重複して失敗しやすいため使わず、`main` へ push するか「Run workflow」で新規 run を実行してください。
 
 ## Cloudflare Pages
 
