@@ -47,12 +47,12 @@
   const active = mount?.dataset.active || '';
   const navLinks = navItems.map((item) => '<a href="' + pageHref(item.slug) + '" class="' + (active === item.key ? 'active' : '') + '">' + item.label + '</a>').join('');
   if (mount) {
-    mount.outerHTML = '<header class="sfl-header"><div class="sfl-nav-wrap"><a class="sfl-brand" href="' + pageHref('home') + '" aria-label="合同会社SFL SALON FLOW LAB."><img class="sfl-logo" src="../../assets/images/sfl-logo-primary.png" alt="合同会社SFL SALON FLOW LAB."></a><nav class="sfl-nav">' + navLinks + '</nav><div class="sfl-header-actions"><a class="sfl-btn sfl-btn-gold" href="' + pageHref('contact') + '">お問い合わせ</a><a class="sfl-btn sfl-btn-outline" href="' + pageHref('download') + '">資料請求</a></div><button class="sfl-menu" aria-label="メニューを開く" data-open-drawer><span></span><span></span><span></span></button></div></header>';
+    mount.outerHTML = '<header class="sfl-header"><div class="sfl-nav-wrap"><a class="sfl-brand" href="' + pageHref('home') + '" aria-label="合同会社SFL SALON FLOW LAB."><img class="sfl-logo" src="../../assets/images/sfl-logo-primary.png" alt="合同会社SFL SALON FLOW LAB."></a><nav class="sfl-nav">' + navLinks + '</nav><div class="sfl-header-actions"><a class="sfl-btn sfl-btn-gold" href="' + pageHref('contact') + '">お問い合わせ</a><a class="sfl-btn sfl-btn-outline" href="' + pageHref('download') + '">資料請求</a></div><button class="sfl-menu" type="button" aria-label="メニューを開く" aria-expanded="false" aria-controls="sfl-drawer" data-open-drawer><span></span><span></span><span></span></button></div></header>';
   }
   const drawerMount = document.querySelector('[data-site-drawer]');
   if (drawerMount) {
     const drawerLinks = footerItems.filter((item) => item.key !== 'download').map((item) => '<a href="' + pageHref(item.slug) + '">' + item.label + '</a>').join('');
-    drawerMount.outerHTML = '<div class="sfl-drawer" data-drawer><div class="sfl-drawer-panel"><button class="sfl-drawer-close" aria-label="閉じる" data-close-drawer>×</button>' + drawerLinks + '<a class="sfl-btn sfl-btn-gold" href="' + pageHref('contact') + '">お問い合わせ</a><a class="sfl-btn sfl-btn-outline" href="' + pageHref('download') + '">資料請求</a></div></div>';
+    drawerMount.outerHTML = '<div class="sfl-drawer" id="sfl-drawer" data-drawer role="dialog" aria-modal="true" aria-label="サイトメニュー" aria-hidden="true"><div class="sfl-drawer-panel"><button class="sfl-drawer-close" type="button" aria-label="閉じる" data-close-drawer>×</button>' + drawerLinks + '<a class="sfl-btn sfl-btn-gold" href="' + pageHref('contact') + '">お問い合わせ</a><a class="sfl-btn sfl-btn-outline" href="' + pageHref('download') + '">資料請求</a></div></div>';
   }
   const footerMount = document.querySelector('[data-site-footer]');
   if (footerMount) {
@@ -63,12 +63,46 @@
   const drawer = document.querySelector('[data-drawer]');
   const open = document.querySelector('[data-open-drawer]');
   if (drawer && open) {
-    const close = () => { drawer.classList.remove('open'); document.body.style.overflow = ''; };
-    open.addEventListener('click', () => { drawer.classList.add('open'); document.body.style.overflow = 'hidden'; });
+    const focusableSelector = 'a[href], button:not([disabled])';
+    const getFocusables = () => [...drawer.querySelectorAll('.sfl-drawer-panel ' + focusableSelector)];
+    let lastFocus = null;
+    const close = () => {
+      drawer.classList.remove('open');
+      drawer.setAttribute('aria-hidden', 'true');
+      open.setAttribute('aria-expanded', 'false');
+      document.body.style.overflow = '';
+      if (lastFocus && typeof lastFocus.focus === 'function') lastFocus.focus();
+    };
+    const openDrawer = () => {
+      lastFocus = document.activeElement;
+      drawer.classList.add('open');
+      drawer.setAttribute('aria-hidden', 'false');
+      open.setAttribute('aria-expanded', 'true');
+      document.body.style.overflow = 'hidden';
+      const focusables = getFocusables();
+      if (focusables.length) focusables[0].focus();
+    };
+    open.addEventListener('click', openDrawer);
     drawer.addEventListener('click', (event) => {
       if (event.target === drawer || event.target.closest('[data-close-drawer]') || event.target.tagName === 'A') close();
     });
-    document.addEventListener('keydown', (event) => { if (event.key === 'Escape') close(); });
+    drawer.addEventListener('keydown', (event) => {
+      if (!drawer.classList.contains('open') || event.key !== 'Tab') return;
+      const focusables = getFocusables();
+      if (!focusables.length) return;
+      const first = focusables[0];
+      const last = focusables[focusables.length - 1];
+      if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault();
+        last.focus();
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault();
+        first.focus();
+      }
+    });
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape' && drawer.classList.contains('open')) close();
+    });
   }
   document.addEventListener('mouseover', (event) => {
     const link = event.target.closest?.('a[href$="/index.html"]');
