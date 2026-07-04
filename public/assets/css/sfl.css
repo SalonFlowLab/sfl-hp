@@ -439,3 +439,12 @@ html.sfl-motion-ready .sfl-section-head[data-sfl-line-left].sfl-is-visible::afte
 @media(max-width:1320px){:root{--sfl-header-height:92px}}
 @media(max-width:720px){:root{--sfl-header-height:82px}}
 .sfl-page{padding-top:var(--sfl-header-height)}
+
+/* SALON FLOW ONE — pricing series label */
+.sfl-price-series{display:block;font-family:var(--sfl-font-en,"Cinzel",serif);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--sfl-gold);margin-bottom:10px;font-weight:600}
+.sfl-price-group-head{margin-bottom:28px}
+.sfl-price-group-head .sfl-en{display:block;font-family:var(--sfl-font-en,"Cinzel",serif);font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--sfl-gold);margin-bottom:8px}
+.sfl-price-group-head h2{font-size:28px;color:var(--sfl-navy);margin:0 0 10px}
+.sfl-price-group-head p{color:var(--sfl-muted);font-weight:700;margin:0;max-width:720px}
+.sfl-price-grid-single{grid-template-columns:minmax(280px,480px)!important}
+.sfl-price-grid-single .sfl-price{max-width:480px}
