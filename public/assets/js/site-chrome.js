@@ -6,17 +6,24 @@
     { slug: 'knowledge', label: 'コラム', key: 'knowledge' },
     { slug: 'company', label: '会社概要', key: 'company' }
   ];
-  const footerItems = [
-    ...navItems,
-    { slug: 'cycle-pro', label: 'Cycle Proとは', key: 'cycle' },
-    { slug: 'features', label: '機能', key: 'features' },
-    { slug: 'flow', label: '導入の流れ', key: 'flow' },
+  const productItems = [
     { slug: 'pricing', label: '料金プラン', key: 'pricing' },
+    { slug: 'flow', label: '導入の流れ', key: 'flow' },
     { slug: 'faq', label: 'よくある質問', key: 'faq' },
+    { slug: 'cycle-pro', label: 'Cycle Proとは', key: 'cycle' }
+  ];
+  const contactItems = [
     { slug: 'download', label: '資料請求', key: 'download' },
     { slug: 'contact', label: 'お問い合わせ', key: 'contact' }
   ];
+  const footerGroups = [
+    { title: 'サイト', items: navItems },
+    { title: 'SALON FLOW ONE', items: productItems },
+    { title: 'お問い合わせ', items: contactItems }
+  ];
+  const drawerItems = [...navItems, ...productItems, { slug: 'contact', label: 'お問い合わせ', key: 'contact' }];
   const pageHref = (slug) => '../' + slug + '/index.html';
+  const linkList = (items) => items.map((item) => '<a href="' + pageHref(item.slug) + '">' + item.label + '</a>').join('');
   const prefetched = new Set();
   const prefetchPage = (href) => {
     if (!href || prefetched.has(href)) return;
@@ -51,13 +58,13 @@
   }
   const drawerMount = document.querySelector('[data-site-drawer]');
   if (drawerMount) {
-    const drawerLinks = footerItems.filter((item) => item.key !== 'download').map((item) => '<a href="' + pageHref(item.slug) + '">' + item.label + '</a>').join('');
+    const drawerLinks = drawerItems.map((item) => '<a href="' + pageHref(item.slug) + '">' + item.label + '</a>').join('');
     drawerMount.outerHTML = '<div class="sfl-drawer" id="sfl-drawer" data-drawer role="dialog" aria-modal="true" aria-label="サイトメニュー" aria-hidden="true"><div class="sfl-drawer-panel"><button class="sfl-drawer-close" type="button" aria-label="閉じる" data-close-drawer>×</button>' + drawerLinks + '<a class="sfl-btn sfl-btn-gold" href="' + pageHref('contact') + '">お問い合わせ</a><a class="sfl-btn sfl-btn-outline" href="' + pageHref('download') + '">資料請求</a></div></div>';
   }
   const footerMount = document.querySelector('[data-site-footer]');
   if (footerMount) {
-    const links = footerItems.map((item) => '<a href="' + pageHref(item.slug) + '">' + item.label + '</a>').join('');
-    footerMount.outerHTML = '<footer class="sfl-footer"><div class="sfl-footer-grid"><div><div class="sfl-footer-brand"><span>合同会社SFL</span><strong>SALON FLOW LAB.</strong><p>美容サロンの現場に寄り添い、Lark・AI・業務データを活用した業務改善とDX支援を行います。</p></div></div><nav class="sfl-footer-nav">' + links + '</nav></div><p class="sfl-copy">© <span data-year></span> SFL / SALON FLOW LAB. All Rights Reserved.</p></footer>';
+    const footerCols = footerGroups.map((group) => '<nav class="sfl-footer-col" aria-label="' + group.title + '"><h2 class="sfl-footer-col-title">' + group.title + '</h2><div class="sfl-footer-nav">' + linkList(group.items) + '</div></nav>').join('');
+    footerMount.outerHTML = '<footer class="sfl-footer"><div class="sfl-footer-grid"><div><div class="sfl-footer-brand"><span>合同会社SFL</span><strong>SALON FLOW LAB.</strong><p>美容サロンの現場に寄り添い、Lark・AI・業務データを活用した業務改善とDX支援を行います。</p></div></div><div class="sfl-footer-links">' + footerCols + '</div></div><p class="sfl-copy">© <span data-year></span> SFL / SALON FLOW LAB. All Rights Reserved.</p></footer>';
   }
   document.querySelectorAll('[data-year]').forEach((el) => { el.textContent = new Date().getFullYear(); });
   const drawer = document.querySelector('[data-drawer]');
