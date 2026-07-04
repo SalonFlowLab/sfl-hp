@@ -93,7 +93,7 @@ GitHub Actionsで `public/` をGitHub Pagesに公開します。
 - お問い合わせ内容
 - プライバシーポリシー同意
 
-フロントエンドでは入力中にメールアドレスと電話番号の形式を検証し、Cloudflare Pages Functions側でも同じ項目を送信時に検証します。スパム対策として `company_website` のハニーポット項目も送信対象に含めています。
+フロントエンドでは入力中にメールアドレスと電話番号の形式を検証し、各入力欄の直下にエラーメッセージを表示します。Cloudflare Pages Functions側でも同じ項目を送信時に検証します。スパム対策として `company_website` のハニーポット項目も送信対象に含めています。
 
 Cloudflare Pagesの環境変数:
 
