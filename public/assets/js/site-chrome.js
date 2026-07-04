@@ -1,16 +1,5 @@
 (() => {
-  const servicesCatalog = [
-    {
-      slug: 'salon-flow-one',
-      label: 'SALON FLOW ONE',
-      summary: '美容サロン向け月額伴走サポート'
-    },
-    {
-      slug: 'lark-flow-one',
-      label: 'LARK FLOW ONE',
-      summary: 'Lark活用の業務改善伴走支援'
-    }
-  ];
+  const servicesCatalog = window.SFL_SERVICES?.catalog || [];
   const navItems = [
     { slug: 'home', label: 'ホーム', key: 'home' },
     { slug: 'services', label: 'サービス', key: 'services' },

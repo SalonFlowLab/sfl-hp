@@ -1,14 +1,9 @@
 (() => {
-  const TOPIC_OPTIONS = [
-    'Cycle Pro',
-    'SALON FLOW ONE',
-    'LARK FLOW ONE',
-    'Lark導入・業務改善',
-    'AI活用支援',
-    '研修・講座',
-    '料金プラン',
-    '導入事例',
-    'その他'
+  const catalog = window.SFL_SERVICES?.catalog || [];
+  const topicExtras = window.SFL_SERVICES?.topicExtras || ['その他'];
+  const topicOptions = [
+    ...catalog.map((service) => service.label),
+    ...topicExtras
   ];
 
   const escapeHtml = (value) => String(value)
@@ -16,7 +11,7 @@
     .replace(/</g, '&lt;')
     .replace(/"/g, '&quot;');
 
-  const topicOptionsHtml = () => TOPIC_OPTIONS
+  const topicOptionsHtml = () => topicOptions
     .map((option) => '<option>' + escapeHtml(option) + '</option>')
     .join('');
 
