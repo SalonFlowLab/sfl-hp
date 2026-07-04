@@ -206,3 +206,13 @@ body,.sfl-page{background:#F8F5EF}
 .sfl-kpi strong,.sfl-table th,.sfl-post-body small,.sfl-feature-card span,.sfl-form label span,.sfl-proof-icon{color:#6d4f08}
 .sfl-section.navy .sfl-kpi strong{color:var(--sfl-gold-2)}
 .sfl-icon{color:#6d4f08}
+
+/* Hero conversion */
+.sfl-hero-actions{align-items:stretch}
+.sfl-hero-actions .sfl-btn-primary{width:fit-content;max-width:100%}
+.sfl-hero-pricing{margin:18px 0 0;color:var(--sfl-muted);font-size:14px;font-weight:800;line-height:1.85}
+.sfl-hero-pricing strong{color:var(--sfl-navy)}
+.sfl-hero-meta{margin:4px 0 0}
+.sfl-text-link{display:inline-flex;align-items:center;min-height:44px;padding:8px 0;font-weight:900;color:var(--sfl-blue);text-decoration:underline;text-underline-offset:3px}
+.sfl-text-link:hover{color:var(--sfl-navy)}
+@media(max-width:720px){.sfl-hero-pricing{margin-top:14px;font-size:13px;line-height:1.75}.sfl-hero-meta{margin-top:0}}
