@@ -24,14 +24,41 @@
     return '';
   }
 
+  function validateField(field) {
+    if (!field) return '';
+
+    var value = (field.value || '').trim();
+    if (field.name === 'email' && value && !emailPattern.test(value)) {
+      return 'メールアドレスの形式を確認してください。';
+    }
+
+    if (field.name === 'phone' && value && !phonePattern.test(value)) {
+      return '電話番号は半角数字・ハイフン・括弧で入力してください。';
+    }
+
+    return '';
+  }
+
   forms.forEach(function (form) {
     var status = form.querySelector('[data-form-status]');
+    var realtimeFields = [form.elements.email, form.elements.phone].filter(Boolean);
+
+    realtimeFields.forEach(function (field) {
+      field.addEventListener('input', function () {
+        var validationError = validateField(field);
+        field.setAttribute('aria-invalid', validationError ? 'true' : 'false');
+        setStatus(status, validationError, validationError ? 'error' : '');
+      });
+    });
 
     form.addEventListener('submit', function (event) {
       event.preventDefault();
 
       var validationError = validateForm(form);
       if (validationError) {
+        realtimeFields.forEach(function (field) {
+          field.setAttribute('aria-invalid', validateField(field) ? 'true' : 'false');
+        });
         setStatus(status, validationError, 'error');
         return;
       }
