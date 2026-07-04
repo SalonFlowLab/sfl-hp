@@ -25,17 +25,18 @@
     { slug: 'download', label: '資料請求', key: 'download' },
     { slug: 'contact', label: 'お問い合わせ', key: 'contact' }
   ];
-  const serviceNavItems = [
-    ...servicesCatalog.map((service) => ({
-      slug: service.slug,
-      label: service.label,
-      key: service.slug
-    })),
+  const serviceNavItems = servicesCatalog.map((service) => ({
+    slug: service.slug,
+    label: service.label,
+    key: service.slug
+  }));
+  const footerServiceItems = [
+    ...serviceNavItems,
     ...salonProductItems
   ];
   const footerGroups = [
     { title: 'サイト', items: navItems },
-    { title: 'サービス', items: serviceNavItems },
+    { title: 'サービス', items: footerServiceItems },
     { title: 'お問い合わせ', items: contactItems }
   ];
   const drawerItems = [
