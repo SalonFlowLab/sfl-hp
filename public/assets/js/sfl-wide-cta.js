@@ -54,7 +54,7 @@
     + '</a>';
 
   const renderCta = (config) => ''
-    + '<div class="sfl-wide-cta">'
+    + '<div class="sfl-wide-cta" data-sfl-reveal>'
     + '<div><h3>' + escapeHtml(config.title) + '</h3>'
     + '<p>' + escapeHtml(config.description) + '</p></div>'
     + config.actions.map(renderAction).join('')
