@@ -42,8 +42,14 @@ a{color:inherit;text-decoration:none}img{display:block;max-width:100%}p{margin:0
   --sfl-border:#e8dcc0;
   --sfl-charcoal:#333333;
   --sfl-shadow:0 18px 50px rgba(16,58,113,.10);
+  --sfl-weight-body:500;
+  --sfl-weight-text:500;
+  --sfl-weight-label:500;
+  --sfl-weight-strong:600;
+  --sfl-weight-heading:600;
+  --sfl-weight-en:500;
 }
-body{background:var(--sfl-bg);color:var(--sfl-charcoal);font-family:"Noto Sans JP",-apple-system,BlinkMacSystemFont,"Hiragino Sans",Meiryo,sans-serif;font-weight:500}
+body{background:var(--sfl-bg);color:var(--sfl-charcoal);font-family:"Noto Sans JP",-apple-system,BlinkMacSystemFont,"Hiragino Sans",Meiryo,sans-serif;font-weight:var(--sfl-weight-body);-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
 .sfl-page{background:linear-gradient(180deg,#fff 0%,var(--sfl-bg) 52%,#fff 100%)}
 .sfl-header{background:rgba(248,245,239,.96);border-bottom:1px solid rgba(201,154,26,.24);box-shadow:0 10px 34px rgba(16,58,113,.05)}
 .sfl-nav-wrap{height:84px;gap:30px;width:min(1500px,calc(100% - 72px))}
@@ -497,3 +503,86 @@ html.sfl-motion-ready .sfl-section-head[data-sfl-line-left].sfl-is-visible::afte
 .sfl-service-catalog .sfl-service-card ul{flex:1}
 .sfl-service-card-action{margin-top:20px;margin-bottom:0}
 @media(max-width:720px){.sfl-service-catalog{grid-template-columns:1fr;gap:24px}}
+
+/* Typography weight hierarchy — baseline: company table td (Medium 500) */
+.sfl-nav a,
+.sfl-btn,
+.sfl-drawer-panel a:not(.sfl-btn),
+.sfl-skip-link,
+.sfl-hero-kicker,
+.sfl-hero-lead,
+.sfl-proof,
+.sfl-float,
+.sfl-feature-strip div,
+.sfl-company-statement,
+.sfl-post-body small,
+.sfl-text-link,
+.sfl-form label,
+.sfl-benefit-band strong,
+.sfl-benefit-band span,
+.sfl-ranking span,
+.sfl-recommend-grid article::before,
+.sfl-faq-accordion .sfl-faq-item summary{font-weight:var(--sfl-weight-strong)}
+
+.sfl-page-lead,
+.sfl-hero-lead strong{font-weight:var(--sfl-weight-strong)!important}
+
+.sfl-section-head h2,
+.sfl-page-title h1,
+.sfl-hero h1,
+.sfl-benefit-grid h2,
+.sfl-download-grid h2,
+.sfl-block-title,
+.sfl-message-card h2{font-weight:var(--sfl-weight-heading)}
+
+.sfl-en,
+.sfl-footer-brand strong{font-weight:var(--sfl-weight-en)}
+
+.sfl-card h3,
+.sfl-wide-cta h3,
+.sfl-faq h3,
+.sfl-feature-card h3,
+.sfl-recommend-grid strong,
+.sfl-process-strip b,
+.sfl-flow-support h3,
+.sfl-category-row h3,
+.sfl-price h3,
+.sfl-notice-banner strong{font-weight:var(--sfl-weight-strong)}
+
+.sfl-section-head p,
+.sfl-hero-sub,
+.sfl-card p,.sfl-card li,
+.sfl-wide-cta p,
+.sfl-price small,.sfl-price ul,
+.sfl-page-title p,
+.sfl-benefit-grid p,
+.sfl-before-after p,
+.sfl-feature-card p,.sfl-feature-card ul,
+.sfl-flow-support p,.sfl-flow-support ul,
+.sfl-recommend-grid span,
+.sfl-process-strip span,
+.sfl-category-row p,
+.sfl-hero-pricing,
+.sfl-form-status,
+.sfl-notice-banner p,
+.sfl-faq-accordion .sfl-faq-item p,
+.sfl-price-group-head p,
+.sfl-message-card p,
+.sfl-step,
+.sfl-case-panel,
+.sfl-faq article p,
+.sfl-metric small{font-weight:var(--sfl-weight-text)}
+
+.sfl-form input,.sfl-form select,.sfl-form textarea,
+.sfl-form input::placeholder,.sfl-form textarea::placeholder,
+.sfl-footer-brand span,
+.sfl-footer-col-title,
+.sfl-benefit-grid span,
+.sfl-faq-accordion .sfl-faq-item summary::after,
+.sfl-notice-banner a,
+.sfl-price-series{font-weight:var(--sfl-weight-label)}
+
+.sfl-field-error,
+.sfl-check{font-weight:var(--sfl-weight-label)!important}
+
+.sfl-feature-card span{font-weight:var(--sfl-weight-strong)}
