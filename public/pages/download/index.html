@@ -9,7 +9,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600&family=Noto+Serif+JP:wght@400;500;600;700&family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../../assets/css/sfl.css?v=20260704">
+  <link rel="stylesheet" href="../../assets/css/sfl.css?v=20260704-space">
 </head>
 <body>
   <div class="sfl-page">
@@ -41,12 +41,13 @@
             <p>資料をご希望の方は、必要事項をご入力ください。担当者より資料とあわせて、導入イメージをご案内します。</p>
             <form class="sfl-form compact" data-contact-form data-form-type="資料請求">
               <input type="text" name="company_website" autocomplete="off" tabindex="-1" aria-hidden="true" class="sfl-hp-field">
-              <label>会社名<input name="company" autocomplete="organization"></label>
-              <label>氏名<span>（必須）</span><input name="name" autocomplete="name" required></label>
-              <label>メールアドレス<span>（必須）</span><input type="email" name="email" autocomplete="email" required></label>
+              <label>会社名<input name="company" autocomplete="organization" placeholder="例）Eyelash Salon Lucia"></label>
+              <label>氏名<span>（必須）</span><input name="name" autocomplete="name" required placeholder="例）山田 太郎"></label>
+              <label>メールアドレス<span>（必須）</span><input type="email" name="email" autocomplete="email" required placeholder="例）info@example.com"></label>
               <label>電話番号<input type="tel" name="phone" autocomplete="tel" inputmode="tel" placeholder="例）090-1234-5678"></label>
               <label>興味を持ったサービス
-                <select name="topic">
+                <select name="topic" required>
+                  <option value="" disabled selected hidden>選択してください</option>
                   <option>Cycle Pro</option>
                   <option>SALON FLOW ONE</option>
                   <option>Lark導入・業務改善</option>

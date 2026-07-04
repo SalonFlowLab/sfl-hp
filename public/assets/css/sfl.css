@@ -124,6 +124,7 @@ body,.sfl-page{background:#F8F5EF}
 .sfl-form label{display:grid;gap:8px;color:var(--sfl-navy);font-weight:900;font-size:14px;line-height:1.5}
 .sfl-form label span{color:var(--sfl-gold);font-size:12px;margin-left:2px;vertical-align:baseline}
 .sfl-form input,.sfl-form select,.sfl-form textarea{width:100%;border:1px solid rgba(16,58,113,.22);border-radius:4px;background:#fff;color:var(--sfl-charcoal);font:inherit;font-weight:600;padding:13px 14px;outline:none;transition:border-color .2s,box-shadow .2s}
+.sfl-form input::placeholder,.sfl-form textarea::placeholder{color:#8a97a8;font-weight:600}
 .sfl-form input,.sfl-form select{height:52px}
 .sfl-form textarea{min-height:150px;resize:vertical;line-height:1.7}
 .sfl-form input:focus,.sfl-form select:focus,.sfl-form textarea:focus{border-color:var(--sfl-blue);box-shadow:0 0 0 3px rgba(30,136,229,.12)}
@@ -216,3 +217,41 @@ body,.sfl-page{background:#F8F5EF}
 .sfl-text-link{display:inline-flex;align-items:center;min-height:44px;padding:8px 0;font-weight:900;color:var(--sfl-blue);text-decoration:underline;text-underline-offset:3px}
 .sfl-text-link:hover{color:var(--sfl-navy)}
 @media(max-width:720px){.sfl-hero-pricing{margin-top:14px;font-size:13px;line-height:1.75}.sfl-hero-meta{margin-top:0}}
+
+/* Spacing rhythm */
+.sfl-section{padding:80px 0}
+.sfl-section.compact{padding:32px 0 48px}
+.sfl-section-head{margin-bottom:28px}
+.sfl-section-head::after{margin-top:16px}
+.sfl-page-title{padding:72px 0 36px}
+.sfl-hero{min-height:auto;padding:56px 0}
+.sfl-hero-copy{padding:32px 0}
+.sfl-hero-sub{line-height:1.75}
+.sfl-hero-lead{margin-top:22px}
+.sfl-proof-row{margin-top:20px;margin-bottom:20px}
+@media(max-width:1100px){
+  .sfl-hero{padding:40px 0}
+  .sfl-hero-visual{min-height:auto}
+}
+@media(max-width:900px){.sfl-section.compact{padding:24px 0 36px}}
+@media(max-width:720px){
+  .sfl-section{padding:48px 0}
+  .sfl-section.compact{padding:20px 0 32px}
+  .sfl-section-head{margin-bottom:22px}
+  .sfl-section-head::after{margin-top:12px}
+  .sfl-page-title{padding:48px 0 28px}
+  .sfl-hero{padding:24px 0 32px}
+  .sfl-hero-copy{padding:24px 0 12px}
+  .sfl-hero-kicker{margin-bottom:10px;font-size:16px}
+  .sfl-hero-lead{margin-top:16px;line-height:1.7;font-size:16px}
+  .sfl-hero-sub{margin-top:12px;line-height:1.65;font-size:14px}
+  .sfl-hero-actions{margin-top:20px;margin-bottom:16px}
+  .sfl-hero-visual{margin-top:8px}
+  .sfl-salon-photo{height:150px;margin-bottom:-36px}
+  .sfl-device-stage{padding:10px}
+  .sfl-dashboard-body{min-height:240px}
+  .sfl-proof-row{grid-template-columns:repeat(2,1fr);gap:12px;margin-top:16px;margin-bottom:16px}
+  .sfl-proof{min-height:76px;padding:12px 10px;font-size:13px;line-height:1.45}
+  .sfl-proof-icon{font-size:24px}
+  .sfl-wide-cta{margin-top:28px;padding:22px 24px}
+}

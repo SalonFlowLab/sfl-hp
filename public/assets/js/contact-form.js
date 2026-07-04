@@ -13,6 +13,7 @@
     var name = (form.elements.name?.value || '').trim();
     var email = (form.elements.email?.value || '').trim();
     var phone = (form.elements.phone?.value || '').trim();
+    var topic = (form.elements.topic?.value || '').trim();
     var message = (form.elements.message?.value || '').trim();
     var privacy = Boolean(form.elements.privacy?.checked);
 
@@ -30,6 +31,10 @@
 
     if (phone && !phonePattern.test(phone)) {
       return '電話番号は半角数字・ハイフン・括弧で入力してください。';
+    }
+
+    if (form.elements.topic && !topic) {
+      return '興味を持ったサービスを選択してください。';
     }
 
     if (!message) {
