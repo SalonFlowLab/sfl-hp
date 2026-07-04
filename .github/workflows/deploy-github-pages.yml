@@ -11,9 +11,10 @@ permissions:
   pages: write
   id-token: write
 
+# 進行中デプロイをキャンセルしない（連続 push 時の Pages API 競合を避ける）
 concurrency:
   group: github-pages
-  cancel-in-progress: true
+  cancel-in-progress: false
 
 jobs:
   deploy:
@@ -38,9 +39,9 @@ jobs:
         uses: actions/deploy-pages@v5
         continue-on-error: true
 
-      - name: Wait before retry
+      - name: Wait before retry (60s)
         if: steps.deploy_1.outcome != 'success'
-        run: sleep 45
+        run: sleep 60
 
       - name: Deploy to GitHub Pages (attempt 2)
         id: deploy_2
@@ -48,26 +49,52 @@ jobs:
         uses: actions/deploy-pages@v5
         continue-on-error: true
 
-      - name: Wait before retry
+      - name: Wait before retry (90s)
         if: steps.deploy_1.outcome != 'success' && steps.deploy_2.outcome != 'success'
-        run: sleep 45
+        run: sleep 90
 
       - name: Deploy to GitHub Pages (attempt 3)
         id: deploy_3
         if: steps.deploy_1.outcome != 'success' && steps.deploy_2.outcome != 'success'
+        uses: actions/deploy-pages@v5
+        continue-on-error: true
+
+      - name: Wait before retry (120s)
+        if: steps.deploy_1.outcome != 'success' && steps.deploy_2.outcome != 'success' && steps.deploy_3.outcome != 'success'
+        run: sleep 120
+
+      - name: Deploy to GitHub Pages (attempt 4)
+        id: deploy_4
+        if: steps.deploy_1.outcome != 'success' && steps.deploy_2.outcome != 'success' && steps.deploy_3.outcome != 'success'
+        uses: actions/deploy-pages@v5
+        continue-on-error: true
+
+      - name: Wait before retry (180s)
+        if: steps.deploy_1.outcome != 'success' && steps.deploy_2.outcome != 'success' && steps.deploy_3.outcome != 'success' && steps.deploy_4.outcome != 'success'
+        run: sleep 180
+
+      - name: Deploy to GitHub Pages (attempt 5)
+        id: deploy_5
+        if: steps.deploy_1.outcome != 'success' && steps.deploy_2.outcome != 'success' && steps.deploy_3.outcome != 'success' && steps.deploy_4.outcome != 'success'
         uses: actions/deploy-pages@v5
 
       - name: Resolve deployment URL
         id: resolve-url
         if: always()
         run: |
-          if [ "${{ steps.deploy_1.outcome }}" = "success" ]; then
-            echo "page_url=${{ steps.deploy_1.outputs.page_url }}" >> "$GITHUB_OUTPUT"
-          elif [ "${{ steps.deploy_2.outcome }}" = "success" ]; then
-            echo "page_url=${{ steps.deploy_2.outputs.page_url }}" >> "$GITHUB_OUTPUT"
-          elif [ "${{ steps.deploy_3.outcome }}" = "success" ]; then
-            echo "page_url=${{ steps.deploy_3.outputs.page_url }}" >> "$GITHUB_OUTPUT"
-          else
-            echo "All GitHub Pages deployment attempts failed."
-            exit 1
-          fi
+          for n in 1 2 3 4 5; do
+            outcome="${{ steps.deploy_1.outcome }}"
+            url="${{ steps.deploy_1.outputs.page_url }}"
+            if [ "$n" = "2" ]; then outcome="${{ steps.deploy_2.outcome }}"; url="${{ steps.deploy_2.outputs.page_url }}"; fi
+            if [ "$n" = "3" ]; then outcome="${{ steps.deploy_3.outcome }}"; url="${{ steps.deploy_3.outputs.page_url }}"; fi
+            if [ "$n" = "4" ]; then outcome="${{ steps.deploy_4.outcome }}"; url="${{ steps.deploy_4.outputs.page_url }}"; fi
+            if [ "$n" = "5" ]; then outcome="${{ steps.deploy_5.outcome }}"; url="${{ steps.deploy_5.outputs.page_url }}"; fi
+            if [ "$outcome" = "success" ]; then
+              echo "page_url=$url" >> "$GITHUB_OUTPUT"
+              echo "Deployed on attempt $n"
+              exit 0
+            fi
+          done
+          echo "::warning::GitHub Pages API returned transient errors on all 5 attempts. Re-run this workflow from Actions tab."
+          echo "All GitHub Pages deployment attempts failed."
+          exit 1
