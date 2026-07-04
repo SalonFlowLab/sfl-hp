@@ -7,8 +7,6 @@
   ];
   const productItems = [
     { slug: 'pricing', label: '料金プラン', key: 'pricing' },
-    { slug: 'flow', label: '導入の流れ', key: 'flow' },
-    { slug: 'faq', label: 'よくある質問', key: 'faq' },
     { slug: 'cycle-pro', label: 'Cycle Proとは', key: 'cycle' }
   ];
   const contactItems = [

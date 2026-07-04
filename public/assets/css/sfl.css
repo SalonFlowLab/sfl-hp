@@ -461,3 +461,13 @@ html.sfl-motion-ready .sfl-section-head[data-sfl-line-left].sfl-is-visible::afte
 .sfl-notice-banner strong{display:block;font-size:20px;color:var(--sfl-navy);margin-bottom:8px}
 .sfl-notice-banner p{margin:0;color:var(--sfl-muted);font-weight:700;line-height:1.7}
 .sfl-notice-banner a{color:var(--sfl-gold);font-weight:800}
+
+/* Pricing page — anchors & FAQ accordion */
+#flow,#faq{scroll-margin-top:calc(var(--sfl-header-height) + 24px)}
+.sfl-faq-accordion{display:flex;flex-direction:column;gap:12px}
+.sfl-faq-accordion .sfl-faq-item{padding:0;border:1px solid rgba(201,154,26,.22);border-radius:6px;background:rgba(255,255,255,.92);box-shadow:var(--sfl-shadow);overflow:hidden}
+.sfl-faq-accordion .sfl-faq-item summary{display:flex;align-items:center;min-height:56px;padding:16px 20px;font-size:18px;font-weight:800;color:var(--sfl-navy);cursor:pointer;list-style:none}
+.sfl-faq-accordion .sfl-faq-item summary::-webkit-details-marker{display:none}
+.sfl-faq-accordion .sfl-faq-item summary::after{content:"+";margin-left:auto;color:var(--sfl-gold);font-size:22px;font-weight:700;line-height:1}
+.sfl-faq-accordion .sfl-faq-item[open] summary::after{content:"−"}
+.sfl-faq-accordion .sfl-faq-item p{margin:0;padding:0 20px 18px;color:var(--sfl-muted);font-weight:700;line-height:1.8}
