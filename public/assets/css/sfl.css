@@ -195,8 +195,16 @@ body,.sfl-page{background:#F8F5EF}
 .sfl-ranking span{width:34px;height:34px;display:grid;place-items:center;border-radius:50%;background:var(--sfl-gold);color:#fff;font-weight:900}
 .sfl-ranking b{color:var(--sfl-navy);line-height:1.55}
 .sfl-trust-row{width:min(1380px,calc(100% - 80px));margin:28px auto 0;display:grid;grid-template-columns:repeat(5,1fr);gap:14px}
-.sfl-message-card h2{margin-top:0;color:var(--sfl-navy);font-family:"Noto Serif JP",serif;font-size:32px}
+.sfl-message-card h2{margin-top:0;color:var(--sfl-navy);font-family:"Noto Serif JP",serif;font-size:27px;line-height:1.45;letter-spacing:.04em}
 .sfl-message-card p + p{margin-top:18px}
+.sfl-company-grid{align-items:stretch}
+.sfl-message-card{padding:0;overflow:hidden;height:100%}
+.sfl-message-card-inner{display:grid;grid-template-columns:minmax(0,220px) minmax(0,1fr);min-height:100%;height:100%}
+.sfl-message-photo{margin:0;min-height:100%;background:#eef4fb}
+.sfl-message-photo img{width:100%;height:100%;min-height:100%;object-fit:cover;object-position:center 12%}
+.sfl-message-body{padding:28px 30px;display:flex;flex-direction:column;justify-content:flex-start}
+@media(max-width:900px){.sfl-message-card-inner{grid-template-columns:minmax(0,180px) minmax(0,1fr)}.sfl-message-body{padding:22px 24px}.sfl-message-card h2{font-size:24px}}
+@media(max-width:720px){.sfl-message-card-inner{grid-template-columns:1fr}.sfl-message-photo{max-height:280px}.sfl-message-photo img{min-height:280px;max-height:280px}}
 .sfl-company-statement{width:min(1180px,calc(100% - 80px));margin:28px auto 0;padding:18px 28px;text-align:center;color:var(--sfl-navy);font-weight:900;border:1px solid rgba(201,154,26,.24);border-radius:999px;background:rgba(255,255,255,.72);box-shadow:var(--sfl-shadow)}
 .sfl-flow-support{display:grid;grid-template-columns:1fr 1fr 1fr;gap:18px;margin-top:34px}
 .sfl-flow-support article{padding:24px;border:1px solid rgba(201,154,26,.22);border-radius:6px;background:rgba(255,255,255,.72);box-shadow:var(--sfl-shadow)}
