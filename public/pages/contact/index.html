@@ -24,7 +24,7 @@
         </div>
       </section>
       <section class="sfl-section">
-        <div class="sfl-container sfl-contact-grid">
+        <div class="sfl-container sfl-download-grid">
           <article class="sfl-card">
             <span class="sfl-en">Consultation</span>
             <h2>まずはサロンの課題をお聞かせください</h2>
@@ -35,34 +35,19 @@
               <li>料金、導入期間、サポート範囲の確認</li>
             </ul>
           </article>
-          <form class="sfl-form" data-contact-form data-form-type="お問い合わせ">
-            <input type="text" name="company_website" autocomplete="off" tabindex="-1" aria-hidden="true" class="sfl-hp-field">
-            <div class="sfl-form-row">
-              <label>会社名<input name="company" autocomplete="organization" placeholder="例）Eyelash Salon Lucia"></label>
-              <label>氏名<span>（必須）</span><input name="name" autocomplete="name" required placeholder="例）山田 太郎"></label>
-            </div>
-            <div class="sfl-form-row">
-              <label>メールアドレス<span>（必須）</span><input type="email" name="email" autocomplete="email" required placeholder="例）info@example.com"></label>
-              <label>電話番号<input type="tel" name="phone" autocomplete="tel" inputmode="tel" placeholder="例）090-1234-5678"></label>
-            </div>
-            <label>興味を持ったサービス
-              <select name="topic" required>
-                <option value="" disabled selected hidden>選択してください</option>
-                <option>Cycle Pro</option>
-                <option>SALON FLOW ONE</option>
-                <option>Lark導入・業務改善</option>
-                <option>AI活用支援</option>
-                <option>研修・講座</option>
-                <option>料金プラン</option>
-                <option>導入事例</option>
-                <option>その他</option>
-              </select>
-            </label>
-            <label>お問い合わせ内容<span>（必須）</span><textarea name="message" rows="7" required placeholder="例）紙カルテの運用見直し、Cycle Proの導入時期、店舗数・スタッフ人数など"></textarea></label>
-            <label class="sfl-check"><input type="checkbox" name="privacy" required> プライバシーポリシーに同意します</label>
-            <button class="sfl-btn sfl-btn-gold" type="submit">送信する</button>
-            <p class="sfl-form-status" data-form-status role="status" aria-live="polite"></p>
-          </form>
+          <article class="sfl-card sfl-download-box">
+            <span class="sfl-en">Contact</span>
+            <h2>お問い合わせフォーム</h2>
+            <p>ご相談内容をご入力ください。サロンの状況に合わせて、最適な導入ステップをご提案します。</p>
+            <div
+              data-sfl-lead-form
+              data-form-type="お問い合わせ"
+              data-submit-label="送信する"
+              data-message-label="お問い合わせ内容"
+              data-message-placeholder="例）紙カルテの運用見直し、Cycle Proの導入時期、店舗数・スタッフ人数など"
+              data-message-rows="5"
+            ></div>
+          </article>
         </div>
       </section>
       <section class="sfl-section soft">
@@ -77,6 +62,7 @@
     <div data-site-footer></div>
   </div>
   <script src="../../assets/js/site-chrome.js"></script>
+  <script src="../../assets/js/sfl-lead-form.js"></script>
   <script src="../../assets/js/contact-form.js"></script>
 </body>
 </html>

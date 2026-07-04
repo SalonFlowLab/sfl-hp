@@ -38,7 +38,8 @@
     }
 
     if (!message) {
-      return 'お問い合わせ内容を入力してください。';
+      var messageLabel = form.getAttribute('data-message-label') || 'お問い合わせ内容';
+      return messageLabel + 'を入力してください。';
     }
 
     if (!privacy) {
