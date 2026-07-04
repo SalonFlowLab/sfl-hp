@@ -29,8 +29,10 @@
 3. **フォームページ（contact / download）に wide-cta を置かない。** フォーム自体が CTA。
 4. **共通化は「DRY のため」だけでは足りない。** 静的13ページ規模でも、CTA 文言の一元管理など **運用上のメリットがある箇所** だけコンポーネント化する。
 5. **モバイル監査とコンバージョン監査は別軸。** タップ領域・a11y を直しても、価格不明・CTA 重複は残る。両方見る。
-6. **ヒーローに価格・導入期間の1行があると離脱が減る。** B2B では「いくらか分からない」が最大の離脱理由の一つ。
+6. **ヒーローに価格・導入期間の1行があると離脱が減る。** B2B では「いくらか分からない」が最大の離脱理由の一つ。ただし **同じ行き先をテキストリンクで重ねない**（ナビ・フッターと役割が被る）。
 7. **比較・一覧 UI（料金カード等）に問い合わせボタンを1枚だけ置かない。** 他カードと不整合になり、ヘッダー CTA と重複する。
+8. **サイト共通ラベル（「よくある質問」等）は、ラベルと着地点のページタイトルが一致させる。** フッター FAQ → 商品 LP ヒーロー、は UX として破綻する。
+9. **ナビ・フッターで辿れる導線を本文にテキストリンクで再掲しない。** 「料金・詳細を見る」「サービス一覧へ」等のページ間リンクは、選択肢を増やすだけでコンバージョンには効かない。
 
 ---
 
@@ -54,9 +56,9 @@
 |--------|------|------|
 | **ヘッダー（PC）** | 常設の逃げ道（**fixed**） | お問い合わせ + 資料請求 |
 | **ドロワー（SP）** | モバイル常設 | 同上（1タップでメニュー展開が必要） |
-| **ヒーロー（ホームのみ）** | ファーストビューの主 CTA | **無料相談 1本** + 価格1行 + 料金詳細テキストリンク |
-| **本文** | ページ固有の「次の一歩」 | ホーム: サービス / 事例（wide-cta）、事例詳細は **テキストリンク**。料金: **カード内ボタンなし**（比較のみ） |
-| **フッター** | ナビ + ブランド | **CTA ボタンなし**（contact / download はナビリンク） |
+| **ヒーロー（ホームのみ）** | ファーストビューの主 CTA | **無料相談 1本** + 価格1行（テキスト。別ページへの料金リンクは置かない） |
+| **本文** | ページ固有の「次の一歩」 | ホーム: サービス / 事例（wide-cta）、事例詳細は **テキストリンク**。商品 LP: **同一ページ内アンカー**（`#pricing` / `#flow`）のみ |
+| **フッター** | ナビ + ブランド | **CTA ボタンなし**。サイト欄: 主要ページ + **FAQ 独立ページ**。サービス欄: 各商品 LP |
 | **wide-cta** | 読了後の押し場所 | **ホームのサービスセクションのみ**（サービス / 事例。問い合わせと別意図） |
 
 **目安:** 同一ページで「お問い合わせ」「資料請求」の **ボタン** は、ヘッダー（+ SP ドロワー）で足りる。本文に足すなら **文脈に合った別アクション** にする。
@@ -66,13 +68,13 @@
 | 変更 | 理由 |
 |------|------|
 | ヒーローを主 CTA 1本に | 資料請求はヘッダーに集約。ヒーローで2本並べない |
-| 料金をボタンからテキストリンクに | 第3のボタンは階層を曖昧にする |
-| ヒーロー直下に価格・導入期間1行 | 「いくらか分からない」離脱への対処 |
+| ヒーロー直下に価格・導入期間1行 | 「いくらか分からない」離脱への対処。別ページへの料金リンクは削除（フッター・サービスで足りる） |
 | フッター直前の wide-cta 削除 | ヘッダー / フッターと完全重複 |
-| サービス下 wide-cta は維持 | **問い合わせではなく** サービス / 事例へのナビ |
-| 料金 Cycle Pro カードのお問い合わせ削除 | 4枚中1枚だけボタンありは不整合。ヘッダーに委任 |
+| サービス下 wide-cta は維持 | **問い合わせではなく** SF ONE 詳細 / サービス一覧へのナビ |
 | ホーム事例セクションをテキストリンク化 | wide-cta・ナビとボタンが3重。料金詳細リンクと同じ階層に |
 | ヘッダーを fixed 化 | sticky が overflow で効いていなかった。CTA 常時表示のため |
+| FAQ を独立ページに維持 | フッター「よくある質問」→ 商品 LP ではなく `/pages/faq/`（h1 一致） |
+| 本文の冗長リンク削除 | FAQ・SF ONE LP から「料金・詳細を見る」「Cycle Proの詳細を見る」等を除去 |
 
 ### 3.4 再発防止チェックリスト
 
@@ -85,6 +87,8 @@
 - [ ] 1ページ内のゴールドボタン（主CTA）が **2つ以上** 並んでいないか
 - [ ] 料金表・比較カードの **一部だけ** に問い合わせボタンを置いていないか
 - [ ] ナビ / wide-cta と同じ行き先の **本文ボタン** を追加していないか（テキストリンクなら可）
+- [ ] フッター・ヘッダーと **同じ行き先** のテキストリンク（「料金を見る」「FAQ」等）を本文に追加していないか
+- [ ] サイト共通ラベル（FAQ、サービス、会社概要）のリンク先で **ページ h1 / title がラベルと一致** するか
 
 ---
 
@@ -92,10 +96,11 @@
 
 ### 4.1 作った共通基盤
 
-| ファイル | マウント | 用途 |
-|----------|----------|------|
+| ファイル | マウント / 参照 | 用途 |
+|----------|-----------------|------|
 | `site-chrome.js` | `[data-site-header]` 等 | ヘッダー / ドロワー / フッター |
-| `sfl-lead-form.js` | `[data-sfl-lead-form]` | お問い合わせ・資料請求フォーム（UI は資料請求側1列を採用） |
+| `sfl-services-catalog.js` | `window.SFL_SERVICES` | **FLOW ONE 3商品**の slug・label（フッター・フォーム topic の元） |
+| `sfl-lead-form.js` | `[data-sfl-lead-form]` | お問い合わせ・資料請求フォーム（catalog + topicExtras から選択肢生成） |
 | `contact-form.js` | `[data-contact-form]` | 送信・バリデーション |
 | `sfl-wide-cta.js` | `[data-sfl-wide-cta]` | ページ下部の横長 CTA ブロック |
 
@@ -111,7 +116,7 @@ site-chrome.js → sfl-lead-form.js → contact-form.js
 
 - お問い合わせと資料請求は **入力項目が同じ**。UI だけ資料請求（1列 `compact`）に統一した。
 - 差分は `data-form-type` / `data-submit-label` / `data-message-label` 等の data 属性で吸収。
-- topic 選択肢は **1ファイルにのみ** 定義（`sfl-lead-form.js`）。
+- topic 選択肢は **`sfl-services-catalog.js` の catalog + topicExtras** から生成（`sfl-lead-form.js` が読み込む）。
 
 **ミスを避ける:** 片方のフォームだけ placeholder や select を更新して、もう片方を忘れる — 共通化前は実際に起きうる状態だった。
 
@@ -129,8 +134,8 @@ site-chrome.js → sfl-lead-form.js → contact-form.js
 |------|------|
 | `<head>` ボイラープレート | JS 生成は SEO に不利。ビルドなし構成では許容 |
 | ページタイトル（`sfl-page-title`） | 中身はページ固有。削減効果が小さい |
-| プロダクトヒーロー + ミニダッシュボード | cycle-pro / flow の2ページのみ |
-| FAQ / 料金表の本文 | コンテンツ資産。JSON 化は編集コスト増 |
+| プロダクトヒーロー + ミニダッシュボード | 各商品 LP で共通パターン |
+| FAQ / 料金表の本文 | コンテンツ資産。JSON 化は編集コスト増。**サービスハブのカード HTML は catalog と二重管理**（追加時は両方更新） |
 
 ---
 
@@ -182,31 +187,108 @@ site-chrome.js → sfl-lead-form.js → contact-form.js
 
 ---
 
-## 7. マルチサービス構成（2026-07-04）
+## 7. マルチサービス構成・情報設計（2026-07-04 更新）
 
-SFL は複数の伴走型サービスを提供する前提で URL・ナビを整理した。
+SFL は **FLOW ONE シリーズ（3商品）** + **Cycle Pro（買い切り）** を提供。URL・ナビ・料金の置き場所を以下に統一した。
+
+### 7.1 URL マップ（現行）
 
 | 役割 | URL | 備考 |
 |------|-----|------|
-| **サービス一覧（ハブ）** | `/pages/services/` | カードで各商品LPへ。将来サービス追加はここにカードを足す |
-| **商品LP** | `/pages/{slug}/` | 例: `salon-flow-one`, `lark-flow-one`。`data-active="{slug}"` でヘッダー「サービス」が active |
-| **商品固有の下層** | 既存ページ | SF ONE 専用: `pricing`, `cycle-pro`（フッター「SALON FLOW ONE」グループ） |
+| **サービス一覧（ハブ）** | `/pages/services/` | PC **2×2** カード（SF ONE / Cycle Pro / LARK / AI）。コンテナ幅いっぱい |
+| **SALON FLOW ONE LP** | `/pages/salon-flow-one/` | 料金 `#pricing`、導入の流れ `#flow`。FAQ は **別ページ** |
+| **LARK FLOW ONE LP** | `/pages/lark-flow-one/` | 料金 `#pricing` |
+| **AI FLOW ONE LP** | `/pages/ai-flow-one/` | 料金 `#pricing` |
+| **Cycle Pro LP** | `/pages/cycle-pro/` | 機能 `#features`、料金 `#pricing` |
+| **よくある質問** | `/pages/faq/` | **独立ページ**（h1「よくある質問」）。主に SF ONE / Cycle Pro 向け |
+| **旧 URL（リダイレクト）** | 下表参照 | HTML スタブ + `public/_redirects`（Cloudflare） |
 
-**拡張手順（新サービス追加時）:**
+**廃止・集約したもの:**
 
-1. `site-chrome.js` の `servicesCatalog` に `{ slug, label, summary }` を追加
-2. `public/pages/{slug}/index.html` を新規作成（`data-active="{slug}"`）
-3. `public/pages/services/index.html` にカードを1枚追加
-4. `sitemap.xml` に URL を追加
-5. 必要なら `sfl-lead-form.js` の topic に選択肢を追加
+- `/pages/pricing/` → `salon-flow-one#pricing`（SF ONE 専用だった料金ページの残骸）
+- `/pages/flow/` → `salon-flow-one#flow`
+- FAQ を SF ONE LP 内 `#faq` に置く案は **却下**（フッター FAQ から商品 LP ヒーローに着く問題）
 
-**リダイレクト:** 旧 `/pages/lark/` → `/pages/lark-flow-one/`（Lark単体商品LPへ）
+### 7.2 フッター構成
 
-**注意:** サービス一覧と商品LPを混同しない。旧 `services` が SF ONE LP だった頃のリンクは `salon-flow-one` に更新済み。
+| グループ | 内容 |
+|----------|------|
+| **サイト** | ホーム / サービス / 導入事例 / 会社概要 / **よくある質問** → `/pages/faq/` |
+| **サービス** | catalog 3商品 + Cycle Pro |
+| **お問い合わせ** | 資料請求 / お問い合わせ |
+
+ヘッダー・ドロワーに FAQ は **載せない**（フッター・必要なら各 LP から contact のみ）。
+
+### 7.3 サービス定義の単一ソース
+
+```javascript
+// public/assets/js/sfl-services-catalog.js
+window.SFL_SERVICES = { catalog: [...], topicExtras: [...] }
+```
+
+| 更新箇所 | 触るファイル |
+|----------|----------------|
+| フッター・ドロワーの FLOW ONE リンク | `sfl-services-catalog.js`（`site-chrome.js` が参照） |
+| 問い合わせ topic | 同上 + `sfl-lead-form.js` |
+| サービスハブのカード | **`pages/services/index.html` を手動追加**（catalog とは未連動） |
+| 商品 LP | `pages/{slug}/index.html` 新規 |
+| サイトマップ | `public/sitemap.xml` |
+
+### 7.4 新サービス追加手順
+
+1. `sfl-services-catalog.js` の `catalog` に `{ slug, label, summary }` を追加
+2. `public/pages/{slug}/index.html` を新規（`data-active="{slug}"`）
+3. `public/pages/services/index.html` にカード1枚追加
+4. `sitemap.xml` に URL 追加
+5. 料金がある場合は LP 内 `#pricing` セクションを用意
+
+Cycle Pro のように FLOW ONE 外の商品は `topicExtras` に追加し、フッター `relatedProductItems`（`site-chrome.js`）も検討。
+
+### 7.5 リダイレクト一覧（`public/_redirects`）
+
+| 旧パス | 転送先 |
+|--------|--------|
+| `/pages/features/` | `/pages/cycle-pro/` |
+| `/pages/lark/` | `/pages/lark-flow-one/` |
+| `/pages/pricing/` | `/pages/salon-flow-one/#pricing` |
+| `/pages/flow/` | `/pages/salon-flow-one/#flow` |
+
+**注意:** GitHub Pages プレビューは `_redirects` を読まない。旧 URL は各 `index.html` の meta refresh スタブに依存。Cloudflare 本番は `_redirects` が効く。
+
+### 7.6 リンク設計の禁止パターン（2026-07-04 整理）
+
+本文に **置かない** 例（ナビ・フッター・サービスハブで足りる）:
+
+- 「SALON FLOW ONEの料金・プランを見る」（FAQ 末尾・ホームヒーロー等）
+- SF ONE LP 内の「Cycle Proの詳細を見る」（料金セクションに Cycle Pro 掲載済み）
+- SF ONE LP ヒーロー下の「よくある質問」「サービス一覧へ」
+- 導入の流れ末尾の「よくある質問を見る」
+
+**置いてよい例:**
+
+- 同一 LP 内 `#pricing` / `#flow`（ヒーロー CTA）
+- 別商品へのクロスセル（例: SF ONE → LARK FLOW ONE）
+- コンバージョン CTA（無料相談）
+- ホーム wide-cta（SF ONE 詳細 / サービス一覧 — 回遊専用）
 
 ---
 
-## 8. 余白・フォーム UX（簡易メモ）
+## 8. GitHub Pages プレビュー CI（2026-07-04）
+
+本番は Cloudflare Pages。GitHub Pages は **プレビュー用**（`.github/workflows/deploy-github-pages.yml`）。
+
+| 現象 | 対処 |
+|------|------|
+| `Deployment failed, try again later.` | **GitHub Pages API の一時障害**。コード起因ではない |
+| 3回リトライでも失敗 | Actions から **Re-run failed jobs** |
+| 連続 push で失敗しやすい | `cancel-in-progress: false` に変更済み（進行中デプロイを殺さない） |
+| リトライ強化 | 5回・待機 60/90/120/180 秒 |
+
+`punycode` DeprecationWarning は無視してよい。
+
+---
+
+## 9. 余白・フォーム UX（簡易メモ）
 
 - モバイル縦スクロール削減のため section padding を desktop 80px / mobile 48px 付近に調整。
 - フォーム placeholder を全フィールドに追加（電話だけ例示、は不十分だった）。
@@ -214,7 +296,7 @@ SFL は複数の伴走型サービスを提供する前提で URL・ナビを整
 
 ---
 
-## 9. 変更時の作業手順
+## 10. 変更時の作業手順
 
 1. 対象ページをローカル表示: `python3 -m http.server 8123 --directory public`
 2. 確認: ルート `index.html`、ネストページ1つ、直接編集ページ。390px + デスクトップ。
@@ -224,26 +306,34 @@ SFL は複数の伴走型サービスを提供する前提で URL・ナビを整
 
 ---
 
-## 10. 関連ファイル早見表
+## 11. 関連ファイル早見表
 
 ```
-public/assets/js/site-chrome.js    … ヘッダー / ドロワー / フッター
-public/assets/js/sfl-lead-form.js  … リードフォーム HTML 生成
-public/assets/js/contact-form.js   … フォーム送信・バリデーション
-public/assets/js/sfl-wide-cta.js   … wide-cta（現状ホームのみ使用）
-public/assets/css/sfl.css          … レイアウト・CTA・モバイル breakpoint
-public/pages/home/index.html      … CTA 設計の参照実装
-public/pages/contact/index.html   … フォームページの参照実装
+public/assets/js/sfl-services-catalog.js … FLOW ONE 定義（フッター・フォーム topic）
+public/assets/js/site-chrome.js           … ヘッダー / ドロワー / フッター
+public/assets/js/sfl-lead-form.js       … リードフォーム HTML 生成
+public/assets/js/contact-form.js        … フォーム送信・バリデーション
+public/assets/js/sfl-wide-cta.js        … wide-cta（現状ホームのみ使用）
+public/assets/css/sfl.css                 … レイアウト・CTA・サービス2×2 grid
+public/_redirects                         … Cloudflare 本番リダイレクト
+public/pages/services/index.html          … サービスハブ（4カード）
+public/pages/salon-flow-one/index.html    … SF ONE LP（料金・導入の流れ）
+public/pages/faq/index.html               … FAQ 独立ページ
+public/pages/home/index.html              … CTA 設計の参照実装
+public/pages/contact/index.html           … フォームページの参照実装
+.github/workflows/deploy-github-pages.yml … プレビューデプロイ（リトライ付き）
 ```
 
 ---
 
-## 11. 用語
+## 12. 用語
 
 | 用語 | 意味 |
 |------|------|
-| **SALON FLOW ONE** | 表向けの中核サービス名。美容サロンの運営を整える**月額伴走サポート**（Cycle Pro × Lark × 専門家チーム） |
-| **Cycle Pro** | 買い切り型の業務改善パッケージ（顧客管理・同意書・カルテ・売上）。SF ONE の1本柱 |
+| **SALON FLOW ONE** | 美容サロン向け**月額伴走**（Cycle Pro × Lark × 専門家チーム） |
+| **LARK FLOW ONE** | Lark・Base 伴走（月額100,000円/税別）。サロン以外も対象 |
+| **AI FLOW ONE** | 企業向け AI 顧問（月額150,000円/税別、初月100,000円） |
+| **Cycle Pro** | 買い切り型の業務改善パッケージ（80,000円/税別〜）。SF ONE の1本柱でも単独商品 |
 | Standard / Core / Custom **プラン** | SALON FLOW ONE の月額プラン名。英語のみ（Standard 等）にしない |
 | 主 CTA | ゴールドボタン。通常「お問い合わせ / 無料相談」 |
 | 副 CTA | アウトライン。「資料請求」 |
@@ -254,18 +344,21 @@ public/pages/contact/index.html   … フォームページの参照実装
 
 ```
 合同会社SFL / SALON FLOW LAB.  … 法人・ブランド
-└── SALON FLOW ONE            … 月額伴走（表に出す中核サービス）
-    ├── Cycle Pro               … 買い切り業務パッケージ
-    ├── Lark                    … 情報共有・連携
-    └── 専門家チーム            … 経営・教育・デザイン等
-        ├── Standardプラン  100,000円/月（税別）
-        ├── Coreプラン      150,000円/月（税別）← おすすめ
-        └── Customプラン    要相談
+├── SALON FLOW ONE            … 美容サロン月額伴走（表に出す中核）
+│   ├── Cycle Pro               … 買い切り（LP 内でも料金掲載）
+│   ├── Lark                    … 情報共有・連携
+│   └── 専門家チーム
+│       ├── Standardプラン  100,000円/月（税別）
+│       ├── Coreプラン      150,000円/月（税別）← おすすめ
+│       └── Customプラン    要相談
+├── LARK FLOW ONE               … Lark 伴走（別商品 LP）
+└── AI FLOW ONE                 … AI 顧問（別商品 LP）
 ```
 
-- ヒーロー・料金・サービスでは **SALON FLOW ONE** を先に、Cycle Pro は構成要素として説明する
-- `<title>` の suffix は `| SFL / SALON FLOW LAB.` に統一（Cycle Pro 単独 suffix は使わない）
+- ヒーロー・料金では **商品名（FLOW ONE / Cycle Pro）** を先に、構成要素は LP 内で説明
+- `<title>` の suffix は `| SFL / SALON FLOW LAB.` に統一
 - 内部実装（Lark 通知など）をユーザー向け文言に出さない
+- **サイト共通「よくある質問」** は `/pages/faq/` のみ。商品 LP に FAQ セクションを復活させない
 
 ---
 
@@ -279,3 +372,6 @@ public/pages/contact/index.html   … フォームページの参照実装
 | 2026-07-04 | フッターを3グループ化。「機能」ページを Cycle Pro へ統合 |
 | 2026-07-04 | services を SALON FLOW ONE 商品ページ化、Lark 統合、コラムをナビ非公開 |
 | 2026-07-04 | 導入の流れ・FAQ を料金ページに統合、フッター項目を整理 |
+| 2026-07-04 | 料金・導入の流れを SF ONE LP に集約（`#pricing` / `#flow`）。Cycle Pro 料金は `cycle-pro#pricing` |
+| 2026-07-04 | サービスハブ 2×2 + Cycle Pro カード。FAQ 独立ページ復活、冗長テキストリンク削除 |
+| 2026-07-04 | GitHub Pages CI リトライ強化（5回・cancel-in-progress 無効化） |
