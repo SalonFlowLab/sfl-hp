@@ -1,4 +1,6 @@
 const DEFAULT_TO_EMAIL = 'salonflowlab2603@gmail.com';
+const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+const PHONE_PATTERN = /^[0-9+\-()（）\s]{8,20}$/;
 
 export async function onRequestPost(context) {
   try {
@@ -58,7 +60,8 @@ function normalizePayload(payload) {
 
 function validate(data) {
   if (!data.name) return '氏名を入力してください。';
-  if (!data.email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email)) return 'メールアドレスを確認してください。';
+  if (!data.email || !EMAIL_PATTERN.test(data.email)) return 'メールアドレスを確認してください。';
+  if (data.phone && !PHONE_PATTERN.test(data.phone)) return '電話番号を確認してください。';
   if (!data.message) return 'お問い合わせ内容を入力してください。';
   if (!data.privacy) return 'プライバシーポリシーへの同意が必要です。';
   return '';

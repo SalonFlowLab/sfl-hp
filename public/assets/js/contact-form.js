@@ -1,5 +1,28 @@
 (function () {
   var forms = document.querySelectorAll('[data-contact-form]');
+  var emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  var phonePattern = /^[0-9+\-()（）\s]{8,20}$/;
+
+  function setStatus(status, message, type) {
+    if (!status) return;
+    status.textContent = message;
+    status.className = 'sfl-form-status' + (type ? ' ' + type : '');
+  }
+
+  function validateForm(form) {
+    var email = (form.elements.email?.value || '').trim();
+    var phone = (form.elements.phone?.value || '').trim();
+
+    if (!emailPattern.test(email)) {
+      return 'メールアドレスの形式を確認してください。';
+    }
+
+    if (phone && !phonePattern.test(phone)) {
+      return '電話番号は半角数字・ハイフン・括弧で入力してください。';
+    }
+
+    return '';
+  }
 
   forms.forEach(function (form) {
     var status = form.querySelector('[data-form-status]');
@@ -7,10 +30,13 @@
     form.addEventListener('submit', function (event) {
       event.preventDefault();
 
-      if (status) {
-        status.textContent = '送信中です。';
-        status.className = 'sfl-form-status';
+      var validationError = validateForm(form);
+      if (validationError) {
+        setStatus(status, validationError, 'error');
+        return;
       }
+
+      setStatus(status, '送信中です。', '');
 
       var submit = form.querySelector('button[type="submit"]');
       if (submit) submit.disabled = true;
@@ -20,10 +46,7 @@
       payload.pageUrl = window.location.href;
 
       if (window.location.hostname.endsWith('github.io')) {
-        if (status) {
-          status.textContent = 'GitHub Pagesのプレビューではフォーム送信は利用できません。本番公開後に送信できます。';
-          status.className = 'sfl-form-status error';
-        }
+        setStatus(status, 'GitHub Pagesのプレビューではフォーム送信は利用できません。本番公開後に送信できます。', 'error');
         if (submit) submit.disabled = false;
         return;
       }
@@ -45,16 +68,10 @@
         })
         .then(function () {
           form.reset();
-          if (status) {
-            status.textContent = '送信しました。担当者よりご連絡します。';
-            status.className = 'sfl-form-status success';
-          }
+          setStatus(status, '送信しました。担当者よりご連絡します。', 'success');
         })
         .catch(function (error) {
-          if (status) {
-            status.textContent = error.message;
-            status.className = 'sfl-form-status error';
-          }
+          setStatus(status, error.message, 'error');
         })
         .finally(function () {
           if (submit) submit.disabled = false;
