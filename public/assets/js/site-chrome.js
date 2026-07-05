@@ -1,7 +1,7 @@
 (() => {
   const servicesCatalog = window.SFL_SERVICES?.catalog || [];
   const ctaPrimary = { slug: 'contact', label: '無料相談する' };
-  const ctaSecondary = { slug: 'download', label: '資料を取り寄せる' };
+  const ctaSecondary = { slug: 'download', label: '資料ダウンロード' };
   const footerTagline = '紙カルテ・同意書・売上管理をつなぎ、美容サロンの運営を数字で改善できる状態へ整えます。';
   const footerTrustLine = '兵庫県神戸市中央区 · 法人番号 8140003023662';
   const socialLinks = [

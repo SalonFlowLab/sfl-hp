@@ -6,7 +6,7 @@
 
   const contactDownloadActions = [
     { label: '無料相談する', href: '../contact/index.html', className: 'sfl-btn sfl-btn-gold' },
-    { label: '資料を取り寄せる', href: '../download/index.html', className: 'sfl-btn sfl-btn-outline' }
+    { label: '資料ダウンロード', href: '../download/index.html', className: 'sfl-btn sfl-btn-outline' }
   ];
 
   const PRESETS = {
