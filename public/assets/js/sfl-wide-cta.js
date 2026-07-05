@@ -40,7 +40,7 @@
     },
     'home-services': {
       title: 'ツールの導入だけでなく、定着と運用改善まで伴走します。',
-      description: 'SALON FLOW ONE・LARK FLOW ONE・AI FLOW ONE など、各サービスの詳細をご案内します。',
+      description: '美容サロン向けのSALON FLOW ONEを中心に、業務課題に合わせた支援内容をご案内します。',
       actions: [
         { label: 'SALON FLOW ONEの詳細', href: '../salon-flow-one/index.html', className: 'sfl-btn sfl-btn-gold' },
         { label: 'サービス一覧', href: '../services/index.html', className: 'sfl-btn sfl-btn-outline' }

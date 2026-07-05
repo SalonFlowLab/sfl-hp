@@ -29,7 +29,7 @@
     { slug: 'company', label: '会社概要', key: 'company' }
   ];
   const relatedProductItems = [
-    { slug: 'cycle-pro', label: 'Cycle Pro', key: 'cycle' }
+    { slug: 'cycle-pro', label: 'Cycle Pro（中核ツール）', key: 'cycle' }
   ];
   const contactItems = [
     { slug: 'download', label: ctaSecondary.label, key: 'download' },
@@ -50,7 +50,7 @@
   ];
   const footerGroups = [
     { title: 'サイト', items: siteFooterItems },
-    { title: 'サービス', items: footerServiceItems },
+    { title: 'サービス・中核ツール', items: footerServiceItems },
     { title: 'お問い合わせ', items: contactItems }
   ];
   const drawerItems = [

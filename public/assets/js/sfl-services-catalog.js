@@ -13,7 +13,7 @@ window.SFL_SERVICES = {
     {
       slug: 'salon-flow-one',
       label: 'SALON FLOW ONE',
-      summary: '美容サロン向け月額伴走サポート'
+      summary: 'Cycle Proを中核にした美容サロンDX伴走支援'
     },
     {
       slug: 'lark-flow-one',
