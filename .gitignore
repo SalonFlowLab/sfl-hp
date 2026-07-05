@@ -15,3 +15,7 @@ public/assets/original/
 # 内部管理ファイル
 cloud.md
 *.zip
+
+# ローカル確認用（Playwright MCP・スクリーンショット）
+.playwright-mcp/
+/*.png
