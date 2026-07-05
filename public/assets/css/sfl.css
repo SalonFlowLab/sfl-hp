@@ -103,7 +103,7 @@ body,.sfl-page{background:#F8F5EF}
 .sfl-device-stage{background:linear-gradient(135deg,rgba(255,255,255,.76),rgba(248,245,239,.86))}
 .sfl-salon-photo{opacity:.5;background-image:none}
 
-.sfl-float.notice{right:3%;top:18%;color:var(--sfl-navy)}
+.sfl-float.notice{right:0;top:12%}
 
 /* Card spacing rhythm */
 .sfl-card{padding:var(--sfl-card-pad)}
@@ -258,7 +258,7 @@ a:focus-visible,button:focus-visible,.sfl-btn:focus-visible{outline:2px solid va
 .sfl-hero-actions .sfl-btn-primary{width:fit-content;max-width:100%}
 .sfl-hero-visual{position:relative;min-height:400px;width:100%}
 .sfl-salon-photo{
-  position:absolute;inset:0 0 26% 0;border-radius:0 0 0 110px;overflow:hidden;
+  position:absolute;inset:0 0 32% 0;border-radius:0 0 0 110px;overflow:hidden;
   background:
     radial-gradient(ellipse 70% 55% at 72% 28%,rgba(255,248,235,.95),transparent 62%),
     linear-gradient(165deg,#ebe3d6 0%,#f6f1ea 38%,#e9e0d3 72%,#ddd3c4 100%);
@@ -293,12 +293,84 @@ a:focus-visible,button:focus-visible,.sfl-btn:focus-visible{outline:2px solid va
   background:linear-gradient(180deg,#d8cfc3,#b8aea2);opacity:.82;
 }
 .sfl-device-stage{
-  position:absolute;left:0;right:0;bottom:0;padding:22px;border-radius:18px;
-  border:1px solid rgba(201,154,26,.28);
-  background:linear-gradient(135deg,rgba(255,255,255,.92),rgba(248,245,239,.78));
-  box-shadow:0 28px 74px rgba(16,58,113,.14);backdrop-filter:blur(8px);
+  position:absolute;left:0;right:0;bottom:0;padding:0;
+  border:none;background:transparent;box-shadow:none;backdrop-filter:none;
 }
-.sfl-hero-visual .sfl-dashboard-body{min-height:280px}
+.sfl-laptop{position:relative;width:100%;max-width:100%}
+.sfl-laptop-shell{
+  position:relative;padding:10px;border-radius:28px;
+  background:linear-gradient(180deg,#2a2a2a,#1a1a1a);
+  border:1px solid #121212;
+  box-shadow:0 32px 64px -16px rgba(16,58,113,.28),0 0 0 1px rgba(255,255,255,.06);
+}
+.sfl-laptop-bezel{
+  position:relative;padding:5px;border-radius:22px;
+  background:#111;
+  box-shadow:inset 0 0 0 6px #18181b,inset 0 0 0 9px #27251f;
+}
+.sfl-laptop-notch{
+  position:absolute;top:10px;left:50%;z-index:2;width:62px;height:14px;
+  transform:translateX(-50%);border-radius:999px;background:#0a0a0a;
+  box-shadow:inset 0 1px 2px rgba(255,255,255,.06);
+}
+.sfl-laptop-notch::after{
+  content:"";position:absolute;top:50%;left:50%;width:4px;height:4px;
+  transform:translate(-50%,-50%);border-radius:50%;background:#222;
+}
+.sfl-laptop-screen{
+  position:relative;aspect-ratio:16/10;width:100%;overflow:hidden;
+  border-radius:18px;background:#fff;border:1px solid rgba(16,58,113,.08);
+}
+.sfl-hero-visual .sfl-dashboard{border:none;border-radius:0;box-shadow:none;height:100%}
+.sfl-hero-visual .sfl-dashboard-bar{height:36px;padding:0 14px;font-size:13px}
+.sfl-hero-visual .sfl-dashboard-body{min-height:0;height:calc(100% - 36px)}
+.sfl-hero-visual .sfl-hero-side{
+  display:flex;flex-direction:column;gap:3px;padding:10px 6px;
+  background:linear-gradient(180deg,#faf8f3,#f3ede4);
+  border-right:1px solid rgba(16,58,113,.08);
+}
+.sfl-hero-visual .sfl-hero-side span{
+  display:block;width:auto;height:auto;margin:0;padding:5px 8px;border-radius:8px;
+  background:transparent;font-size:10px;font-weight:700;line-height:1.35;color:var(--sfl-muted);
+  white-space:nowrap;
+}
+.sfl-hero-visual .sfl-hero-side span.is-active{
+  background:rgba(30,136,229,.12);color:var(--sfl-blue);font-weight:800;
+}
+.sfl-laptop-base{position:relative;width:86%;margin:-2px auto 0}
+.sfl-laptop-hinge{
+  display:flex;justify-content:space-between;padding:0 28px;margin-bottom:-1px;
+}
+.sfl-laptop-hinge::before,.sfl-laptop-hinge::after{
+  content:"";width:20px;height:6px;border-radius:4px 4px 0 0;
+  background:linear-gradient(180deg,#2a2a2a,#1a1a1a);box-shadow:0 1px 2px rgba(0,0,0,.35);
+}
+.sfl-laptop-keyboard{
+  height:24px;border-radius:0 0 22px 22px;
+  background:linear-gradient(180deg,#323232,#1f1f1f);
+  border-top:1px solid #3a3a3a;box-shadow:inset 0 1px 0 rgba(255,255,255,.04);
+}
+.sfl-laptop-keyboard::before{
+  content:"";display:block;width:44px;height:8px;margin:8px auto 0;border-radius:4px;background:#0f0f0f;
+  box-shadow:inset 0 1px 2px rgba(0,0,0,.6);
+}
+.sfl-laptop-shadow{
+  position:absolute;left:50%;bottom:-10px;width:78%;height:16px;
+  transform:translateX(-50%);border-radius:50%;background:rgba(16,58,113,.18);filter:blur(10px);
+}
+.sfl-hero-visual .sfl-line-badge{
+  display:inline-flex;align-items:center;gap:8px;padding:5px 14px 5px 5px;
+  border-radius:999px;background:#fff;border:1px solid rgba(16,58,113,.1);
+  box-shadow:0 16px 40px rgba(16,58,113,.14);font-size:12px;font-weight:800;
+  color:var(--sfl-navy);white-space:nowrap;right:0;top:12%;
+}
+.sfl-line-badge-icon{
+  display:inline-flex;align-items:center;justify-content:center;
+  width:30px;height:30px;border-radius:50%;background:#06C755;color:#fff;
+  font-size:8px;font-weight:900;letter-spacing:-.03em;line-height:1;flex-shrink:0;
+}
+.sfl-line-badge-text{font-weight:800;letter-spacing:.01em}
+.sfl-hero-visual .sfl-dashboard-body{min-height:240px}
 .sfl-hero-visual .sfl-chart::after{
   content:"";position:absolute;left:18px;right:18px;bottom:26px;height:2px;border-radius:999px;
   background:linear-gradient(90deg,var(--sfl-blue),rgba(30,136,229,.35));
@@ -340,7 +412,7 @@ html.sfl-motion-ready .sfl-hero-played [data-sfl-enter="device"].sfl-is-visible 
 .sfl-proof-row{margin-top:20px;margin-bottom:20px}
 @media(max-width:1100px){
   .sfl-hero{padding:40px 0}
-  .sfl-hero-visual{min-height:460px}
+  .sfl-hero-visual{min-height:500px}
 }
 @media(max-width:900px){.sfl-section.compact{padding:24px 0 36px}}
 @media(max-width:720px){
@@ -355,12 +427,22 @@ html.sfl-motion-ready .sfl-hero-played [data-sfl-enter="device"].sfl-is-visible 
   .sfl-hero-lead{margin-top:16px;line-height:1.7;font-size:16px}
   .sfl-hero-sub{margin-top:12px;line-height:1.65;font-size:14px}
   .sfl-hero-actions{margin-top:20px;margin-bottom:16px}
-  .sfl-hero-visual{margin-top:8px;min-height:360px}
+  .sfl-hero-visual{margin-top:8px;min-height:380px}
   .sfl-salon-photo{position:relative;height:180px;margin-bottom:-46px;inset:auto;border-radius:0 0 0 70px}
   .sfl-salon-mirror{top:8%;right:12%;width:36%}
   .sfl-salon-vanity{bottom:8%;height:26%}
   .sfl-salon-chair{bottom:4%;height:28%}
-  .sfl-device-stage{position:relative;bottom:auto;padding:12px}
+  .sfl-device-stage{position:relative;bottom:auto;padding:0}
+  .sfl-hero-visual .sfl-line-badge{display:none}
+  .sfl-laptop-shell{padding:7px;border-radius:20px}
+  .sfl-laptop-bezel{padding:4px;border-radius:16px}
+  .sfl-laptop-notch{top:7px;width:48px;height:10px}
+  .sfl-laptop-screen{border-radius:14px}
+  .sfl-laptop-base{width:82%}
+  .sfl-laptop-keyboard{height:18px;border-radius:0 0 16px 16px}
+  .sfl-laptop-shadow{bottom:-6px;height:10px}
+  .sfl-hero-visual .sfl-hero-side{display:none}
+  .sfl-hero-visual .sfl-dashboard-body{grid-template-columns:1fr}
   .sfl-proof-row{grid-template-columns:repeat(2,1fr);gap:12px;margin-top:16px;margin-bottom:16px}
   .sfl-proof{min-height:76px;padding:12px 10px;font-size:13px;line-height:1.45}
   .sfl-proof-icon{font-size:24px}
@@ -376,13 +458,13 @@ html.sfl-motion-ready .sfl-hero-played [data-sfl-enter="device"].sfl-is-visible 
 /* Hero — desktop: visual columnを広げて画像を大きく */
 @media (min-width:1101px){
   .sfl-hero-grid{grid-template-columns:minmax(0,.84fr) minmax(0,1.16fr);gap:40px;align-items:center}
-  .sfl-hero-visual{min-height:440px;align-self:stretch}
-  .sfl-hero-visual .sfl-dashboard-body{min-height:300px}
+  .sfl-hero-visual{min-height:480px;align-self:stretch}
+  .sfl-hero-visual .sfl-dashboard-body{min-height:260px}
 }
 @media (min-width:1361px){
   .sfl-hero-grid{grid-template-columns:minmax(0,.78fr) minmax(0,1.22fr);gap:48px}
-  .sfl-hero-visual{min-height:480px}
-  .sfl-hero-visual .sfl-dashboard-body{min-height:320px}
+  .sfl-hero-visual{min-height:520px}
+  .sfl-hero-visual .sfl-dashboard-body{min-height:280px}
 }
 
 /* Hero — laptop: CTA above fold at 1280×800 */
@@ -396,8 +478,8 @@ html.sfl-motion-ready .sfl-hero-played [data-sfl-enter="device"].sfl-is-visible 
   .sfl-hero-sub{margin-top:14px;font-size:15px;line-height:1.65}
   .sfl-hero-actions{margin-top:18px}
   .sfl-hero-pricing{margin-top:14px;font-size:13px;line-height:1.7}
-  .sfl-hero-visual{min-height:400px}
-  .sfl-hero-visual .sfl-dashboard-body{min-height:260px}
+  .sfl-hero-visual{min-height:440px}
+  .sfl-hero-visual .sfl-dashboard-body{min-height:220px}
 }
 @media (min-width:1101px) and (max-height:860px){
   .sfl-hero{padding:20px 0 28px}

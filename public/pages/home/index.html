@@ -9,7 +9,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600&family=Noto+Serif+JP:wght@400;500;600;700&family=Noto+Sans+JP:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../../assets/css/sfl.css?v=20260705-hero-scene">
+  <link rel="stylesheet" href="../../assets/css/sfl.css?v=20260705-hero-laptop">
 </head>
 <body>
   <div class="sfl-page">
@@ -37,26 +37,49 @@
         </div>
       </div>
       <div class="sfl-device-stage" data-sfl-enter="device">
-        <div class="sfl-dashboard">
-          <div class="sfl-dashboard-bar">Cycle Pro</div>
-          <div class="sfl-dashboard-body">
-            <div class="sfl-side"><span></span><span></span><span></span><span></span><span></span></div>
-            <div class="sfl-screen">
-              <div class="sfl-metrics">
-                <div class="sfl-metric"><small>再来率</small><strong>82%</strong></div>
-                <div class="sfl-metric"><small>来店周期</small><strong>5.0週</strong></div>
-                <div class="sfl-metric"><small>キャンセル率</small><strong>4%</strong></div>
-                <div class="sfl-metric"><small>LINE登録</small><strong>460</strong></div>
-              </div>
-              <div class="sfl-chart-row">
-                <div class="sfl-chart"></div>
-                <div class="sfl-donut"></div>
+        <div class="sfl-laptop">
+          <div class="sfl-laptop-shell">
+            <div class="sfl-laptop-bezel">
+              <div class="sfl-laptop-notch" aria-hidden="true"></div>
+              <div class="sfl-laptop-screen">
+                <div class="sfl-dashboard">
+                  <div class="sfl-dashboard-bar">Cycle Pro</div>
+                  <div class="sfl-dashboard-body">
+                    <nav class="sfl-side sfl-hero-side" aria-hidden="true">
+                      <span class="is-active">ダッシュボード</span>
+                      <span>顧客カルテ</span>
+                      <span>予約管理</span>
+                      <span>売上分析</span>
+                      <span>同意書</span>
+                    </nav>
+                    <div class="sfl-screen">
+                      <div class="sfl-metrics">
+                        <div class="sfl-metric"><small>再来率</small><strong>82%</strong></div>
+                        <div class="sfl-metric"><small>来店周期</small><strong>5.0週</strong></div>
+                        <div class="sfl-metric"><small>キャンセル率</small><strong>4%</strong></div>
+                        <div class="sfl-metric"><small>LINE登録</small><strong>460</strong></div>
+                      </div>
+                      <div class="sfl-chart-row">
+                        <div class="sfl-chart"></div>
+                        <div class="sfl-donut"></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
+          <div class="sfl-laptop-base" aria-hidden="true">
+            <div class="sfl-laptop-hinge"></div>
+            <div class="sfl-laptop-keyboard"></div>
+            <div class="sfl-laptop-shadow"></div>
+          </div>
         </div>
       </div>
-      <div class="sfl-float notice" data-sfl-enter="float-notice" data-sfl-float>公式LINE連携</div>
+      <div class="sfl-float notice sfl-line-badge" data-sfl-enter="float-notice" data-sfl-float>
+        <span class="sfl-line-badge-icon" aria-hidden="true">LINE</span>
+        <span class="sfl-line-badge-text">公式LINEと連携可能</span>
+      </div>
       <div class="sfl-float doc" data-sfl-enter="float-doc" data-sfl-float>電子同意書</div>
       <div class="sfl-float karte" data-sfl-enter="float-karte" data-sfl-float>顧客カルテ</div>
     </div>
