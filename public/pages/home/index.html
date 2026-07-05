@@ -9,7 +9,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600&family=Noto+Serif+JP:wght@400;500;600;700&family=Noto+Sans+JP:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../../assets/css/sfl.css?v=20260705-hero-laptop">
+  <link rel="stylesheet" href="../../assets/css/sfl.css?v=20260705-hero-width">
 </head>
 <body>
   <div class="sfl-page">
@@ -43,26 +43,66 @@
               <div class="sfl-laptop-notch" aria-hidden="true"></div>
               <div class="sfl-laptop-screen">
                 <div class="sfl-dashboard">
-                  <div class="sfl-dashboard-bar">Cycle Pro</div>
+                  <div class="sfl-dashboard-bar sfl-hero-dash-bar">
+                    <span class="sfl-hero-dash-brand"><span class="sfl-hero-dash-mark" aria-hidden="true">C</span>Cycle Pro</span>
+                    <span class="sfl-hero-dash-sync">同期済み</span>
+                    <span class="sfl-hero-dash-range">2026/06/01 - 06/30</span>
+                  </div>
                   <div class="sfl-dashboard-body">
                     <nav class="sfl-side sfl-hero-side" aria-hidden="true">
-                      <span class="is-active">ダッシュボード</span>
-                      <span>顧客カルテ</span>
-                      <span>予約管理</span>
-                      <span>売上分析</span>
-                      <span>同意書</span>
+                      <span class="sfl-side-label">メニュー</span>
+                      <span class="is-active"><i aria-hidden="true">▣</i>ダッシュボード</span>
+                      <span><i aria-hidden="true">◎</i>顧客カルテ</span>
+                      <span><i aria-hidden="true">▦</i>予約管理</span>
+                      <span><i aria-hidden="true">▤</i>売上分析</span>
+                      <span><i aria-hidden="true">☺</i>スタッフ管理</span>
+                      <span><i aria-hidden="true">≡</i>メニュー管理</span>
                     </nav>
-                    <div class="sfl-screen">
-                      <div class="sfl-metrics">
-                        <div class="sfl-metric"><small>再来率</small><strong>82%</strong></div>
-                        <div class="sfl-metric"><small>来店周期</small><strong>5.0週</strong></div>
-                        <div class="sfl-metric"><small>キャンセル率</small><strong>4%</strong></div>
-                        <div class="sfl-metric"><small>LINE登録</small><strong>460</strong></div>
+                    <div class="sfl-screen sfl-hero-dash">
+                      <div class="sfl-dash-charts">
+                        <section class="sfl-dash-panel sfl-dash-channel">
+                          <div class="sfl-dash-panel-head">
+                            <span>来店経路</span>
+                            <span class="sfl-dash-refresh">更新</span>
+                          </div>
+                          <div class="sfl-dash-channel-body">
+                            <div class="sfl-pie sfl-pie-channel" aria-hidden="true"></div>
+                            <ul class="sfl-legend" aria-hidden="true">
+                              <li><i style="--swatch:#06C755"></i><span>LINE</span><b>32%</b></li>
+                              <li><i style="--swatch:#4285F4"></i><span>Google</span><b>20%</b></li>
+                              <li><i style="--swatch:#C026D3"></i><span>Instagram</span><b>15%</b></li>
+                              <li><i style="--swatch:#F59E0B"></i><span>Hot Pepper</span><b>15%</b></li>
+                              <li><i style="--swatch:#64748B"></i><span>紹介</span><b>10%</b></li>
+                              <li><i style="--swatch:#94A3B8"></i><span>その他</span><b>8%</b></li>
+                            </ul>
+                          </div>
+                        </section>
+                        <section class="sfl-dash-panel sfl-dash-menu">
+                          <div class="sfl-dash-panel-head"><span>メニュー分析</span></div>
+                          <div class="sfl-pie sfl-pie-menu" aria-hidden="true"></div>
+                          <ul class="sfl-menu-stats" aria-hidden="true">
+                            <li><span>まつ毛エクステ</span><b>41%</b></li>
+                            <li><span>アイブロウ</span><b>18%</b></li>
+                            <li><span>まつパーマ</span><b>15%</b></li>
+                            <li><span>その他</span><b>26%</b></li>
+                          </ul>
+                        </section>
                       </div>
-                      <div class="sfl-chart-row">
-                        <div class="sfl-chart"></div>
-                        <div class="sfl-donut"></div>
+                      <div class="sfl-dash-kpis">
+                        <div class="sfl-dash-kpi"><small>再来率</small><strong data-sfl-count="82" data-sfl-count-suffix="%">82%</strong><em>前月比 +4pt</em></div>
+                        <div class="sfl-dash-kpi"><small>来店周期</small><strong data-sfl-count="5" data-sfl-count-decimals="1" data-sfl-count-suffix="週">5.0週</strong><em>平均 35日</em></div>
+                        <div class="sfl-dash-kpi"><small>今月累計</small><strong data-sfl-count="231300" data-sfl-count-prefix="¥" data-sfl-count-separator=",">¥231,300</strong><em>前年比 +36%</em></div>
                       </div>
+                      <table class="sfl-dash-table" aria-hidden="true">
+                        <thead>
+                          <tr><th>指標</th><th>今月</th><th>先月</th><th>合計</th></tr>
+                        </thead>
+                        <tbody>
+                          <tr><td>Lucia 来店</td><td>102</td><td>94</td><td>196</td></tr>
+                          <tr><td>新規顧客</td><td>18</td><td>14</td><td>32</td></tr>
+                          <tr class="is-total"><td>LINE登録</td><td>460</td><td>412</td><td>872</td></tr>
+                        </tbody>
+                      </table>
                     </div>
                   </div>
                 </div>
@@ -79,6 +119,18 @@
       <div class="sfl-float notice sfl-line-badge" data-sfl-enter="float-notice" data-sfl-float>
         <span class="sfl-line-badge-icon" aria-hidden="true">LINE</span>
         <span class="sfl-line-badge-text">公式LINEと連携可能</span>
+      </div>
+      <div class="sfl-float staff sfl-hero-staff-panel" data-sfl-enter="float-staff" data-sfl-float aria-hidden="true">
+        <div class="sfl-staff-head"><strong>スタッフ売上分析</strong><span>更新</span></div>
+        <div class="sfl-staff-summary">
+          <div><small>在籍</small><strong>8</strong></div>
+          <div><small>今月施術</small><strong>102</strong></div>
+        </div>
+        <ul class="sfl-staff-bars">
+          <li><span>Aさん</span><b>¥86,000</b><i style="--bar-scale:.86"></i></li>
+          <li><span>Bさん</span><b>¥64,000</b><i style="--bar-scale:.64"></i></li>
+          <li><span>Cさん</span><b>¥48,000</b><i style="--bar-scale:.48"></i></li>
+        </ul>
       </div>
       <div class="sfl-float doc" data-sfl-enter="float-doc" data-sfl-float>電子同意書</div>
       <div class="sfl-float karte" data-sfl-enter="float-karte" data-sfl-float>顧客カルテ</div>
