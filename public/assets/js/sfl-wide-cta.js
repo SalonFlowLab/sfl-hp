@@ -5,8 +5,8 @@
     .replace(/"/g, '&quot;');
 
   const contactDownloadActions = [
-    { label: '無料相談する', href: '../contact/index.html', className: 'sfl-btn sfl-btn-gold' },
-    { label: '資料ダウンロード', href: '../download/index.html', className: 'sfl-btn sfl-btn-outline' }
+    { label: '無料相談する', href: '/contact/', className: 'sfl-btn sfl-btn-gold' },
+    { label: '資料ダウンロード', href: '/download/', className: 'sfl-btn sfl-btn-outline' }
   ];
 
   const PRESETS = {
@@ -34,16 +34,16 @@
       title: '具体的な導入相談も可能です',
       description: '資料だけで判断しづらい内容は、サロンの状況に合わせて個別にご案内します。',
       actions: [
-        { label: '無料相談する', href: '../contact/index.html', className: 'sfl-btn sfl-btn-gold' },
-        { label: '導入事例を見る', href: '../case-study/index.html', className: 'sfl-btn sfl-btn-outline' }
+        { label: '無料相談する', href: '/contact/', className: 'sfl-btn sfl-btn-gold' },
+        { label: '導入事例を見る', href: '/case-study/', className: 'sfl-btn sfl-btn-outline' }
       ]
     },
     'home-services': {
       title: 'ツールの導入だけでなく、定着と運用改善まで伴走します。',
       description: '美容サロン向けのSALON FLOW ONEを中心に、業務課題に合わせた支援内容をご案内します。',
       actions: [
-        { label: 'SALON FLOW ONEの詳細', href: '../salon-flow-one/index.html', className: 'sfl-btn sfl-btn-gold' },
-        { label: 'サービス一覧', href: '../services/index.html', className: 'sfl-btn sfl-btn-outline' }
+        { label: 'SALON FLOW ONEの詳細', href: '/salon-flow-one/', className: 'sfl-btn sfl-btn-gold' },
+        { label: 'サービス一覧', href: '/services/', className: 'sfl-btn sfl-btn-outline' }
       ]
     }
   };

@@ -8,12 +8,12 @@
     {
       label: 'note（SFL）',
       href: 'https://note.com/sfl_lark_dx_ai',
-      icon: '../../assets/icons/icon-note.svg'
+      icon: '/assets/icons/icon-note.svg'
     },
     {
       label: 'Instagram（SALON FLOW LAB.）',
       href: 'https://www.instagram.com/salonflowlab_lark/',
-      icon: '../../assets/icons/icon-instagram.svg'
+      icon: '/assets/icons/icon-instagram.svg'
     }
   ];
   const renderSocialLinks = () => socialLinks.map((item) => ''
@@ -61,7 +61,7 @@
   const pageHref = (item) => {
     const slug = typeof item === 'string' ? item : item.slug;
     const hash = typeof item === 'object' && item.hash ? item.hash : '';
-    return '../' + slug + '/index.html' + hash;
+    return (slug === 'home' ? '/' : '/' + slug + '/') + hash;
   };
   const linkList = (items) => items.map((item) => {
     const isActive = active === item.key;
@@ -87,7 +87,7 @@
   };
   const schedulePrefetch = () => {
     const run = () => {
-      document.querySelectorAll('a[href$="/index.html"]').forEach((link) => {
+      document.querySelectorAll('a[href^="/"]').forEach((link) => {
         prefetchPage(link.getAttribute('href'));
       });
     };
@@ -115,7 +115,7 @@
     return '<a href="' + pageHref(item) + '" class="' + (isActive ? 'active' : '') + '"' + current + '>' + item.label + '</a>';
   }).join('');
   if (mount) {
-    mount.outerHTML = '<header class="sfl-header"><div class="sfl-nav-wrap"><a class="sfl-brand" href="' + pageHref('home') + '" aria-label="合同会社SFL SALON FLOW LAB."><img class="sfl-logo" src="../../assets/images/sfl-logo-primary.png" alt="合同会社SFL SALON FLOW LAB."></a><nav class="sfl-nav">' + navLinks + '</nav><div class="sfl-header-actions"><a class="sfl-btn sfl-btn-gold" href="' + pageHref(ctaPrimary) + '">' + ctaPrimary.label + '</a><a class="sfl-btn sfl-btn-outline" href="' + pageHref(ctaSecondary) + '">' + ctaSecondary.label + '</a></div><button class="sfl-menu" type="button" aria-label="メニューを開く" aria-expanded="false" aria-controls="sfl-drawer" data-open-drawer><span></span><span></span><span></span></button></div></header>';
+    mount.outerHTML = '<header class="sfl-header"><div class="sfl-nav-wrap"><a class="sfl-brand" href="' + pageHref('home') + '" aria-label="合同会社SFL SALON FLOW LAB."><img class="sfl-logo" src="/assets/images/sfl-logo-primary.png" alt="合同会社SFL SALON FLOW LAB."></a><nav class="sfl-nav">' + navLinks + '</nav><div class="sfl-header-actions"><a class="sfl-btn sfl-btn-gold" href="' + pageHref(ctaPrimary) + '">' + ctaPrimary.label + '</a><a class="sfl-btn sfl-btn-outline" href="' + pageHref(ctaSecondary) + '">' + ctaSecondary.label + '</a></div><button class="sfl-menu" type="button" aria-label="メニューを開く" aria-expanded="false" aria-controls="sfl-drawer" data-open-drawer><span></span><span></span><span></span></button></div></header>';
   }
   const drawerMount = document.querySelector('[data-site-drawer]');
   if (drawerMount) {
@@ -181,15 +181,15 @@
     });
   }
   document.addEventListener('mouseover', (event) => {
-    const link = event.target.closest?.('a[href$="/index.html"]');
+    const link = event.target.closest?.('a[href^="/"]');
     if (link) prefetchPage(link.getAttribute('href'));
   }, { passive: true });
   document.addEventListener('focusin', (event) => {
-    const link = event.target.closest?.('a[href$="/index.html"]');
+    const link = event.target.closest?.('a[href^="/"]');
     if (link) prefetchPage(link.getAttribute('href'));
   });
   document.addEventListener('pointerdown', (event) => {
-    const link = event.target.closest?.('a[href$="/index.html"]');
+    const link = event.target.closest?.('a[href^="/"]');
     if (link) prefetchPage(link.getAttribute('href'));
   }, { passive: true });
   if (document.readyState === 'complete') schedulePrefetch();

@@ -4,8 +4,8 @@
  * サービス追加・削除時はこのファイルのみ更新してください。
  * - ナビ・フッター: site-chrome.js
  * - お問い合わせ「興味を持ったサービス」: sfl-lead-form.js
- * - サービス一覧ハブ: pages/services/index.html にカードを追加
- * - 商品LP: pages/{slug}/index.html を新規作成
+ * - サービス一覧ハブ: public/services/index.html にカードを追加
+ * - 商品LP: public/{slug}/index.html を新規作成（公開URLは /{slug}/）
  * - sitemap.xml に URL を追加
  */
 window.SFL_SERVICES = {

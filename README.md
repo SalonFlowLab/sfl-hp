@@ -5,13 +5,12 @@
 ## 公開先
 
 - 本番想定ドメイン: `https://salonflowlab.com`
-- GitHub Pagesプレビュー: `https://shoma-endo.github.io/sfl-hp/`
-- GitHubリポジトリ: `https://github.com/shoma-endo/sfl-hp`
+- GitHubリポジトリ: `https://github.com/SalonFlowLab/sfl-hp`
 
 ## 構成
 
-- `public/index.html`: ルート入口ページ。`/pages/home/` へリダイレクトします。
-- `public/pages/`: 各ページのHTML（`pages/{slug}/index.html`）。
+- `public/index.html`: ルートのトップページ。
+- `public/{slug}/index.html`: 下層ページの公開HTML。例: `public/services/index.html` は `/services/` で配信します。
 - `public/assets/css/sfl.css`: SFL用の共通スタイル。
 - `public/assets/js/site-chrome.js`: 共通ヘッダー、ドロワー、フッター生成。
 - `public/assets/js/sfl-services-catalog.js`: サービス定義（ナビ・フォームの単一ソース）。
@@ -21,7 +20,7 @@
 - `public/assets/js/sfl-motion.js`: ホームFVアニメーション・スクロールリビール。
 - `public/assets/images/`, `public/assets/icons/`, `public/assets/pdf/`: 画像・アイコン・PDF。
 - `public/_headers`: Cloudflare Pagesのセキュリティ・キャッシュヘッダー。
-- `public/_redirects`: 旧URLから現行ページへの301リダイレクト。
+- `public/_redirects`: 旧URLからclean URLへの301リダイレクト。
 - `public/robots.txt`, `public/sitemap.xml`: SEO用ファイル。
 - `functions/api/contact.js`: Cloudflare Pages Functionsのフォーム受付API。
 - `scripts/check-local-refs.mjs`: HTML/CSS内のローカル参照チェック。
@@ -38,50 +37,52 @@
 
 | ページ | パス |
 |---|---|
-| ホーム | `/pages/home/` |
-| サービス | `/pages/services/` |
-| 導入事例 | `/pages/case-study/` |
-| 会社概要 | `/pages/company/` |
+| ホーム | `/` |
+| サービス | `/services/` |
+| 導入事例 | `/case-study/` |
+| 会社概要 | `/company/` |
 
 ### サービス・商品LP
 
 | ページ | パス | 備考 |
 |---|---|---|
-| SALON FLOW ONE | `/pages/salon-flow-one/` | 美容サロン向け月額伴走。Cycle Proを中核ツールとして内包。料金・FAQ・導入の流れを集約 |
-| LARK FLOW ONE | `/pages/lark-flow-one/` | Lark活用伴走支援 |
-| AI FLOW ONE | `/pages/ai-flow-one/` | 企業向けAI顧問 |
-| Cycle Pro | `/pages/cycle-pro/` | SALON FLOW ONEの中核ツール（買い切り初期構築）。サービス一覧ハブのカードではなく、SALON FLOW ONE・FAQからの導線でのみ案内 |
+| SALON FLOW ONE | `/salon-flow-one/` | 美容サロン向け月額伴走。Cycle Proを中核ツールとして内包。料金・FAQ・導入の流れを集約 |
+| LARK FLOW ONE | `/lark-flow-one/` | Lark活用伴走支援 |
+| AI FLOW ONE | `/ai-flow-one/` | 企業向けAI顧問 |
+| Cycle Pro | `/cycle-pro/` | SALON FLOW ONEの中核ツール（買い切り初期構築）。サービス一覧ハブのカードではなく、SALON FLOW ONE・FAQからの導線でのみ案内 |
 
-サービス定義の更新元は `public/assets/js/sfl-services-catalog.js` です。`catalog` は FLOW ONE 3商品のみで、サービス一覧ハブ（`pages/services/index.html`）のカードもこの3枚。Cycle Proは `topicExtras` に定義され、お問い合わせフォームの選択肢としてのみ登場します。
+サービス定義の更新元は `public/assets/js/sfl-services-catalog.js` です。`catalog` は FLOW ONE 3商品のみで、サービス一覧ハブ（`public/services/index.html`）のカードもこの3枚。Cycle Proは `topicExtras` に定義され、お問い合わせフォームの選択肢としてのみ登場します。
 
 ### その他
 
 | ページ | パス |
 |---|---|
-| よくある質問 | `/pages/faq/` |
-| お問い合わせ | `/pages/contact/` |
-| 資料ダウンロード | `/pages/download/` |
+| よくある質問 | `/faq/` |
+| お問い合わせ | `/contact/` |
+| 資料ダウンロード | `/download/` |
 
 `sitemap.xml` に載せる公開対象は上記です。
 
-### 旧URLリダイレクト（`public/_redirects`）
+### URLリダイレクト（`public/_redirects`）
 
 | 旧パス | 転送先 |
 |---|---|
-| `/pages/features/` | `/pages/cycle-pro/` |
-| `/pages/lark/` | `/pages/lark-flow-one/` |
-| `/pages/flow/` | `/pages/salon-flow-one/#flow` |
-| `/pages/pricing/` | `/pages/salon-flow-one/#pricing` |
+| `/pages/home/` | `/` |
+| `/pages/services/` | `/services/` |
+| `/pages/features/` | `/cycle-pro/#features` |
+| `/pages/lark/` | `/lark-flow-one/` |
+| `/pages/flow/` | `/salon-flow-one/#flow` |
+| `/pages/pricing/` | `/salon-flow-one/#pricing` |
 
-`public/pages/` 配下に旧ページHTMLが残っていても、本番では `_redirects` 経由で現行URLへ誘導します。
+`/services/` などのclean URLは、`public/services/index.html` のように公開パスと同じディレクトリで配信します。`/pages/...` は公開正規URLではなく、旧URLからの301転送だけに使い、HTMLファイルは置きません。
 
 ## サービス追加・変更
 
 新しい FLOW ONE 系サービスを増やす場合は、少なくとも以下を更新します。
 
 1. `public/assets/js/sfl-services-catalog.js` — サービス定義
-2. `public/pages/services/index.html` — サービス一覧カード
-3. `public/pages/{slug}/index.html` — 商品LPの新規作成
+2. `public/services/index.html` — サービス一覧カード
+3. `public/{slug}/index.html` — 商品LPの新規作成
 4. `public/sitemap.xml` — 公開URLの追加
 
 ナビ・フッター・お問い合わせの「興味を持ったサービス」は `sfl-services-catalog.js` を参照するため、通常は同ファイルの更新だけで連動します。
@@ -109,22 +110,12 @@ npm run deploy
 
 ```bash
 python3 -m http.server 8123 --directory public
-# http://127.0.0.1:8123/pages/home/index.html
+# http://127.0.0.1:8123/index.html
 ```
 
-`npm run dev` は Wrangler による Cloudflare Pages 相当のプレビューです。フォームAPIの動作確認にはこちらを使います。
+`npm run dev` は Wrangler による Cloudflare Pages 相当のプレビューです。`/services/` などのclean URL、redirect、フォームAPIの動作確認にはこちらを使います。
 
 Cloudflare PagesのBuild output directoryは `public` です。
-
-## GitHub Pages プレビュー
-
-GitHub Actionsで `public/` をGitHub Pagesに公開します。
-
-- workflow: `.github/workflows/deploy-github-pages.yml`
-- 公開対象: `public/`
-- 公開URL: `https://shoma-endo.github.io/sfl-hp/`
-- 注意: GitHub Pagesは静的配信のみのため、`functions/api/contact.js` のフォーム送信APIは動きません。フォーム送信はCloudflare Pages本番で有効化します。
-- デプロイ失敗時: Actions の「Re-run failed jobs」は artifact が重複して失敗しやすいため使わず、`main` へ push するか「Run workflow」で新規 run を実行してください。`Deployment failed, try again later.` は GitHub Pages 側の一時障害であることが多く、workflow は最大3回リトライします。
 
 ## Cloudflare Pages
 
