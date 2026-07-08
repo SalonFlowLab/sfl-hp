@@ -6,7 +6,7 @@
   --sfl-gold-2:#d5a344;
   --sfl-line:#06c755;
   --sfl-blue:#0b63d8;
-  --sfl-bg:#fbfaf7;
+  --sfl-bg:#fdfdfe;
   --sfl-soft:#f4f0e8;
   --sfl-border:#e3d9c8;
   --sfl-shadow:0 20px 60px rgba(6,22,56,.12);
@@ -43,7 +43,7 @@ a{color:inherit;text-decoration:none}img{display:block;max-width:100%}p{margin:0
   --sfl-gold-2:#E7D3A0;
   --sfl-line:#06c755;
   --sfl-blue:#1E88E5;
-  --sfl-bg:#F8F5EF;
+  --sfl-bg:#fdfdfe;
   --sfl-soft:#fbf9f4;
   --sfl-border:#e8dcc0;
   --sfl-charcoal:#333333;
@@ -100,11 +100,11 @@ body{background:var(--sfl-bg);color:var(--sfl-charcoal);font-family:"Noto Sans J
 
 
 /* Align body background with header */
-body,.sfl-page{background:#F8F5EF}
-.sfl-header{background:rgba(248,245,239,.98)}
-.sfl-hero{background:linear-gradient(180deg,#F8F5EF 0%,#F8F5EF 68%,#faf8f3 100%)}
-.sfl-section.soft,.sfl-page-title{background:#F8F5EF}
-.sfl-section:not(.navy){background:#F8F5EF}
+body,.sfl-page{background:#fdfdfe}
+.sfl-header{background:rgba(253,253,254,.98)}
+.sfl-hero{background:linear-gradient(180deg,#fdfdfe 0%,#fdfdfe 68%,#fdfdfe 100%)}
+.sfl-section.soft,.sfl-page-title{background:#fdfdfe}
+.sfl-section:not(.navy){background:#fdfdfe}
 .sfl-proof,.sfl-card,.sfl-step,.sfl-case-panel,.sfl-kpi,.sfl-price,.sfl-faq article,.sfl-post,.sfl-table,.sfl-wide-cta{background:rgba(255,255,255,.72)}
 
 /* Card spacing rhythm */
