@@ -25,20 +25,24 @@ export async function onRequestPost(context) {
     const emailFailed = results[1].status === 'rejected';
     if (emailFailed) {
       console.error('contact email delivery failed', results[1].reason);
+      await notifyLarkError(context.env, 'メール送信失敗', results[1].reason, data);
       return json({ ok: false, message: '送信に失敗しました。時間をおいて再度お試しください。' }, 502);
     }
 
     if (results[0].status === 'rejected') {
       console.warn('contact lark notification failed', results[0].reason);
+      await notifyLarkError(context.env, 'Lark通常通知失敗', results[0].reason, data);
     }
 
     if (results[2].status === 'rejected') {
       console.warn('contact lark base save failed', results[2].reason);
+      await notifyLarkError(context.env, 'Lark Base登録失敗', results[2].reason, data);
     }
 
     return json({ ok: true });
   } catch (error) {
     console.error('contact request failed', error);
+    await notifyLarkError(context.env, 'フォームAPI処理失敗', error);
     return json({ ok: false, message: '送信内容を確認してください。' }, 400);
   }
 }
@@ -93,6 +97,30 @@ async function notifyLark(env, data) {
 
   if (!response.ok) {
     throw new Error('Lark webhook failed: ' + response.status);
+  }
+}
+
+async function notifyLarkError(env, title, error, data) {
+  const webhookUrl = env.LARK_ERROR_WEBHOOK_URL;
+  if (!webhookUrl) return;
+
+  try {
+    const response = await fetch(webhookUrl, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        msg_type: 'text',
+        content: {
+          text: buildErrorText(title, error, data)
+        }
+      })
+    });
+
+    if (!response.ok) {
+      console.warn('lark error notification failed', response.status);
+    }
+  } catch (notifyError) {
+    console.warn('lark error notification failed', notifyError);
   }
 }
 
@@ -217,6 +245,38 @@ function buildText(data) {
     '内容:',
     data.message
   ].join('\n');
+}
+
+function buildErrorText(title, error, data) {
+  const lines = [
+    '【SFL HP エラー】',
+    '種別: ' + title,
+    '発生日時: ' + new Date().toISOString()
+  ];
+
+  if (data) {
+    lines.push(
+      'フォーム: ' + (data.formType || '-'),
+      '氏名: ' + (data.name || '-'),
+      'メール: ' + (data.email || '-'),
+      'ページ: ' + (data.pageUrl || '-')
+    );
+  }
+
+  lines.push('', 'エラー:', formatError(error));
+  return lines.join('\n');
+}
+
+function formatError(error) {
+  if (!error) return '-';
+  if (error instanceof Error) return error.message || String(error);
+  if (typeof error === 'string') return error;
+
+  try {
+    return JSON.stringify(error);
+  } catch {
+    return String(error);
+  }
 }
 
 function json(body, status = 200) {

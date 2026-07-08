@@ -150,13 +150,14 @@ Cloudflare Pagesの環境変数:
 - `CONTACT_FROM_EMAIL`: 送信元メールアドレス。例: `SFL <noreply@salonflowlab.com>`。
 - `CONTACT_TO_EMAIL`: 受信先メールアドレス。未設定時は `salonflowlab2603@gmail.com`。
 - `LARK_CONTACT_WEBHOOK_URL`: Larkチャット通知用webhook URL。後から追加可能。
+- `LARK_ERROR_WEBHOOK_URL`: フォームAPIエラー通知用のLark Bot webhook URL。後から追加可能。
 - `LARK_APP_ID`: Lark Base登録に使うLarkアプリのApp ID。
 - `LARK_APP_SECRET`: Lark Base登録に使うLarkアプリのApp Secret。
 - `LARK_BASE_APP_TOKEN`: 登録先BaseのApp Token。未設定時は `D1AibzS8jarDOAs4o05jmVtApVg`。
 - `LARK_BASE_TABLE_ID`: 登録先テーブルID。未設定時は `tblAMGB9DW5hHD9r`。
 - `LARK_API_BASE_URL`: Lark APIのベースURL。未設定時は `https://open.larksuite.com`。
 
-`LARK_CONTACT_WEBHOOK_URL` とLark Base登録用の環境変数が未設定でもフォーム送信は継続します。`RESEND_API_KEY` と `CONTACT_FROM_EMAIL` はメール送信に必須です。
+`LARK_CONTACT_WEBHOOK_URL`、`LARK_ERROR_WEBHOOK_URL`、Lark Base登録用の環境変数が未設定でもフォーム送信は継続します。`RESEND_API_KEY` と `CONTACT_FROM_EMAIL` はメール送信に必須です。`LARK_ERROR_WEBHOOK_URL` が設定されている場合は、メール送信失敗、Lark通常通知失敗、Lark Base登録失敗、フォームAPI処理失敗をLarkへ通知します。
 
 ## 確認ポイント
 
