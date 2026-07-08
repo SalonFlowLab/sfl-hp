@@ -130,7 +130,7 @@ Cloudflare PagesのBuild output directoryは `public` です。
 
 ## フォーム送信
 
-お問い合わせと資料ダウンロードは `/api/contact` へ送信します。送信内容はメール送信し、Lark webhookが設定されている場合はLarkチャットにも通知します。
+お問い合わせと資料ダウンロードは `/api/contact` へ送信します。送信内容はメール送信し、Lark webhookが設定されている場合はLarkチャットにも通知します。Larkアプリ認証情報が設定されている場合は、Lark Baseにもレコードを登録します。
 
 フォーム項目:
 
@@ -150,8 +150,13 @@ Cloudflare Pagesの環境変数:
 - `CONTACT_FROM_EMAIL`: 送信元メールアドレス。例: `SFL <noreply@salonflowlab.com>`。
 - `CONTACT_TO_EMAIL`: 受信先メールアドレス。未設定時は `salonflowlab2603@gmail.com`。
 - `LARK_CONTACT_WEBHOOK_URL`: Larkチャット通知用webhook URL。後から追加可能。
+- `LARK_APP_ID`: Lark Base登録に使うLarkアプリのApp ID。
+- `LARK_APP_SECRET`: Lark Base登録に使うLarkアプリのApp Secret。
+- `LARK_BASE_APP_TOKEN`: 登録先BaseのApp Token。未設定時は `D1AibzS8jarDOAs4o05jmVtApVg`。
+- `LARK_BASE_TABLE_ID`: 登録先テーブルID。未設定時は `tblAMGB9DW5hHD9r`。
+- `LARK_API_BASE_URL`: Lark APIのベースURL。未設定時は `https://open.larksuite.com`。
 
-`LARK_CONTACT_WEBHOOK_URL` が未設定でもフォーム送信は継続します。`RESEND_API_KEY` と `CONTACT_FROM_EMAIL` はメール送信に必須です。
+`LARK_CONTACT_WEBHOOK_URL` とLark Base登録用の環境変数が未設定でもフォーム送信は継続します。`RESEND_API_KEY` と `CONTACT_FROM_EMAIL` はメール送信に必須です。
 
 ## 確認ポイント
 

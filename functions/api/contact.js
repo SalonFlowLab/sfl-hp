@@ -18,7 +18,8 @@ export async function onRequestPost(context) {
 
     const results = await Promise.allSettled([
       notifyLark(context.env, data),
-      sendEmail(context.env, data)
+      sendEmail(context.env, data),
+      saveToLarkBase(context.env, data)
     ]);
 
     const emailFailed = results[1].status === 'rejected';
@@ -29,6 +30,10 @@ export async function onRequestPost(context) {
 
     if (results[0].status === 'rejected') {
       console.warn('contact lark notification failed', results[0].reason);
+    }
+
+    if (results[2].status === 'rejected') {
+      console.warn('contact lark base save failed', results[2].reason);
     }
 
     return json({ ok: true });
@@ -89,6 +94,80 @@ async function notifyLark(env, data) {
   if (!response.ok) {
     throw new Error('Lark webhook failed: ' + response.status);
   }
+}
+
+async function saveToLarkBase(env, data) {
+  const appId = env.LARK_APP_ID;
+  const appSecret = env.LARK_APP_SECRET;
+  const appToken = env.LARK_BASE_APP_TOKEN || 'D1AibzS8jarDOAs4o05jmVtApVg';
+  const tableId = env.LARK_BASE_TABLE_ID || 'tblAMGB9DW5hHD9r';
+
+  if (!appId || !appSecret || !appToken || !tableId) return;
+
+  const token = await getLarkTenantAccessToken(env, appId, appSecret);
+  const apiBaseUrl = getLarkApiBaseUrl(env);
+  const response = await fetch(apiBaseUrl + '/open-apis/bitable/v1/apps/' + encodeURIComponent(appToken) + '/tables/' + encodeURIComponent(tableId) + '/records', {
+    method: 'POST',
+    headers: {
+      Authorization: 'Bearer ' + token,
+      'Content-Type': 'application/json; charset=utf-8'
+    },
+    body: JSON.stringify({
+      fields: buildLarkBaseFields(data)
+    })
+  });
+
+  if (!response.ok) {
+    throw new Error('Lark Base record create failed: ' + response.status + ' ' + await response.text());
+  }
+
+  const body = await response.json();
+  if (body.code !== 0) {
+    throw new Error('Lark Base record create failed: ' + JSON.stringify(body));
+  }
+}
+
+async function getLarkTenantAccessToken(env, appId, appSecret) {
+  const apiBaseUrl = getLarkApiBaseUrl(env);
+  const response = await fetch(apiBaseUrl + '/open-apis/auth/v3/tenant_access_token/internal', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json; charset=utf-8' },
+    body: JSON.stringify({
+      app_id: appId,
+      app_secret: appSecret
+    })
+  });
+
+  if (!response.ok) {
+    throw new Error('Lark token request failed: ' + response.status + ' ' + await response.text());
+  }
+
+  const body = await response.json();
+  if (body.code !== 0 || !body.tenant_access_token) {
+    throw new Error('Lark token request failed: ' + JSON.stringify(body));
+  }
+
+  return body.tenant_access_token;
+}
+
+function getLarkApiBaseUrl(env) {
+  return (env.LARK_API_BASE_URL || 'https://open.larksuite.com').replace(/\/+$/, '');
+}
+
+function buildLarkBaseFields(data) {
+  const fields = {
+    '種別': data.formType === '資料ダウンロード' ? '資料ダウンロード' : 'お問い合わせ',
+    '氏名': data.name,
+    'メールアドレス': data.email,
+    'お問い合わせ内容': data.message
+  };
+
+  if (data.company) fields['会社名'] = data.company;
+  if (data.phone) fields['電話番号'] = data.phone;
+  if (data.topic) fields['興味を持ったサービス'] = data.topic;
+  if (data.pageUrl) fields['送信ページ'] = data.pageUrl;
+
+  return fields;
 }
 
 async function sendEmail(env, data) {
