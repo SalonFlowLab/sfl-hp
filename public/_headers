@@ -27,3 +27,7 @@
 
 /assets/pdf/*
   Cache-Control: public, max-age=86400
+
+/assets/pdf/business-efficiency-checklist.pdf
+  Cache-Control: public, max-age=86400
+  Content-Disposition: attachment; filename="business-efficiency-checklist.pdf"

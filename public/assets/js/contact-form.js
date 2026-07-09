@@ -199,7 +199,7 @@
           var downloadUrl = form.getAttribute('data-download-url') || '';
           form.reset();
           if (downloadUrl) {
-            setStatus(status, '入力内容を送信しました。資料のダウンロードを開始します。', 'success');
+            setStatus(status, '資料ダウンロード完了しました。', 'success');
             triggerDownload(downloadUrl);
           } else {
             setStatus(status, '送信しました。担当者よりご連絡します。', 'success');
