@@ -146,6 +146,8 @@ body,.sfl-page{background:#fdfdfe}
 .sfl-form-row{display:grid;grid-template-columns:1fr 1fr;gap:16px}
 .sfl-form label{display:grid;gap:8px;color:var(--sfl-navy);font-weight:900;font-size:14px;line-height:1.5}
 .sfl-form label span{color:var(--sfl-gold);font-size:12px;margin-left:2px;vertical-align:baseline}
+.sfl-form .sfl-label-text{display:inline-flex;align-items:baseline;gap:4px;color:var(--sfl-navy);font-size:14px;margin-left:0}
+.sfl-form .sfl-label-text .sfl-required{color:var(--sfl-gold);font-size:12px;margin-left:0}
 .sfl-check-text{color:inherit!important;font-size:inherit!important;margin-left:0!important}
 .sfl-form input,.sfl-form select,.sfl-form textarea{width:100%;border:1px solid rgba(16,58,113,.22);border-radius:4px;background:#fff;color:var(--sfl-charcoal);font:inherit;font-weight:600;padding:13px 14px;outline:none;transition:border-color .2s,box-shadow .2s}
 .sfl-form input::placeholder,.sfl-form textarea::placeholder{color:#8a97a8;font-weight:600}

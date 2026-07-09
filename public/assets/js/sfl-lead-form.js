@@ -15,6 +15,11 @@
     .map((option) => '<option>' + escapeHtml(option) + '</option>')
     .join('');
 
+  const labelTextHtml = (label, required) => {
+    const requiredHtml = required ? '<span class="sfl-required">（必須）</span>' : '';
+    return '<span class="sfl-label-text">' + escapeHtml(label) + requiredHtml + '</span>';
+  };
+
   const renderForm = (config) => {
     const placeholderAttr = config.messagePlaceholder
       ? ' placeholder="' + escapeHtml(config.messagePlaceholder) + '"'
@@ -31,16 +36,16 @@
       + downloadAttr + '>'
       + '<p class="sfl-form-policy">ご入力いただく個人情報の取扱いについては、送信前に<a href="/privacy/" target="_blank" rel="noopener noreferrer">プライバシーポリシー</a>をご確認ください。</p>'
       + '<input type="text" name="company_website" autocomplete="off" tabindex="-1" aria-hidden="true" class="sfl-hp-field">'
-      + '<label>会社名<span>（必須）</span><input name="company" autocomplete="organization" required></label>'
-      + '<label>氏名<span>（必須）</span><input name="name" autocomplete="name" required placeholder="例）山田 太郎"></label>'
-      + '<label>メールアドレス<span>（必須）</span><input type="email" name="email" autocomplete="email" required placeholder="例）info@example.com"></label>'
-      + '<label>電話番号<input type="tel" name="phone" autocomplete="tel" inputmode="tel" placeholder="例）090-1234-5678"></label>'
-      + '<label>興味を持ったサービス<span>（必須）</span>'
+      + '<label>' + labelTextHtml('会社名', true) + '<input name="company" autocomplete="organization" required></label>'
+      + '<label>' + labelTextHtml('氏名', true) + '<input name="name" autocomplete="name" required placeholder="例）山田 太郎"></label>'
+      + '<label>' + labelTextHtml('メールアドレス', true) + '<input type="email" name="email" autocomplete="email" required placeholder="例）info@example.com"></label>'
+      + '<label>' + labelTextHtml('電話番号', false) + '<input type="tel" name="phone" autocomplete="tel" inputmode="tel" placeholder="例）090-1234-5678"></label>'
+      + '<label>' + labelTextHtml('興味を持ったサービス', true)
       + '<select name="topic" required>'
       + '<option value="" disabled selected hidden>選択してください</option>'
       + topicOptionsHtml()
       + '</select></label>'
-      + '<label>' + escapeHtml(config.messageLabel) + '<span>（必須）</span>'
+      + '<label>' + labelTextHtml(config.messageLabel, true)
       + '<textarea name="message" rows="' + escapeHtml(config.messageRows) + '" required'
       + placeholderAttr + '>' + messageBody + '</textarea></label>'
       + '<label class="sfl-check"><input type="checkbox" name="privacy" required> <span class="sfl-check-text"><a href="/privacy/" target="_blank" rel="noopener noreferrer">プライバシーポリシー</a>に同意します <span>（必須）</span></span></label>'
