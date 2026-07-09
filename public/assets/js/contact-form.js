@@ -14,7 +14,7 @@
 
     var link = document.createElement('a');
     link.href = url;
-    link.download = url.split('/').pop() || 'document.pdf';
+    link.download = '業務効率化チェックリスト.pdf';
     document.body.appendChild(link);
     link.click();
     link.remove();
