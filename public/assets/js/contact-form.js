@@ -9,50 +9,50 @@
     status.className = 'sfl-form-status' + (type ? ' ' + type : '');
   }
 
-  function validateForm(form) {
-    var name = (form.elements.name?.value || '').trim();
-    var email = (form.elements.email?.value || '').trim();
-    var phone = (form.elements.phone?.value || '').trim();
-    var topic = (form.elements.topic?.value || '').trim();
-    var message = (form.elements.message?.value || '').trim();
-    var privacy = Boolean(form.elements.privacy?.checked);
+  function triggerDownload(url) {
+    if (!url) return;
 
-    if (!name) {
-      return '氏名を入力してください。';
-    }
-
-    if (!email) {
-      return 'メールアドレスを入力してください。';
-    }
-
-    if (!emailPattern.test(email)) {
-      return 'メールアドレスの形式を確認してください。';
-    }
-
-    if (phone && !phonePattern.test(phone)) {
-      return '電話番号は半角数字・ハイフン・括弧で入力してください。';
-    }
-
-    if (form.elements.topic && !topic) {
-      return '興味を持ったサービスを選択してください。';
-    }
-
-    if (!message) {
-      var messageLabel = form.getAttribute('data-message-label') || 'お問い合わせ内容';
-      return messageLabel + 'を入力してください。';
-    }
-
-    if (!privacy) {
-      return 'プライバシーポリシーへの同意が必要です。';
-    }
-
-    return '';
+    var link = document.createElement('a');
+    link.href = url;
+    link.download = url.split('/').pop() || 'document.pdf';
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
   }
 
-  function validateField(field) {
+  function validateForm(form) {
+    var fields = [
+      form.elements.company,
+      form.elements.name,
+      form.elements.email,
+      form.elements.phone,
+      form.elements.topic,
+      form.elements.message,
+      form.elements.privacy
+    ].filter(Boolean);
+    var firstError = '';
+
+    fields.forEach(function (field) {
+      var message = validateField(field, form);
+      setFieldError(field, message);
+      if (message && !firstError) firstError = message;
+    });
+
+    return firstError;
+  }
+
+  function validateField(field, form) {
     if (!field) return '';
 
     var value = (field.value || '').trim();
+    if (field.name === 'company' && !value) {
+      return '会社名を入力してください。';
+    }
+
+    if (field.name === 'name' && !value) {
+      return '氏名を入力してください。';
+    }
+
     if (field.name === 'email' && !value) {
       return 'メールアドレスを入力してください。';
     }
@@ -63,6 +63,19 @@
 
     if (field.name === 'phone' && value && !phonePattern.test(value)) {
       return '電話番号は半角数字・ハイフン・括弧で入力してください。';
+    }
+
+    if (field.name === 'topic' && !value) {
+      return '興味を持ったサービスを選択してください。';
+    }
+
+    if (field.name === 'message' && !value) {
+      var messageLabel = form.getAttribute('data-message-label') || 'お問い合わせ内容';
+      return messageLabel + 'を入力してください。';
+    }
+
+    if (field.name === 'privacy' && !field.checked) {
+      return 'プライバシーポリシーへの同意が必要です。';
     }
 
     return '';
@@ -78,7 +91,11 @@
     error.className = 'sfl-field-error';
     error.setAttribute('aria-live', 'polite');
     field.setAttribute('aria-describedby', error.id);
-    field.insertAdjacentElement('afterend', error);
+    if (field.type === 'checkbox' && field.closest('label')) {
+      field.closest('label').insertAdjacentElement('afterend', error);
+    } else {
+      field.insertAdjacentElement('afterend', error);
+    }
     return error;
   }
 
@@ -88,9 +105,9 @@
     error.textContent = message;
   }
 
-  function validateFieldInline(field, showEmpty) {
-    var message = validateField(field);
-    if (!showEmpty && field.name === 'email' && !(field.value || '').trim()) {
+  function validateFieldInline(field, form, showEmpty) {
+    var message = validateField(field, form);
+    if (!showEmpty && field.required && !(field.value || '').trim()) {
       message = '';
     }
     setFieldError(field, message);
@@ -99,17 +116,29 @@
 
   forms.forEach(function (form) {
     var status = form.querySelector('[data-form-status]');
-    var realtimeFields = [form.elements.email, form.elements.phone].filter(Boolean);
+    var realtimeFields = [
+      form.elements.company,
+      form.elements.name,
+      form.elements.email,
+      form.elements.phone,
+      form.elements.topic,
+      form.elements.message,
+      form.elements.privacy
+    ].filter(Boolean);
     form.noValidate = true;
 
     realtimeFields.forEach(function (field) {
       getFieldError(field);
       field.addEventListener('input', function () {
-        validateFieldInline(field, false);
+        validateFieldInline(field, form, false);
+        setStatus(status, '', '');
+      });
+      field.addEventListener('change', function () {
+        validateFieldInline(field, form, false);
         setStatus(status, '', '');
       });
       field.addEventListener('blur', function () {
-        validateFieldInline(field, true);
+        validateFieldInline(field, form, true);
       });
     });
 
@@ -120,7 +149,7 @@
       if (validationError) {
         var firstInvalidField = null;
         realtimeFields.forEach(function (field) {
-          var fieldError = validateFieldInline(field, true);
+          var fieldError = validateFieldInline(field, form, true);
           if (fieldError && !firstInvalidField) firstInvalidField = field;
         });
         setStatus(status, firstInvalidField ? '' : validationError, firstInvalidField ? '' : 'error');
@@ -167,8 +196,14 @@
           return response.json();
         })
         .then(function () {
+          var downloadUrl = form.getAttribute('data-download-url') || '';
           form.reset();
-          setStatus(status, '送信しました。担当者よりご連絡します。', 'success');
+          if (downloadUrl) {
+            setStatus(status, '入力内容を送信しました。資料のダウンロードを開始します。', 'success');
+            triggerDownload(downloadUrl);
+          } else {
+            setStatus(status, '送信しました。担当者よりご連絡します。', 'success');
+          }
         })
         .catch(function (error) {
           setStatus(status, error.message, 'error');

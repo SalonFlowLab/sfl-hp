@@ -68,9 +68,11 @@ function normalizePayload(payload) {
 }
 
 function validate(data) {
+  if (!data.company) return '会社名を入力してください。';
   if (!data.name) return '氏名を入力してください。';
   if (!data.email || !EMAIL_PATTERN.test(data.email)) return 'メールアドレスを確認してください。';
   if (data.phone && !PHONE_PATTERN.test(data.phone)) return '電話番号を確認してください。';
+  if (!data.topic) return '興味を持ったサービスを選択してください。';
   if (!data.message) return 'お問い合わせ内容を入力してください。';
   if (!data.privacy) return 'プライバシーポリシーへの同意が必要です。';
   return '';
