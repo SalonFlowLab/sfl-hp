@@ -16,19 +16,19 @@ export async function onRequestPost(context) {
       return json({ ok: false, message: validationError }, 400);
     }
 
+    const isDownload = data.formType === '資料ダウンロード';
     const results = await Promise.allSettled([
-      notifyLark(context.env, data),
+      notifyLark(context.env, data, isDownload),
       sendEmail(context.env, data),
       saveToLarkBase(context.env, data)
     ]);
 
     const larkSucceeded = results[0].status === 'fulfilled';
-    const larkBaseSucceeded = results[2].status === 'fulfilled';
     const emailFailed = results[1].status === 'rejected';
-    if (emailFailed && data.formType !== '資料ダウンロード') {
-      console.error('contact email delivery failed', results[1].reason);
-      await notifyLarkError(context.env, 'メール送信失敗', results[1].reason, data);
-      return json({ ok: false, message: '送信に失敗しました。時間をおいて再度お試しください。' }, 502);
+
+    if (results[0].status === 'rejected') {
+      console.warn('contact lark notification failed', results[0].reason);
+      await notifyLarkError(context.env, 'Lark通常通知失敗', results[0].reason, data);
     }
 
     if (emailFailed) {
@@ -36,17 +36,16 @@ export async function onRequestPost(context) {
       await notifyLarkError(context.env, 'メール送信失敗', results[1].reason, data);
     }
 
-    if (results[0].status === 'rejected') {
-      console.warn('contact lark notification failed', results[0].reason);
-      await notifyLarkError(context.env, 'Lark通常通知失敗', results[0].reason, data);
-    }
-
     if (results[2].status === 'rejected') {
       console.warn('contact lark base save failed', results[2].reason);
       await notifyLarkError(context.env, 'Lark Base登録失敗', results[2].reason, data);
     }
 
-    if (!larkSucceeded && !larkBaseSucceeded && emailFailed) {
+    if (isDownload && !larkSucceeded) {
+      return json({ ok: false, message: '送信に失敗しました。時間をおいて再度お試しください。' }, 502);
+    }
+
+    if (!isDownload && emailFailed) {
       return json({ ok: false, message: '送信に失敗しました。時間をおいて再度お試しください。' }, 502);
     }
 
@@ -93,9 +92,12 @@ function clean(value) {
   return String(value || '').trim().slice(0, 3000);
 }
 
-async function notifyLark(env, data) {
+async function notifyLark(env, data, required) {
   const webhookUrl = env.LARK_CONTACT_WEBHOOK_URL || env.LARK_WEBHOOK_URL;
-  if (!webhookUrl) return;
+  if (!webhookUrl) {
+    if (required) throw new Error('Lark webhook is missing');
+    return;
+  }
 
   const response = await fetch(webhookUrl, {
     method: 'POST',
