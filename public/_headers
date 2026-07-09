@@ -11,10 +11,10 @@
   Cache-Control: no-cache
 
 /assets/css/*
-  Cache-Control: public, max-age=0, must-revalidate
+  Cache-Control: no-cache
 
 /assets/js/*
-  Cache-Control: public, max-age=0, must-revalidate
+  Cache-Control: no-cache
 
 /assets/images/*
   Cache-Control: public, max-age=2592000
