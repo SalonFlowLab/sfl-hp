@@ -2,6 +2,14 @@
   var forms = document.querySelectorAll('[data-contact-form]');
   var emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   var phonePattern = /^[0-9+\-()（）\s]{8,20}$/;
+  var submissionErrorMessage = '現在、送信を受け付けられません。入力内容は保持されています。時間をおいて、もう一度お試しください。';
+  var networkErrorMessage = '通信エラーが発生しました。入力内容は保持されています。通信状況を確認して、もう一度お試しください。';
+
+  function userFacingError(message) {
+    var error = new Error(message);
+    error.isUserFacing = true;
+    return error;
+  }
 
   function setStatus(status, message, type) {
     if (!status) return;
@@ -175,7 +183,7 @@
       payload.pageUrl = window.location.href;
 
       if (window.location.hostname.endsWith('github.io')) {
-        setStatus(status, 'GitHub Pagesのプレビューではフォーム送信は利用できません。本番公開後に送信できます。', 'error');
+        setStatus(status, 'このプレビュー環境ではフォームを送信できません。本番サイトからお試しください。', 'error');
         if (submit) submit.disabled = false;
         return;
       }
@@ -186,27 +194,30 @@
         body: JSON.stringify(payload)
       })
         .then(function (response) {
-          if (!response.ok) {
-            return response.json().catch(function () {
-              return {};
-            }).then(function (body) {
-              throw new Error(body.message || '送信に失敗しました。時間をおいて再度お試しください。');
-            });
-          }
-          return response.json();
+          return response.json().catch(function () {
+            return {};
+          }).then(function (body) {
+            if (!response.ok) {
+              throw userFacingError(body.message || submissionErrorMessage);
+            }
+            if (!body.ok) {
+              throw userFacingError(submissionErrorMessage);
+            }
+            return body;
+          });
         })
         .then(function () {
           var downloadUrl = form.getAttribute('data-download-url') || '';
           form.reset();
           if (downloadUrl) {
-            setStatus(status, '資料ダウンロード完了しました。', 'success');
+            setStatus(status, '資料のダウンロードを開始しました。', 'success');
             triggerDownload(downloadUrl);
           } else {
-            setStatus(status, '送信しました。担当者よりご連絡します。', 'success');
+            setStatus(status, 'お問い合わせを受け付けました。担当者よりご連絡します。', 'success');
           }
         })
         .catch(function (error) {
-          setStatus(status, error.message, 'error');
+          setStatus(status, error && error.isUserFacing ? error.message : networkErrorMessage, 'error');
         })
         .finally(function () {
           if (submit) submit.disabled = false;

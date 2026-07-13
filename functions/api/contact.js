@@ -1,6 +1,7 @@
 const DEFAULT_TO_EMAIL = 'salonflowlab2603@gmail.com';
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const PHONE_PATTERN = /^[0-9+\-()（）\s]{8,20}$/;
+const SUBMISSION_UNAVAILABLE_MESSAGE = '現在、送信を受け付けられません。入力内容は保持されています。時間をおいて、もう一度お試しください。';
 
 export async function onRequestPost(context) {
   try {
@@ -25,6 +26,7 @@ export async function onRequestPost(context) {
 
     const larkSucceeded = results[0].status === 'fulfilled';
     const emailFailed = results[1].status === 'rejected';
+    const baseSucceeded = results[2].status === 'fulfilled' && results[2].value === true;
 
     if (results[0].status === 'rejected') {
       console.warn('contact lark notification failed', results[0].reason);
@@ -42,18 +44,18 @@ export async function onRequestPost(context) {
     }
 
     if (isDownload && !larkSucceeded) {
-      return json({ ok: false, message: '送信に失敗しました。時間をおいて再度お試しください。' }, 502);
+      return json({ ok: false, message: SUBMISSION_UNAVAILABLE_MESSAGE }, 502);
     }
 
-    if (!isDownload && emailFailed) {
-      return json({ ok: false, message: '送信に失敗しました。時間をおいて再度お試しください。' }, 502);
+    if (!isDownload && emailFailed && !baseSucceeded) {
+      return json({ ok: false, message: SUBMISSION_UNAVAILABLE_MESSAGE }, 502);
     }
 
     return json({ ok: true });
   } catch (error) {
     console.error('contact request failed', error);
     await notifyLarkError(context.env, 'フォームAPI処理失敗', error);
-    return json({ ok: false, message: '送信内容を確認してください。' }, 400);
+    return json({ ok: false, message: SUBMISSION_UNAVAILABLE_MESSAGE }, 500);
   }
 }
 
@@ -80,10 +82,14 @@ function normalizePayload(payload) {
 function validate(data) {
   if (!data.company) return '会社名を入力してください。';
   if (!data.name) return '氏名を入力してください。';
-  if (!data.email || !EMAIL_PATTERN.test(data.email)) return 'メールアドレスを確認してください。';
-  if (data.phone && !PHONE_PATTERN.test(data.phone)) return '電話番号を確認してください。';
+  if (!data.email) return 'メールアドレスを入力してください。';
+  if (!EMAIL_PATTERN.test(data.email)) return 'メールアドレスの形式を確認してください。';
+  if (data.phone && !PHONE_PATTERN.test(data.phone)) return '電話番号は半角数字・ハイフン・括弧で入力してください。';
   if (!data.topic) return '興味を持ったサービスを選択してください。';
-  if (!data.message) return 'お問い合わせ内容を入力してください。';
+  if (!data.message) {
+    const messageLabel = data.formType === '資料ダウンロード' ? 'ご相談内容' : 'お問い合わせ内容';
+    return messageLabel + 'を入力してください。';
+  }
   if (!data.privacy) return 'プライバシーポリシーへの同意が必要です。';
   return '';
 }
@@ -145,7 +151,7 @@ async function saveToLarkBase(env, data) {
   const appToken = env.LARK_BASE_APP_TOKEN || 'D1AibzS8jarDOAs4o05jmVtApVg';
   const tableId = env.LARK_BASE_TABLE_ID || 'tblAMGB9DW5hHD9r';
 
-  if (!appId || !appSecret || !appToken || !tableId) return;
+  if (!appId || !appSecret || !appToken || !tableId) return false;
 
   const token = await getLarkTenantAccessToken(env, appId, appSecret);
   const apiBaseUrl = getLarkApiBaseUrl(env);
@@ -168,6 +174,8 @@ async function saveToLarkBase(env, data) {
   if (body.code !== 0) {
     throw new Error('Lark Base record create failed: ' + JSON.stringify(body));
   }
+
+  return true;
 }
 
 async function getLarkTenantAccessToken(env, appId, appSecret) {
