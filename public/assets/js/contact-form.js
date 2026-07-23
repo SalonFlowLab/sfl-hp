@@ -207,6 +207,14 @@
           });
         })
         .then(function () {
+          if (typeof window.gtag === 'function') {
+            window.gtag('event', 'generate_lead', {
+              form_type: payload.formType,
+              service: payload.topic || '',
+              page_location: window.location.href
+            });
+          }
+
           var downloadUrl = form.getAttribute('data-download-url') || '';
           form.reset();
           if (downloadUrl) {
