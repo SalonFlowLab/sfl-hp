@@ -159,6 +159,15 @@ Cloudflare Pagesの環境変数:
 
 `LARK_CONTACT_WEBHOOK_URL`、`LARK_ERROR_WEBHOOK_URL`、Lark Base登録用の環境変数が未設定でもフォーム送信は継続します。`RESEND_API_KEY` と `CONTACT_FROM_EMAIL` はメール送信に必須です。`LARK_ERROR_WEBHOOK_URL` が設定されている場合は、メール送信失敗、Lark通常通知失敗、Lark Base登録失敗、フォームAPI処理失敗をLarkへ通知します。
 
+## アクセス解析
+
+全ページに GA4（Google Analytics 4）タグを設置しています（測定ID: `G-63J47P3D1P`）。
+
+- **検索流入**: Google Search Consoleで計測。GA4とリンク済みの場合はGA4の「トラフィック獲得」レポートでも検索経由が分かります。
+- **SNS等の流入**: GA4の「トラフィック獲得」レポートでリファラー・参照元/メディア別に確認できます。ただしSNSアプリ内ブラウザ（Instagram/X/Facebookアプリ内の埋め込みブラウザ等）はリファラーを送らないことが多く、`(direct)`扱いになりがちです。発信ごとに流入経路を正確に追いたい場合は、投稿リンクにUTMパラメータ（例: `?utm_source=instagram&utm_medium=social&utm_campaign=xxx`）を付けて運用してください。
+- **コンバージョン計測**: `public/assets/js/contact-form.js` はお問い合わせ・資料ダウンロードの送信成功時にGA4イベント `generate_lead` を送信します。パラメータは `form_type`（フォーム種別）、`service`（興味を持ったサービス）、`page_location`（送信元ページURL）です。GA4管理画面の「イベント」から `generate_lead` を主要（コンバージョン）に設定すると、トラフィック獲得レポートと掛け合わせて経路別のリード数を追えます。
+- **ローカル確認**: `npm run dev`（Wrangler）でフォームAPIごと動かし、DevToolsのNetworkタブで `google-analytics.com/g/collect` へのリクエストと `en=generate_lead` パラメータを確認できます。`gtag`はホスト名を見ずに送信するため、localhostでもGA4のリアルタイムレポート/DebugViewに反映されます（本番トラフィックと混ざるので、Chrome拡張「Google Analytics Debugger」で`debug_mode`を有効にしてDebugViewで見るとノイズを避けられます）。
+
 ## 確認ポイント
 
 変更後は最低限、以下を確認します。
