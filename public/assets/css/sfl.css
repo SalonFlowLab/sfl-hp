@@ -296,6 +296,8 @@ a:focus-visible,button:focus-visible,.sfl-btn:focus-visible{outline:2px solid va
 .sfl-section-head{margin-bottom:28px}
 .sfl-section-head::after{margin-top:16px}
 .sfl-page-title{padding:72px 0 36px}
+/* page-title 直後の section 上余白は二重になるため落とす */
+.sfl-page-title + .sfl-section{padding-top:0}
 .sfl-hero{min-height:auto;padding:56px 0}
 .sfl-hero-copy{padding:32px 0}
 .sfl-hero-sub{line-height:1.75}
