@@ -5,7 +5,7 @@
 このリポジトリは、HTML/CSS/JavaScriptのみで構成された静的サイトです。公開対象のファイルは `public/` に集約しています。
 
 - `public/index.html`: ルート入口ページ。
-- `public/pages/NN-page-name/index.html`: 各ページのHTML。
+- `public/{slug}/index.html`: 各ページのHTML（公開URLは `/{slug}/`）。
 - `public/assets/css/`: 共通スタイルと旧デザイン調整用CSS。
 - `public/assets/js/`: 共通ナビゲーションとUIスクリプト。
 - `public/assets/images/`, `public/assets/icons/`, `public/assets/textures/`: 画像・アイコン・背景素材。
@@ -35,7 +35,7 @@
 
 HTML、CSS、JavaScriptは既存の書き方に合わせてください。HTML/CSSは既存と同じ2スペース寄りのインデントを維持し、クラス名は `site-header` や `glass-card` のような説明的な kebab-case を使います。日本語コピーは周辺の文体とトーンに合わせます。
 
-相対パスは既存ルールを維持してください。ルートページは `assets/...`、`public/pages/*/` 配下のページは `../../assets/...` を使います。共通ナビゲーション、ブランド表記、フッターは `public/assets/js/site-chrome.js` が生成します。
+相対パスは既存ルールを維持してください。ルートページは `assets/...`、`public/{slug}/` 配下のページは `/assets/...` を使います。共通ナビゲーション、ブランド表記、フッターは `public/assets/js/site-chrome.js` が生成します。
 
 ## テスト方針
 

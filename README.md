@@ -84,6 +84,10 @@
 2. `public/services/index.html` — サービス一覧カード
 3. `public/{slug}/index.html` — 商品LPの新規作成
 4. `public/sitemap.xml` — 公開URLの追加
+5. 商品LPの `<head>` — `<title>` とService JSON-LD（料金は本文と同じ値）
+6. `public/services/index.html` のJSON-LD — ItemListに1件追加
+
+料金・FAQ・会社情報を変更するときは、本文と `<head>` のJSON-LDを同時に直します（会社情報は `index.html` と `company/` の2か所）。
 
 ナビ・フッター・お問い合わせの「興味を持ったサービス」は `sfl-services-catalog.js` を参照するため、通常は同ファイルの更新だけで連動します。
 

@@ -29,13 +29,15 @@ node --check functions/api/contact.js
 
 **共通UIはJSがランタイム生成する。** ヘッダー・ドロワー・フッターは `public/assets/js/site-chrome.js`、ページ下部CTAは `sfl-wide-cta.js`、問い合わせ・資料請求フォームのマークアップは `sfl-lead-form.js` が生成。各ページの `index.html` にはこれらのHTMLは書かれていないので、ナビ・フッター・CTA・フォームの変更はJS側で行う。
 
-**サービス定義の単一ソースは `public/assets/js/sfl-services-catalog.js`**（`window.SFL_SERVICES`）。ナビ・フッター・フォームの「興味を持ったサービス」はここを参照して連動する。サービス追加時の更新箇所: ①catalog定義 ②`pages/services/index.html` のカード ③`pages/{slug}/index.html` の新規LP ④`sitemap.xml`。
+**サービス定義の単一ソースは `public/assets/js/sfl-services-catalog.js`**（`window.SFL_SERVICES`）。ナビ・フッター・フォームの「興味を持ったサービス」はここを参照して連動する。サービス追加時の更新箇所: ①catalog定義 ②`public/services/index.html` のカードとJSON-LDのItemList ③`public/{slug}/index.html` の新規LP（`<title>` とService JSON-LDを含む） ④`sitemap.xml`。
 
-**パス規約**: ルート（`public/index.html`）は `assets/...`、ネストページ（`public/pages/*/`）は `../../assets/...`。
+**パス規約**: ルート（`public/index.html`）は `assets/...`、ネストページ（`public/{slug}/`）は `/assets/...`。
+
+**`<head>` のSEO情報**: 全ページに `<title>`、noindexの `knowledge` 以外にJSON-LD（`<script type="application/ld+json">`）がある。値は本文と二重管理なので、料金・FAQ・会社情報を変えたらJSON-LDも同時に直す。料金は各LPのService、FAQは `faq/` のFAQPage（本文と完全一致させる）、会社情報は `index.html` と `company/` の2か所のOrganization。
 
 **フォームAPI**: `functions/api/contact.js` が Cloudflare Pages Functions として `/api/contact` で動く。クライアント側（`contact-form.js`）と同じ検証をサーバー側でも行い、`company_website` ハニーポットを持つ。環境変数: `RESEND_API_KEY` / `CONTACT_FROM_EMAIL`（メール送信に必須）、`CONTACT_TO_EMAIL`、`LARK_CONTACT_WEBHOOK_URL`（任意）。GitHub Pages プレビュー（`shoma-endo.github.io/sfl-hp`）は静的配信のみで Functions は動かない。
 
-**旧URL**: `public/_redirects` で301転送（features→cycle-pro、lark→lark-flow-one、flow/pricing→salon-flow-one のアンカー）。旧ページHTMLは `public/pages/` に残っているが本番では転送される。
+**旧URL**: `public/_redirects` で301転送（features→cycle-pro、lark→lark-flow-one、flow/pricing→salon-flow-one のアンカー）。`public/pages/` にHTMLは置かない。
 
 ## 制約・規約
 
