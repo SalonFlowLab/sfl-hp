@@ -1,103 +1,59 @@
-# SFL / SALON FLOW LAB. — Webサイト
+# 合同会社SFL — コーポレートサイト
 
-合同会社SFL（SALON FLOW LAB.）の静的Webサイトです。HTML/CSS/JavaScriptのみで構成し、Cloudflare Pagesで `public/` をそのまま配信します。
+合同会社SFLのコーポレートサイト（Lark・AI・官公庁入札の3事業）です。HTML/CSS/JavaScriptのみで構成し、Cloudflare Pagesで `public/` をそのまま配信します。2026-09 に美容サロン向け構成から会社案内へリニューアルしました（仕様: Lark文書「SFLコーポレートHP｜公開前の修正・調整箇所」）。
 
 ## 公開先
 
-- 本番想定ドメイン: `https://salonflowlab.com`
+- 本番想定ドメイン: `https://salonflowlab.com`（新ドメインが決まったら canonical・OG・JSON-LD・sitemap・robots を一括置換）
 - GitHubリポジトリ: `https://github.com/SalonFlowLab/sfl-hp`
+- 内部向け集約ページ: プレビュー環境の `/internal/`（本番では 404）
 
 ## 構成
 
-- `public/index.html`: ルートのトップページ。
-- `public/{slug}/index.html`: 下層ページの公開HTML。例: `public/services/index.html` は `/services/` で配信します。
-- `public/assets/css/sfl.css`: SFL用の共通スタイル。
-- `public/assets/js/site-chrome.js`: 共通ヘッダー、ドロワー、フッター生成。
-- `public/assets/js/sfl-services-catalog.js`: サービス定義（ナビ・フォームの単一ソース）。
-- `public/assets/js/sfl-lead-form.js`: お問い合わせ・資料ダウンロードフォームのマークアップ生成。
-- `public/assets/js/contact-form.js`: フォーム送信・クライアント側バリデーション。
-- `public/assets/js/sfl-wide-cta.js`: ページ下部の共通CTAブロック生成。
-- `public/assets/js/sfl-motion.js`: ホームFVアニメーション・スクロールリビール。
-- `public/assets/images/`, `public/assets/icons/`, `public/assets/pdf/`: 画像・アイコン・PDF。
-- `public/_headers`: Cloudflare Pagesのセキュリティ・キャッシュヘッダー。
-- `public/_redirects`: 旧URLからclean URLへの301リダイレクト。
-- `public/robots.txt`, `public/sitemap.xml`: SEO用ファイル。
-- `functions/api/contact.js`: Cloudflare Pages Functionsのフォーム受付API。
-- `scripts/check-local-refs.mjs`: HTML/CSS内のローカル参照チェック。
+- `public/assets/site/css/site.css`: 新サイト共通スタイル（デザイントークン・部品）。
+- `public/assets/site/js/data.js`: 共通データの単一ソース（URL・会社情報・ナビ・3事業・講座・実績・相談フロー）。
+- `public/assets/site/js/site.js`: ヘッダー／ドロワー／フッター、事業・講座・実績カード、相談フロー図の描画、スクロール時の登場アニメーション、計測イベント。
+- `public/assets/site/js/reskilling-simulator.js`: 人材開発支援助成金の費用試算。
+- `public/assets/site/img/`: 新サイトの画像。
+- `public/internal/index.html` + `functions/internal/_middleware.js`: プレビュー限定の内部資料ページ。
+- `public/assets/css`, `public/assets/js`, `public/assets/images` ほか: 旧・美容向けページ専用（下記「既存の美容向けページ」）。
+- `functions/api/contact.js`: 旧ページ（資料請求）用フォームAPI。
+- `scripts/check-local-refs.mjs`: HTML/CSS/`assets/site/js` のサイト内リンク・画像・ページ間アンカー検査。
 - `scripts/check-unused-assets.mjs`: 未使用アセット検出。
-- `docs/deployment/README.md`: Cloudflare Pagesデプロイメモ。
-- `wrangler.jsonc`: Cloudflare Pages設定。
-- `AGENTS.md`: リポジトリ作業ガイド（エージェント向け）。
-
-ビルド工程はありません。静的ファイルを直接編集します。
 
 ## ページ
 
-### メインナビ（ヘッダー）
-
 | ページ | パス |
 |---|---|
-| ホーム | `/` |
-| サービス | `/services/` |
-| 導入事例 | `/case-study/` |
-| 会社概要 | `/company/` |
+| トップ | `/` |
+| 事業・サービス（3事業・講座研修・12サービス） | `/services/` |
+| 法人向けLark・DX研修／SFL Lark導入講座 | `/lark-dx/` |
+| 法人向け生成AI研修 | `/ai-dx-training/` |
+| Claude Code・Codex×Lark 初期設定支援 | `/ai-setup/` |
+| 人材開発支援助成金の費用試算 | `/reskilling-subsidy-simulator/` |
+| 実績・事例 | `/case-study/` |
+| 会社案内・代表メッセージ | `/company/` |
+| 講師・支援チーム | `/instructors/` |
+| 60分無料相談・お問い合わせ | `/contact/` |
+| 支援・契約・データ取扱いガイド | `/support-policy/` |
+| 情報セキュリティ基本方針 | `/information-security-policy/` |
+| プライバシーポリシー | `/privacy/` |
 
-### サービス・商品LP
+### 既存の美容向けページ（扱いが決まるまで残す）
 
-| ページ | パス | 備考 |
-|---|---|---|
-| SALON FLOW ONE | `/salon-flow-one/` | 美容サロン向け月額伴走。Cycle Proを中核ツールとして内包。料金・FAQ・導入の流れを集約 |
-| LARK FLOW ONE | `/lark-flow-one/` | Lark活用伴走支援 |
-| AI FLOW ONE | `/ai-flow-one/` | 企業向けAI顧問 |
-| Cycle Pro | `/cycle-pro/` | SALON FLOW ONEの中核ツール（買い切り初期構築）。サービス一覧ハブのカードではなく、SALON FLOW ONE・FAQからの導線でのみ案内 |
+`/salon-flow-one/` `/lark-flow-one/` `/ai-flow-one/` `/cycle-pro/` `/faq/` `/download/` `/knowledge/`（noindex）。旧デザイン（`assets/css/sfl.css` + `assets/js/site-chrome.js`）のまま。削除・移転は会社側の判断待ち。
 
-サービス定義の更新元は `public/assets/js/sfl-services-catalog.js` です。`catalog` は FLOW ONE 3商品のみで、サービス一覧ハブ（`public/services/index.html`）のカードもこの3枚。Cycle Proは `topicExtras` に定義され、お問い合わせフォームの選択肢としてのみ登場します。
+## 文言・データの変更
 
-### その他
-
-| ページ | パス |
-|---|---|
-| よくある質問 | `/faq/` |
-| お問い合わせ | `/contact/` |
-| 資料ダウンロード | `/download/` |
-
-`sitemap.xml` に載せる公開対象は上記です。
-
-### URLリダイレクト（`public/_redirects`）
-
-| 旧パス | 転送先 |
-|---|---|
-| `/pages/home/` | `/` |
-| `/pages/services/` | `/services/` |
-| `/pages/features/` | `/cycle-pro/#features` |
-| `/pages/lark/` | `/lark-flow-one/` |
-| `/pages/flow/` | `/salon-flow-one/#flow` |
-| `/pages/pricing/` | `/salon-flow-one/#pricing` |
-
-`/services/` などのclean URLは、`public/services/index.html` のように公開パスと同じディレクトリで配信します。`/pages/...` は公開正規URLではなく、旧URLからの301転送だけに使い、HTMLファイルは置きません。
-
-## サービス追加・変更
-
-新しい FLOW ONE 系サービスを増やす場合は、少なくとも以下を更新します。
-
-1. `public/assets/js/sfl-services-catalog.js` — サービス定義
-2. `public/services/index.html` — サービス一覧カード
-3. `public/{slug}/index.html` — 商品LPの新規作成
-4. `public/sitemap.xml` — 公開URLの追加
-5. 商品LPの `<head>` — `<title>` とService JSON-LD（料金は本文と同じ値）
-6. `public/services/index.html` のJSON-LD — ItemListに1件追加
-
-料金・FAQ・会社情報を変更するときは、本文と `<head>` のJSON-LDを同時に直します（会社情報は `index.html` と `company/` の2か所）。
-
-ナビ・フッター・お問い合わせの「興味を持ったサービス」は `sfl-services-catalog.js` を参照するため、通常は同ファイルの更新だけで連動します。
+- 事業名・概要、講座（名称・開始時期・募集期）、実績、相談フロー、外部URL、会社情報は `public/assets/site/js/data.js` だけを直せば全ページに反映されます。
+- `<head>` の JSON-LD は静的です。会社情報・FAQ・講座名を変えたら該当ページの JSON-LD も直します（FAQ はトップ本文と一致させる）。
+- 料金は `/services/` `/lark-dx/` `/ai-setup/` `/support-policy/` などの本文に直接書いています。変更時は `/internal/` の「料金・時間の掲載箇所」を見て全箇所を揃えます。
 
 ## デザイン・CTA方針
 
-- ベースカラーはブランドガイド準拠: `#F8F5EF`, `#103A71`, `#C99A1A`, `#E7D3A0`, `#1E88E5`, `#333333`。
-- CTAは「お問い合わせ」と「資料ダウンロード」に統一しています。
-- 公式LINEへの直接誘導CTAは使いません。ホームFVの「公式LINEと連携可能」バッジは連携訴求の表示であり、外部LINEへの遷移リンクではありません。
-- 共通ヘッダー・フッター・ドロワーは `site-chrome.js` で生成します。
-- ホームFVの右ビジュアルは実写真1枚（`public/assets/images/hero-salon-devices.jpg`）です。CSSで組んだダッシュボードのモックではなく、`sfl.css` の `.sfl-hero-photo img` で `mask-image` により縁をクリーム背景へ溶け込ませています。差し替える場合は同じ比率でクロップし、ファイル名を変えるなら `sfl.css` 側の参照も更新してください。
+- ブランドカラー: `#F8F5EF`, `#103A71`, `#C99A1A`, `#E7D3A0`, `#1E88E5`, `#333333`。フッターは中間の青 `#1A5796`。
+- 主CTAは「60分無料相談」（`/contact/`）。窓口は個人事業主・フリーランス＝公式LINE、法人＝Larkのお問い合わせフォーム（別タブ）、個人向け講座＝各講座の案内ページ（`/contact/#course-entry`）。
+- 開閉は追加説明だけ。概要・実績・会社情報は常時表示。
 
 ## コマンド
 
@@ -132,9 +88,11 @@ Cloudflare PagesのBuild output directoryは `public` です。
 
 詳しい手順は `docs/deployment/README.md` を参照してください。
 
-## フォーム送信
+## フォーム送信（旧・美容向けページのみ）
 
-お問い合わせと資料ダウンロードは `/api/contact` へ送信します。送信内容はメール送信し、Lark webhookが設定されている場合はLarkチャットにも通知します。Larkアプリ認証情報が設定されている場合は、Lark Baseにもレコードを登録します。
+新サイトの問い合わせは外部（公式LINE／Larkのお問い合わせフォーム）へ案内し、`/api/contact` は使いません。以下は旧ページ（`/download/` など）の資料請求フォームの仕様です。
+
+資料ダウンロードは `/api/contact` へ送信します。送信内容はメール送信し、Lark webhookが設定されている場合はLarkチャットにも通知します。Larkアプリ認証情報が設定されている場合は、Lark Baseにもレコードを登録します。
 
 フォーム項目:
 
@@ -169,7 +127,8 @@ Cloudflare Pagesの環境変数:
 
 - **検索流入**: Google Search Consoleで計測。GA4とリンク済みの場合はGA4の「トラフィック獲得」レポートでも検索経由が分かります。
 - **SNS等の流入**: GA4の「トラフィック獲得」レポートでリファラー・参照元/メディア別に確認できます。ただしSNSアプリ内ブラウザ（Instagram/X/Facebookアプリ内の埋め込みブラウザ等）はリファラーを送らないことが多く、`(direct)`扱いになりがちです。発信ごとに流入経路を正確に追いたい場合は、投稿リンクにUTMパラメータ（例: `?utm_source=instagram&utm_medium=social&utm_campaign=xxx`）を付けて運用してください。
-- **コンバージョン計測**: `public/assets/js/contact-form.js` はお問い合わせ・資料ダウンロードの送信成功時にGA4イベント `generate_lead` を送信します。パラメータは `form_type`（フォーム種別）、`service`（興味を持ったサービス）、`page_location`（送信元ページURL）です。GA4管理画面の「イベント」から `generate_lead` を主要（コンバージョン）に設定すると、トラフィック獲得レポートと掛け合わせて経路別のリード数を追えます。
+- **新サイトのクリック計測**: `public/assets/site/js/site.js` が、公式LINE（`line_button_click`）・Larkのお問い合わせフォーム（`contact_form_open`）・`/contact/` への遷移（`free_consultation_start`）のクリック時に GA4 イベントを送ります（リンク先のパスのみ送信）。
+- **コンバージョン計測（旧ページ）**: `public/assets/js/contact-form.js` はお問い合わせ・資料ダウンロードの送信成功時にGA4イベント `generate_lead` を送信します。パラメータは `form_type`（フォーム種別）、`service`（興味を持ったサービス）、`page_location`（送信元ページURL）です。GA4管理画面の「イベント」から `generate_lead` を主要（コンバージョン）に設定すると、トラフィック獲得レポートと掛け合わせて経路別のリード数を追えます。
 - **ローカル確認**: `npm run dev`（Wrangler）でフォームAPIごと動かし、DevToolsのNetworkタブで `google-analytics.com/g/collect` へのリクエストと `en=generate_lead` パラメータを確認できます。`gtag`はホスト名を見ずに送信するため、localhostでもGA4のリアルタイムレポート/DebugViewに反映されます（本番トラフィックと混ざるので、Chrome拡張「Google Analytics Debugger」で`debug_mode`を有効にしてDebugViewで見るとノイズを避けられます）。
 
 ## 確認ポイント
