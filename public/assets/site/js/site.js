@@ -25,7 +25,7 @@
     header.outerHTML = ''
       + '<a class="skip-link" href="#main">本文へスキップ</a>'
       + '<header class="site-header"><div class="shell site-header-inner">'
-      + '<a class="brand" href="/" aria-label="合同会社SFL ホーム"><img src="/assets/site/img/sfl-logo.jpg" alt="" width="44" height="44"><span><strong>合同会社SFL</strong><small>Lark・AI・官公庁入札</small></span></a>'
+      + '<a class="brand" href="/" aria-label="合同会社SFL ホーム"><img src="/assets/site/img/sfl-logo-mark.webp" alt="" width="44" height="44"><span><strong>合同会社SFL</strong><small>Lark・AI・官公庁入札</small></span></a>'
       + '<nav class="global-nav" aria-label="メインナビゲーション">' + navLinks + '</nav>'
       + '<a class="button button-primary button-small header-cta" href="/contact/">60分無料相談' + arrow() + '</a>'
       + '<button class="menu-button" type="button" aria-expanded="false" aria-controls="site-drawer" aria-label="メニューを開く"><span></span><span></span><span></span></button>'
@@ -83,7 +83,7 @@
     const c = SFL.company;
     footer.outerHTML = '<footer class="site-footer"><div class="shell footer-main">'
       + '<div class="footer-brand">'
-      + '<a class="brand" href="/"><img src="/assets/site/img/sfl-logo.jpg" alt="" width="44" height="44" loading="lazy"><span><strong>合同会社SFL</strong><small>LARK / AI / PUBLIC PROCUREMENT</small></span></a>'
+      + '<a class="brand" href="/"><img src="/assets/site/img/sfl-logo-mark.webp" alt="" width="44" height="44" loading="lazy"><span><strong>合同会社SFL</strong><small>LARK / AI / PUBLIC PROCUREMENT</small></span></a>'
       + '<p>Larkを軸に、業務改善・構築・教育・伴走支援を提供。AI・官公庁入札の事業にも取り組んでいます。</p>'
       + '<address>' + esc(c.postal) + '<br>' + esc(c.address) + '</address>'
       + '<p class="note" style="color:rgba(255,255,255,.75)">合同会社SFLはLark Japanの代理店ではありません。</p>'
