@@ -51,15 +51,15 @@
           <thead><tr><th>項目</th><th>現在の実装</th><th>決めること</th></tr></thead>
           <tbody>
             <tr><td><span class="st st-temp">暫定</span> 公開ドメイン</td><td>canonical・OG・JSON-LD・sitemap・robots を <code>https://salonflowlab.com</code> で統一</td><td>新ドメインにするか。変える場合は一括置換（<code>rg -l "salonflowlab.com" public</code>）</td></tr>
-            <tr><td><span class="st st-wait">保留</span> 既存の美容向けページ</td><td>/salon-flow-one/ /lark-flow-one/ /ai-flow-one/ /cycle-pro/ /faq/ /download/ /knowledge/ を旧デザインのまま残置。新サイトのナビからはリンクしない</td><td>残す・サブドメインへ移す・削除のどれにするか。決まるまで削除・移転はしない（仕様書 04）</td></tr>
+            <tr><td><span class="st st-done">決定</span> 既存の美容向けページ</td><td>2026-09-26 に廃止を決定（一般業種全体に向けたHPへ）。旧ページ・旧資産・資料請求フォームAPIを削除し、旧URLは内容の近い新ページへ301転送（public/_redirects）</td><td>—</td></tr>
             <tr><td><span class="st st-temp">暫定</span> 個人向け講座の受講窓口</td><td>/contact/#course-entry に各講座の案内ページへのリンクを置いた</td><td>既存LINE か 講座専用ページか（仕様書 09・11）</td></tr>
             <tr><td><span class="st st-wait">保留</span> 時間・料金の公開範囲</td><td>トップからは時間・料金を外した。下層ページは現行の記載を維持（下の「料金・時間の掲載箇所」）</td><td>どこまで公開するか。決まったら全掲載箇所を同時に揃える（仕様書 06）</td></tr>
             <tr><td><span class="st st-wait">保留</span> 12サービスの掲載先</td><td>/services/#service-list に12件・番号・アンカーを現行どおり掲載（概要は常時表示、条件は開閉）</td><td>掲載先・提供中／準備中・料金の公開範囲（仕様書 10。特に06・07・09・10・11・12）</td></tr>
             <tr><td><span class="st st-temp">暫定</span> トップの実績カード</td><td>現行4件をすべて表示</td><td>どれを載せるか、取引先名・肩書きの表記と掲載可否（仕様書 05）</td></tr>
             <tr><td><span class="st st-temp">暫定</span> 講座カードの掲載情報</td><td>開始年月・募集期のみ表示。Lark導入講座2期生は「2026年11月募集予定」に統一</td><td>開始年月・募集期・学習時間をどこまで載せるか（仕様書 09）</td></tr>
             <tr><td><span class="st st-temp">暫定</span> 官公庁入札事業カードのリンク先</td><td>/services/#public-procurement（事業の説明＋講座案内へのリンク）</td><td>事業としての詳細ページを別に作るか</td></tr>
-            <tr><td><span class="st st-wait">保留</span> 美容向け既存サイトへのリンク</td><td>/case-study/ の事例欄だけにリンク。トップには置かない</td><td>トップにも置くか（仕様書 04）</td></tr>
-            <tr><td><span class="st st-temp">暫定</span> 法人の問い合わせ手段</td><td>現行どおり Lark のお問い合わせフォーム（別タブ）</td><td>旧HPのようなサイト内フォーム（項目ごとのエラー表示・Lark Base登録・送信完了の計測）に戻すか。戻す場合は既存の <code>functions/api/contact.js</code> を流用できる</td></tr>
+            <tr><td><span class="st st-wait">保留</span> Eyelash Salon Lucia サイトへのリンク</td><td>/case-study/ の事例欄だけにリンク。トップには置かない</td><td>トップにも置くか（仕様書 04）</td></tr>
+            <tr><td><span class="st st-temp">暫定</span> 法人の問い合わせ手段</td><td>現行どおり Lark のお問い合わせフォーム（別タブ）</td><td>旧HPのようなサイト内フォーム（項目ごとのエラー表示・Lark Base登録・送信完了の計測）に戻すか。戻す場合は削除済みの <code>functions/api/contact.js</code>（git履歴に残っている）を流用できる</td></tr>
           </tbody>
         </table></div>
       </section>
@@ -105,6 +105,7 @@
             <tr><td>Lark導入講座 2期生の募集時期</td><td>全ページ「2026年11月募集予定」に統一（data.js で一元管理）</td></tr>
             <tr><td>12サービス見出しのアンカー</td><td>#service-list（見出しは #service-list-title）を追加</td></tr>
             <tr><td>フッターの入口文言</td><td>「LINEで業務の相談（個人事業主）」「法人の相談フォーム」に揃え、「個人向け講座の受講について」を追加</td></tr>
+            <tr><td>美容に関する記載の扱い</td><td>一般業種向けに切り替えたうえで、Lucia事例・ヘアーサロンの実績・Cycle Pro（仕様書04でLark事業の事例と位置づけ）は事実の実績として残した。/contact/ の相談内容04は「業種に合わせた業務システム・AI活用」に変更。業務整理のフロー図見本はサロンの架空例のままなので、一般業種の見本に差し替えると良い</td></tr>
             <tr><td>事業カードのリンク先</td><td>3事業とも /services/ 内の事業ごとの説明（#lark #ai #public-procurement）へ。研修ページや外部講座ページへ直接飛ばさない</td></tr>
           </tbody>
         </table></div>
@@ -182,7 +183,7 @@
             <tr><td>支援・契約ガイド</td><td><a href="/support-policy/">/support-policy/</a></td><td>/support-policy</td></tr>
             <tr><td>情報セキュリティ基本方針</td><td><a href="/information-security-policy/">/information-security-policy/</a></td><td>/information-security-policy</td></tr>
             <tr><td>プライバシーポリシー</td><td><a href="/privacy/">/privacy/</a></td><td>このリポジトリの既存 /privacy/（旧サイトは salonflowlab.com/privacy/ を参照していた）</td></tr>
-            <tr><td>既存の美容向けページ</td><td><a href="/salon-flow-one/">/salon-flow-one/</a> ほか6件</td><td>旧デザインのまま残置（確定待ち）</td></tr>
+            <tr><td>廃止した美容向けページ</td><td>/salon-flow-one/ /lark-flow-one/ /ai-flow-one/ /cycle-pro/ /faq/ /download/ /knowledge/</td><td>301転送：/services/、/services/#lark-flow-one、/services/#ai、/case-study/#lucia-case、/#faq、/contact/、/</td></tr>
           </tbody>
         </table></div>
       </section>
@@ -232,7 +233,8 @@
           <li>フッターは中間的な青、本文文字は濃いグレー系へ統一する。高級感より誠実さ。</li>
           <li>サイトの役割は「名刺」に近い。問い合わせはフォームにつなげる。</li>
           <li>見やすさ：文字サイズ・余白・配置・ボタンの分かりやすさを改善してよい。アコーディオン過多・クリック範囲の狭さ・色数の多さが課題。強いアニメーションは今は優先しない。ボタンは丸すぎない角丸。</li>
-          <li>未確定：公開日、12サービス・料金の掲載範囲、美容向け既存サイトの扱い、官公庁入札の説明・誘導、アクセント色、画像素材、番組出演の時期。</li>
+          <li>2026-09-26 追記：美容向けの既存ページは廃止し、一般業種全体に向けたHPにすると決定。</li>
+          <li>未確定：公開日、12サービス・料金の掲載範囲、官公庁入札の説明・誘導、アクセント色、画像素材、番組出演の時期。</li>
         </ul>
       </section>
 

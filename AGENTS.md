@@ -1,6 +1,6 @@
 # リポジトリ作業ガイド
 
-合同会社SFLのコーポレートサイト（Lark・AI・官公庁入札の3事業）です。2026-09 のリニューアルで、美容サロン向け（SALON FLOW LAB.）の構成から会社案内の構成へ切り替えました。
+合同会社SFLのコーポレートサイト（Lark・AI・官公庁入札の3事業）です。2026-09 のリニューアルで、美容サロン向け（SALON FLOW LAB.）の構成から、一般業種全体に向けた会社案内へ切り替えました。美容向けの旧ページは廃止済みです（旧URLは `_redirects` で301転送）。
 
 ## プロジェクト構成
 
@@ -9,12 +9,10 @@ HTML/CSS/JavaScriptのみの静的サイトです。公開対象のファイル�
 - `public/index.html`: トップページ。
 - `public/{slug}/index.html`: 各ページ（公開URLは `/{slug}/`）。
 - `public/assets/site/`: **新サイトの共通資産**（`css/site.css`、`js/data.js`、`js/site.js`、`img/`）。
-- `public/assets/css/`, `public/assets/js/`, `public/assets/images/` など: **旧・美容向けページ専用**（`salon-flow-one` `lark-flow-one` `ai-flow-one` `cycle-pro` `faq` `download` `knowledge`）。扱いが決まるまで残している。新ページからは参照しない。
 - `public/internal/index.html`: 内部向けの集約ページ（仕様・判断・確定待ち・料金掲載箇所など）。`functions/internal/_middleware.js` がプレビュー環境とローカル以外では 404 を返す。
-- `functions/api/contact.js`: 旧ページ（資料請求）用のフォーム受付API。
 - `functions/internal/_middleware.js`: `/internal/` をプレビュー限定にするミドルウェア。
 - `wrangler.jsonc`: Cloudflare Pages の最小デプロイ設定。
-- `public/_headers` / `public/_redirects`: ヘッダーと旧URLの301転送。
+- `public/_headers` / `public/_redirects`: ヘッダーと旧URLの301転送（転送先は最終ページへ直接。連鎖させない）。
 - `docs/deployment/`: デプロイメモ。
 
 ビルド工程はありません。静的ファイルを直接編集します。
@@ -55,6 +53,7 @@ HTML/CSS/JavaScriptのみの静的サイトです。公開対象のファイル�
 - 見出し（h2）の末尾に句読点を付けない。
 - 主CTAは「60分無料相談」（`/contact/`）。ヘッダー・トップFV・ページ末尾に置き、本文で同じボタンを重ねない。
 - 申し込み窓口は「個人事業主・フリーランス＝公式LINE」「法人＝Lark のお問い合わせフォーム（別タブ）」。個人向け講座の受講は別窓口（`/contact/#course-entry`）。
+- 対象は一般業種全体。美容は Cycle Pro・Lucia 事例などの実績としてのみ扱い、美容向けの訴求を主にしない。
 - 官公庁入札事業は「実施中」の表記（官公庁案件の調査・入札に取り組んでいます）。講座は2026年10月開始。
 
 ## コーディング規約
