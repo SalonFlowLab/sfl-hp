@@ -31,3 +31,16 @@
 /assets/pdf/business-efficiency-checklist.pdf
   Cache-Control: public, max-age=86400
   Content-Disposition: attachment; filename*=UTF-8''%E6%A5%AD%E5%8B%99%E5%8A%B9%E7%8E%87%E5%8C%96%E3%83%81%E3%82%A7%E3%83%83%E3%82%AF%E3%83%AA%E3%82%B9%E3%83%88.pdf
+
+/internal/*
+  X-Robots-Tag: noindex, nofollow
+  Cache-Control: no-store
+
+/assets/site/css/*
+  Cache-Control: no-cache
+
+/assets/site/js/*
+  Cache-Control: no-cache
+
+/assets/site/img/*
+  Cache-Control: public, max-age=2592000
