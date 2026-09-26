@@ -35,7 +35,7 @@
     { href: '/courses/', label: '個人向け講座', key: 'courses' },
     { href: '/case-study/', label: '実績・事例', key: 'case-study' },
     { href: '/company/', label: '会社案内', key: 'company' },
-    { href: '/instructors/', label: '支援体制', key: 'instructors' }
+    { href: '/instructors/', label: '講師・支援体制', key: 'instructors' }
   ];
 
   const businesses = [

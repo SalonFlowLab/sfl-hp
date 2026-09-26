@@ -78,7 +78,7 @@
       + col('COMPANY', [
         { href: '/company/', label: '会社案内・代表メッセージ' },
         { href: '/case-study/', label: '実績・事例' },
-        { href: '/instructors/', label: '講師・支援チーム' },
+        { href: '/instructors/', label: '講師・支援体制' },
         { href: '/support-policy/', label: '支援・契約・データ取扱いガイド' },
         { href: '/information-security-policy/', label: '情報セキュリティ基本方針' },
         { href: '/privacy/', label: 'プライバシーポリシー' }
