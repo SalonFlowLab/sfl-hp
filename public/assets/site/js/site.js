@@ -17,7 +17,8 @@
 
   /* ---------- Header / Drawer ---------- */
   const active = document.body.dataset.active || '';
-  const navLinks = SFL.nav.map((item) => '<a href="' + item.href + '"' + (item.key === active ? ' aria-current="page"' : '') + '>' + esc(item.label) + '</a>').join('');
+  const current = (item) => ' data-nav-key="' + item.key + '"' + (item.key === active ? ' aria-current="page"' : '');
+  const navLinks = SFL.nav.map((item) => '<a href="' + item.href + '"' + current(item) + '>' + esc(item.label) + '</a>').join('');
 
   const header = document.querySelector('[data-site-header]');
   if (header) {
@@ -31,7 +32,7 @@
       + '</div></header>'
       + '<div class="drawer" id="site-drawer" hidden><nav aria-label="モバイルナビゲーション">'
       + '<a href="/">ホーム<span aria-hidden="true">→</span></a>'
-      + SFL.nav.map((item) => '<a href="' + item.href + '"' + (item.key === active ? ' aria-current="page"' : '') + '>' + esc(item.label) + '<span aria-hidden="true">→</span></a>').join('')
+      + SFL.nav.map((item) => '<a href="' + item.href + '"' + current(item) + '>' + esc(item.label) + '<span aria-hidden="true">→</span></a>').join('')
       + '<a href="' + SFL.urls.note + '" ' + ext + '>SFL公式note<span aria-hidden="true">↗</span></a>'
       + '</nav><a class="button button-primary" href="/contact/">60分無料相談' + arrow() + '</a></div>';
 
@@ -49,6 +50,28 @@
       if (event.key === 'Escape' && !drawer.hidden) { setOpen(false); button.focus(); }
     });
     window.matchMedia('(min-width: 1081px)').addEventListener('change', (event) => { if (event.matches) setOpen(false); });
+
+    // ナビ項目がこのページ内のセクションを指す場合（例：/services/#corporate-training）、
+    // そのセクションが画面の中ほどにある間だけ、その項目を現在地として表示する
+    const setCurrent = (key) => document.querySelectorAll('[data-nav-key]').forEach((link) => {
+      if (link.dataset.navKey !== key) link.removeAttribute('aria-current');
+      else link.setAttribute('aria-current', key === active ? 'page' : 'location');
+    });
+    const sections = SFL.nav
+      .filter((item) => item.href.includes('#') && item.href.split('#')[0] === location.pathname)
+      .map((item) => ({ key: item.key, el: document.getElementById(item.href.split('#')[1]) }))
+      .filter((section) => section.el);
+    if (sections.length && 'IntersectionObserver' in window) {
+      const visible = new Set();
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          const key = sections.find((section) => section.el === entry.target).key;
+          if (entry.isIntersecting) visible.add(key); else visible.delete(key);
+        });
+        setCurrent(visible.size ? [...visible][0] : active);
+      }, { rootMargin: '-40% 0px -55% 0px' });
+      sections.forEach((section) => observer.observe(section.el));
+    }
   }
 
   /* ---------- Footer ---------- */
