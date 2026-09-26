@@ -32,67 +32,150 @@
   <script defer src="/assets/site/js/data.js?v=20260926"></script>
   <script defer src="/assets/site/js/site.js?v=20260926"></script>
   <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@graph": [
-      {
-        "@type": "WebSite",
-        "@id": "https://salonflowlab.com/#website",
-        "url": "https://salonflowlab.com/",
-        "name": "合同会社SFL",
-        "alternateName": "SFL",
-        "inLanguage": "ja-JP",
-        "publisher": { "@id": "https://salonflowlab.com/#organization" }
-      },
-      {
-        "@type": "Organization",
-        "@id": "https://salonflowlab.com/#organization",
-        "name": "合同会社SFL",
-        "legalName": "合同会社SFL",
-        "alternateName": ["SFL", "SALON FLOW LAB."],
-        "url": "https://salonflowlab.com/",
-        "logo": "https://salonflowlab.com/assets/site/img/sfl-logo.jpg",
-        "identifier": { "@type": "PropertyValue", "propertyID": "法人番号", "value": "8140003023662" },
-        "address": {
-          "@type": "PostalAddress",
-          "addressCountry": "JP",
-          "postalCode": "651-0084",
-          "addressRegion": "兵庫県",
-          "addressLocality": "神戸市中央区",
-          "streetAddress": "磯辺通1丁目1番18号 カサベラ国際プラザビル707号室"
-        },
-        "founder": { "@type": "Person", "name": "大城 未緒", "jobTitle": "代表社員" },
-        "areaServed": { "@type": "Country", "name": "日本" },
-        "sameAs": ["https://note.com/sfl_lark_dx_ai"],
-        "description": "Larkを軸に業務改善・構築・教育・伴走支援を提供。Lark・AI・官公庁入札の3事業を展開。神戸を拠点に全国オンライン対応。"
-      },
-      {
-        "@type": "Service",
-        "@id": "https://salonflowlab.com/#lark-support",
-        "name": "Larkによる業務改善・構築・教育・伴走支援",
-        "serviceType": ["Lark導入支援", "Lark Base構築", "法人向けLark研修", "AI活用研修", "導入後の伴走支援"],
-        "description": "業務整理・Larkの構築・社員研修・導入後の伴走支援まで、現場の状況に合わせて支援します。",
-        "provider": { "@id": "https://salonflowlab.com/#organization" },
-        "areaServed": { "@type": "Country", "name": "日本" }
-      },
-      {
-        "@type": "FAQPage",
-        "@id": "https://salonflowlab.com/#faq",
-        "mainEntity": [
-          { "@type": "Question", "name": "Larkアカウントの契約を無理に勧められませんか？", "acceptedAnswer": { "@type": "Answer", "text": "合同会社SFLはLark Japanの代理店ではありません。アカウントの契約や有料プランの利用を無理に勧めることはなく、お客様の業務や目的に合わせて必要な教育・構築・運用支援をご案内します。Lark Japanの認定は講師個人に付与されたもので、SFL自体の公式認定を示すものではありません。" } },
-          { "@type": "Question", "name": "業務整理だけでも利用できますか？", "acceptedAnswer": { "@type": "Answer", "text": "はい。業務整理までのご利用も歓迎です。ヒアリングをもとに現在の業務フローを可視化し、作成したフロー図等をお渡しします。整理した業務に対するAI・DX活用のアドバイスも行います。その後のサービス・商品のご契約は必須ではありません。" } },
-          { "@type": "Question", "name": "無料相談と、有料の業務整理の違いは何ですか？", "acceptedAnswer": { "@type": "Answer", "text": "60分の無料相談では、現在の業務やお困りごと、実現したいことを伺います。有料の業務整理では、オンライン面談または訪問で詳しくヒアリングし、担当者・使用ツール・作業の順番を整理して、現在の業務フローを可視化します。業務整理は必須ではなく、無料相談から直接ご提案・お見積もりへ進めます。時間・料金は、お問い合わせページの「相談の流れ」でご案内しています。" } },
-          { "@type": "Question", "name": "SFLが育成する「DX社員」とは、どのような人材ですか？", "acceptedAnswer": { "@type": "Answer", "text": "SFLでは、専門エンジニアだけを指す言葉としてではなく、現場の課題を整理し、LarkやAIを使って必要な仕組みをつくり、社内で改善を続けられる人材を「DX社員」と表現しています。特定の資格名ではありません。" } },
-          { "@type": "Question", "name": "操作に慣れていない社員でも受講できますか？", "acceptedAnswer": { "@type": "Answer", "text": "はい。現在の習熟度を事前に確認し、基本操作から段階的に進めます。自社の業務を題材にするため、学ぶ理由と使う場面を結びつけながら理解できます。" } },
-          { "@type": "Question", "name": "研修だけでなく、Lark Baseの構築も依頼できますか？", "acceptedAnswer": { "@type": "Answer", "text": "可能です。業務整理、データ項目、権限、申請、通知、ダッシュボードの設計・構築と、社内研修を一体で支援できます。" } },
-          { "@type": "Question", "name": "法人研修後の1か月無料伴走には何が含まれますか？", "acceptedAnswer": { "@type": "Answer", "text": "法人向け研修の終了後1か月間、Lark FLOW ONEを無料で提供します。月2回のオンライン面談と、いつでも質問を送れるSFL Larkサポートデスクが含まれ、導入直後の悩みや改善方法を一緒に整理します。個人向け講座のサポート条件は、各講座の案内をご確認ください。" } },
-          { "@type": "Question", "name": "神戸以外の企業も相談できますか？", "acceptedAnswer": { "@type": "Answer", "text": "はい。合同会社SFLは神戸市中央区を拠点に、全国オンラインで対応しています。訪問研修は、内容と地域に応じて個別にご相談ください。" } },
-          { "@type": "Question", "name": "助成金・補助金の活用は相談できますか？", "acceptedAnswer": { "@type": "Answer", "text": "はい。人材開発支援助成金などの活用に向け、研修目的、対象者、時間、実施方法を整理します。対象可否・支給額は制度要件と個別審査で決まり、受給・採択を保証するものではありません。申請に専門判断が必要な場合は社会保険労務士などの専門家と連携します。" } },
-          { "@type": "Question", "name": "個人向け講座と法人向け研修は何が違いますか？", "acceptedAnswer": { "@type": "Answer", "text": "法人向け研修は、社員の育成と業務での活用を目的に、自社業務を題材として設計します。個人向け講座は、ご本人のスキル習得や仕事での活用を目的とした別サービスです。対象者、料金、カリキュラムをそれぞれご案内します。" } }
-        ]
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebSite",
+      "@id": "https://salonflowlab.com/#website",
+      "url": "https://salonflowlab.com/",
+      "name": "合同会社SFL",
+      "alternateName": "SFL",
+      "inLanguage": "ja-JP",
+      "publisher": {
+        "@id": "https://salonflowlab.com/#organization"
       }
-    ]
-  }
+    },
+    {
+      "@type": "Organization",
+      "@id": "https://salonflowlab.com/#organization",
+      "name": "合同会社SFL",
+      "legalName": "合同会社SFL",
+      "alternateName": [
+        "SFL",
+        "SALON FLOW LAB."
+      ],
+      "url": "https://salonflowlab.com/",
+      "logo": "https://salonflowlab.com/assets/site/img/sfl-logo.jpg",
+      "identifier": {
+        "@type": "PropertyValue",
+        "propertyID": "法人番号",
+        "value": "8140003023662"
+      },
+      "address": {
+        "@type": "PostalAddress",
+        "addressCountry": "JP",
+        "postalCode": "651-0084",
+        "addressRegion": "兵庫県",
+        "addressLocality": "神戸市中央区",
+        "streetAddress": "磯辺通1丁目1番18号 カサベラ国際プラザビル707号室"
+      },
+      "founder": {
+        "@type": "Person",
+        "name": "大城 未緒",
+        "jobTitle": "代表社員"
+      },
+      "areaServed": {
+        "@type": "Country",
+        "name": "日本"
+      },
+      "sameAs": [
+        "https://note.com/sfl_lark_dx_ai"
+      ],
+      "description": "Larkを軸に業務改善・構築・教育・伴走支援を提供。Lark・AI・官公庁入札の3事業を展開。神戸を拠点に全国オンライン対応。"
+    },
+    {
+      "@type": "Service",
+      "@id": "https://salonflowlab.com/#lark-support",
+      "name": "Larkによる業務改善・構築・教育・伴走支援",
+      "serviceType": [
+        "Lark導入支援",
+        "Lark Base構築",
+        "法人向けLark研修",
+        "AI活用研修",
+        "導入後の伴走支援"
+      ],
+      "description": "業務整理・Larkの構築・社員研修・導入後の伴走支援まで、現場の状況に合わせて支援します。",
+      "provider": {
+        "@id": "https://salonflowlab.com/#organization"
+      },
+      "areaServed": {
+        "@type": "Country",
+        "name": "日本"
+      }
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "https://salonflowlab.com/#faq",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Larkアカウントの契約を無理に勧められませんか？",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "合同会社SFLはLark Japanの代理店ではありません。アカウントの契約や有料プランの利用を無理に勧めることはなく、お客様の業務や目的に合わせて必要な教育・構築・運用支援をご案内します。Lark Japanの認定は講師個人に付与されたもので、SFL自体の公式認定を示すものではありません。"
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "業務整理だけでも利用できますか？",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "はい。業務整理までのご利用も歓迎です。ヒアリングをもとに現在の業務フローを可視化し、作成したフロー図等をお渡しします。整理した業務に対するAI・DX活用のアドバイスも行います。その後のサービス・商品のご契約は必須ではありません。"
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "無料相談と、有料の業務整理の違いは何ですか？",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "60分の無料相談では、現在の業務やお困りごと、実現したいことを伺います。有料の業務整理では、オンライン面談または訪問で詳しくヒアリングし、担当者・使用ツール・作業の順番を整理して、現在の業務フローを可視化します。業務整理は必須ではなく、無料相談から直接ご提案・お見積もりへ進めます。時間・料金は、お問い合わせページの「相談の流れ」でご案内しています。"
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "操作に慣れていない社員でも受講できますか？",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "はい。現在の習熟度を事前に確認し、基本操作から段階的に進めます。自社の業務を題材にするため、学ぶ理由と使う場面を結びつけながら理解できます。"
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "研修だけでなく、Lark Baseの構築も依頼できますか？",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "可能です。業務整理、データ項目、権限、申請、通知、ダッシュボードの設計・構築と、社内研修を一体で支援できます。"
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "法人研修後の1か月無料伴走には何が含まれますか？",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "法人向け研修の終了後1か月間、Lark FLOW ONEを無料で提供します。月2回のオンライン面談と、いつでも質問を送れるSFL Larkサポートデスクが含まれ、導入直後の悩みや改善方法を一緒に整理します。個人向け講座のサポート条件は、各講座の案内をご確認ください。"
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "神戸以外の企業も相談できますか？",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "はい。合同会社SFLは神戸市中央区を拠点に、全国オンラインで対応しています。訪問研修は、内容と地域に応じて個別にご相談ください。"
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "個人向け講座と法人向け研修は何が違いますか？",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "法人向け研修は、社員の育成と業務での活用を目的に、自社業務を題材として設計します。個人向け講座は、ご本人のスキル習得や仕事での活用を目的とした別サービスです。対象者、料金、カリキュラムをそれぞれご案内します。"
+          }
+        }
+      ]
+    }
+  ]
+}
   </script>
 </head>
 <body data-active="home">
@@ -139,15 +222,6 @@
           <p class="lead">Larkによる業務改善を軸に、AIの活用・教育、官公庁入札の3つの事業に取り組んでいます。</p>
         </div>
         <div class="grid grid-3" data-sfl="businesses"></div>
-        <div class="notice-box" style="margin-top:28px" data-reveal>
-          <div class="notice-inline">
-            <img src="/assets/site/img/logo-lark-official.png" alt="Lark" width="40" height="40" loading="lazy">
-            <div class="stack-sm" style="flex:1;min-width:240px">
-              <p><strong>合同会社SFLはLark Japanの代理店ではありません。</strong>Larkアカウントの契約や有料プランの利用を無理に勧めることはありません。お客様の業務や目的に合わせて、必要な教育・構築・運用支援をご案内します。</p>
-              <p class="note">Lark Japan認定のKazu先生が実務教育を担当します。認定は講師個人に付与されたもので、合同会社SFL自体の公式認定を示すものではありません。</p>
-            </div>
-          </div>
-        </div>
       </div>
     </section>
 
@@ -224,30 +298,6 @@
               </div>
             </details>
           </article>
-        </div>
-
-        <div style="margin-top:32px" data-reveal>
-          <details class="disclosure" id="dx-employee">
-            <summary><span class="label">「DX社員」を育てる学び方｜業務の理解から操作・構築・改善まで、4つのステップ</span></summary>
-            <div class="disclosure-body">
-              <p>自社の業務を整理し、Larkや生成AIを使って改善する。操作の練習から仕組みづくり、運用の見直しまで、自分の手を動かしながら学びます。</p>
-              <ol class="steps">
-                <li><span class="step-num">01 UNDERSTAND</span><h4>業務を理解する</h4><p>いま誰が、何を、どの順番で行っているかを整理し、改善すべき課題を言葉にします。</p></li>
-                <li><span class="step-num">02 PRACTICE</span><h4>実際に操作する</h4><p>講師の画面を見るだけでなく、自分で手を動かしながらLark・AIの使い方を身につけます。</p></li>
-                <li><span class="step-num">03 IMPLEMENT</span><h4>自社業務でつくる</h4><p>顧客、案件、申請、教育など、自社で使う題材をもとに仕組みを設計・構築します。</p></li>
-                <li><span class="step-num">04 IMPROVE</span><h4>使いながら改善する</h4><p>運用後のつまずきを確認し、画面・権限・ルール・教育内容を更新します。</p></li>
-              </ol>
-              <p><strong>DX社員に求める、3つの実務力：</strong>情報の流れを整理し、課題を説明できる／Lark・AIを自分の業務で使い分けられる／必要な仕組みを社内で改善し続けられる</p>
-            </div>
-          </details>
-          <details class="disclosure" id="funding">
-            <summary><span class="label">助成金・補助金の活用相談｜研修や導入の目的に合わせて、活用できる制度と条件を確認します</span></summary>
-            <div class="disclosure-body">
-              <p>人材開発支援助成金、デジタル化・AI導入補助金、業務改善助成金などの活用をご相談いただけます。必要に応じて専門家と連携し、対象要件を確認します。</p>
-              <p class="note">対象可否・支給額は制度要件と審査で決まります。受給・採択を保証するものではありません。</p>
-              <p><a class="text-link" href="/lark-dx/#support-programs">助成金・補助金の詳細を見る<span class="arrow" aria-hidden="true">→</span></a>　<a class="text-link" href="/reskilling-subsidy-simulator/">研修費用を試算する<span class="arrow" aria-hidden="true">→</span></a></p>
-            </div>
-          </details>
         </div>
       </div>
     </section>
@@ -364,25 +414,6 @@
             <div class="card-foot"><a class="text-link" href="/instructors/">講師・支援チーム<span class="arrow" aria-hidden="true">→</span></a></div>
           </article>
         </div>
-        <div style="margin-top:32px" data-reveal>
-          <details class="disclosure" id="partners">
-            <summary><span class="label">提携企業｜KAIEI・UNIQSとの連携と、それぞれの役割</span></summary>
-            <div class="disclosure-body">
-              <p>KAIEIとの実務支援、UNIQSとの補助金パッケージ連携を通じて、導入前から運用定着までを支える体制をつくります。</p>
-              <div class="grid grid-2">
-                <article class="card partner-card">
-                  <img src="/assets/site/img/logo-kaiei.png" alt="株式会社KAIEI ロゴ" width="64" height="80" loading="lazy">
-                  <div><small>PARTNER COMPANY</small><strong>株式会社KAIEI</strong><p>Larkが使えるオンライン秘書・実務支援</p></div>
-                </article>
-                <a class="card card-link partner-card" href="https://www.uniq-s.co.jp/" target="_blank" rel="noopener noreferrer" aria-label="株式会社UNIQSの公式ホームページを開く（新しいタブ）">
-                  <img src="/assets/site/img/logo-uniqs.png" alt="株式会社UNIQS ロゴ" width="64" height="80" loading="lazy">
-                  <div><small>PARTNER COMPANY</small><strong>株式会社UNIQS ↗</strong><p>補助金対応パッケージ・DX導入支援</p></div>
-                </a>
-              </div>
-              <p class="note">※本項は合同会社SFLの事業提携企業を示すもので、各サービス提供元からの認定を示すものではありません。</p>
-            </div>
-          </details>
-        </div>
       </div>
     </section>
 
@@ -412,13 +443,11 @@
           <details class="disclosure"><summary><span class="num">01</span><span class="label">Larkアカウントの契約を無理に勧められませんか？</span></summary><div class="disclosure-body"><p>合同会社SFLはLark Japanの代理店ではありません。アカウントの契約や有料プランの利用を無理に勧めることはなく、お客様の業務や目的に合わせて必要な教育・構築・運用支援をご案内します。Lark Japanの認定は講師個人に付与されたもので、SFL自体の公式認定を示すものではありません。</p></div></details>
           <details class="disclosure"><summary><span class="num">02</span><span class="label">業務整理だけでも利用できますか？</span></summary><div class="disclosure-body"><p>はい。業務整理までのご利用も歓迎です。ヒアリングをもとに現在の業務フローを可視化し、作成したフロー図等をお渡しします。整理した業務に対するAI・DX活用のアドバイスも行います。その後のサービス・商品のご契約は必須ではありません。</p></div></details>
           <details class="disclosure"><summary><span class="num">03</span><span class="label">無料相談と、有料の業務整理の違いは何ですか？</span></summary><div class="disclosure-body"><p>60分の無料相談では、現在の業務やお困りごと、実現したいことを伺います。有料の業務整理では、オンライン面談または訪問で詳しくヒアリングし、担当者・使用ツール・作業の順番を整理して、現在の業務フローを可視化します。業務整理は必須ではなく、無料相談から直接ご提案・お見積もりへ進めます。時間・料金は、お問い合わせページの「相談の流れ」でご案内しています。</p></div></details>
-          <details class="disclosure"><summary><span class="num">04</span><span class="label">SFLが育成する「DX社員」とは、どのような人材ですか？</span></summary><div class="disclosure-body"><p>SFLでは、専門エンジニアだけを指す言葉としてではなく、現場の課題を整理し、LarkやAIを使って必要な仕組みをつくり、社内で改善を続けられる人材を「DX社員」と表現しています。特定の資格名ではありません。</p></div></details>
-          <details class="disclosure"><summary><span class="num">05</span><span class="label">操作に慣れていない社員でも受講できますか？</span></summary><div class="disclosure-body"><p>はい。現在の習熟度を事前に確認し、基本操作から段階的に進めます。自社の業務を題材にするため、学ぶ理由と使う場面を結びつけながら理解できます。</p></div></details>
-          <details class="disclosure"><summary><span class="num">06</span><span class="label">研修だけでなく、Lark Baseの構築も依頼できますか？</span></summary><div class="disclosure-body"><p>可能です。業務整理、データ項目、権限、申請、通知、ダッシュボードの設計・構築と、社内研修を一体で支援できます。</p></div></details>
-          <details class="disclosure"><summary><span class="num">07</span><span class="label">法人研修後の1か月無料伴走には何が含まれますか？</span></summary><div class="disclosure-body"><p>法人向け研修の終了後1か月間、Lark FLOW ONEを無料で提供します。月2回のオンライン面談と、いつでも質問を送れるSFL Larkサポートデスクが含まれ、導入直後の悩みや改善方法を一緒に整理します。個人向け講座のサポート条件は、各講座の案内をご確認ください。</p></div></details>
-          <details class="disclosure"><summary><span class="num">08</span><span class="label">神戸以外の企業も相談できますか？</span></summary><div class="disclosure-body"><p>はい。合同会社SFLは神戸市中央区を拠点に、全国オンラインで対応しています。訪問研修は、内容と地域に応じて個別にご相談ください。</p></div></details>
-          <details class="disclosure"><summary><span class="num">09</span><span class="label">助成金・補助金の活用は相談できますか？</span></summary><div class="disclosure-body"><p>はい。人材開発支援助成金などの活用に向け、研修目的、対象者、時間、実施方法を整理します。対象可否・支給額は制度要件と個別審査で決まり、受給・採択を保証するものではありません。申請に専門判断が必要な場合は社会保険労務士などの専門家と連携します。</p></div></details>
-          <details class="disclosure"><summary><span class="num">10</span><span class="label">個人向け講座と法人向け研修は何が違いますか？</span></summary><div class="disclosure-body"><p>法人向け研修は、社員の育成と業務での活用を目的に、自社業務を題材として設計します。個人向け講座は、ご本人のスキル習得や仕事での活用を目的とした別サービスです。対象者、料金、カリキュラムをそれぞれご案内します。</p></div></details>
+          <details class="disclosure"><summary><span class="num">04</span><span class="label">操作に慣れていない社員でも受講できますか？</span></summary><div class="disclosure-body"><p>はい。現在の習熟度を事前に確認し、基本操作から段階的に進めます。自社の業務を題材にするため、学ぶ理由と使う場面を結びつけながら理解できます。</p></div></details>
+          <details class="disclosure"><summary><span class="num">05</span><span class="label">研修だけでなく、Lark Baseの構築も依頼できますか？</span></summary><div class="disclosure-body"><p>可能です。業務整理、データ項目、権限、申請、通知、ダッシュボードの設計・構築と、社内研修を一体で支援できます。</p></div></details>
+          <details class="disclosure"><summary><span class="num">06</span><span class="label">法人研修後の1か月無料伴走には何が含まれますか？</span></summary><div class="disclosure-body"><p>法人向け研修の終了後1か月間、Lark FLOW ONEを無料で提供します。月2回のオンライン面談と、いつでも質問を送れるSFL Larkサポートデスクが含まれ、導入直後の悩みや改善方法を一緒に整理します。個人向け講座のサポート条件は、各講座の案内をご確認ください。</p></div></details>
+          <details class="disclosure"><summary><span class="num">07</span><span class="label">神戸以外の企業も相談できますか？</span></summary><div class="disclosure-body"><p>はい。合同会社SFLは神戸市中央区を拠点に、全国オンラインで対応しています。訪問研修は、内容と地域に応じて個別にご相談ください。</p></div></details>
+          <details class="disclosure"><summary><span class="num">08</span><span class="label">個人向け講座と法人向け研修は何が違いますか？</span></summary><div class="disclosure-body"><p>法人向け研修は、社員の育成と業務での活用を目的に、自社業務を題材として設計します。個人向け講座は、ご本人のスキル習得や仕事での活用を目的とした別サービスです。対象者、料金、カリキュラムをそれぞれご案内します。</p></div></details>
         </div>
       </div>
     </section>

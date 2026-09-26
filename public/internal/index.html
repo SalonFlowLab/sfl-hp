@@ -37,7 +37,7 @@
         <h1>SFLコーポレートサイト リニューアル 内部資料</h1>
         <p class="lead">仕様書・会議・コメントの内容と、実装時に行った判断、確定待ちの事項を1ページに集約しています。公開サイトへ戻る場合は <a href="/">トップページ</a> へ。</p>
         <nav class="toc" aria-label="目次" style="margin-top:20px">
-          <a href="#wait">確定待ち</a><a href="#trim">削る候補</a><a href="#spec">仕様書の対応状況</a><a href="#comments">コメントへの判断</a><a href="#prices">料金・時間の掲載箇所</a><a href="#services12">12サービスの掲載先</a><a href="#pages">ページ一覧</a><a href="#urls">外部URL</a><a href="#design">デザイン・運用ルール</a><a href="#meeting">会議の決定事項</a><a href="#sources">出典</a>
+          <a href="#wait">確定待ち</a><a href="#trim">情報の整理</a><a href="#spec">仕様書の対応状況</a><a href="#comments">コメントへの判断</a><a href="#prices">料金・時間の掲載箇所</a><a href="#services12">12サービスの掲載先</a><a href="#pages">ページ一覧</a><a href="#urls">外部URL</a><a href="#design">デザイン・運用ルール</a><a href="#meeting">会議の決定事項</a><a href="#sources">出典</a>
         </nav>
       </div>
     </section>
@@ -54,8 +54,8 @@
             <tr><td><span class="st st-done">決定</span> 既存の美容向けページ</td><td>2026-09-26 に廃止を決定（一般業種全体に向けたHPへ）。旧ページ・旧資産・資料請求フォームAPIを削除し、旧URLは内容の近い新ページへ301転送（public/_redirects）</td><td>—</td></tr>
             <tr><td><span class="st st-temp">暫定</span> 個人向け講座の受講窓口</td><td>/contact/#course-entry に各講座の案内ページへのリンクを置いた</td><td>既存LINE か 講座専用ページか（仕様書 09・11）</td></tr>
             <tr><td><span class="st st-wait">保留</span> 時間・料金の公開範囲</td><td>トップからは時間・料金を外した。下層ページは現行の記載を維持（下の「料金・時間の掲載箇所」）</td><td>どこまで公開するか。決まったら全掲載箇所を同時に揃える（仕様書 06）</td></tr>
-            <tr><td><span class="st st-wait">保留</span> 情報量の削減</td><td>トップのみ仕様書どおり削減。下層ページは元の内容をほぼ残している</td><td>「削る候補」の表の各行を判断</td></tr>
-            <tr><td><span class="st st-wait">保留</span> 12サービスの掲載先</td><td>/services/#service-list に12件・番号・アンカーを現行どおり掲載（概要は常時表示、条件は開閉）</td><td>掲載先・提供中／準備中・料金の公開範囲（仕様書 10。特に06・07・09・10・11・12）</td></tr>
+            <tr><td><span class="st st-temp">一部実施</span> 情報量の削減</td><td>重複は削除済み。重複でない情報は残している</td><td>「情報の整理」の「残した候補」を判断</td></tr>
+            <tr><td><span class="st st-wait">保留</span> サービス一覧の掲載先</td><td>重複を除いて7件に（講座2件・補助金2件を各ページへ、伴走とサポートデスクを統合）。残りの掲載可否は未決</td><td>掲載先・提供中／準備中・料金の公開範囲（仕様書 10。特に06・07・09・10・11・12）</td></tr>
             <tr><td><span class="st st-temp">暫定</span> トップの実績カード</td><td>現行4件をすべて表示</td><td>どれを載せるか、取引先名・肩書きの表記と掲載可否（仕様書 05）</td></tr>
             <tr><td><span class="st st-temp">暫定</span> 講座カードの掲載情報</td><td>開始年月・募集期のみ表示。Lark導入講座2期生は「2026年11月募集予定」に統一</td><td>開始年月・募集期・学習時間をどこまで載せるか（仕様書 09）</td></tr>
             <tr><td><span class="st st-temp">暫定</span> 官公庁入札事業カードのリンク先</td><td>/services/#public-procurement（事業の説明＋講座案内へのリンク）</td><td>事業としての詳細ページを別に作るか</td></tr>
@@ -66,13 +66,12 @@
       </section>
 
       <section id="trim">
-        <h2>削る候補（9/29 打ち合わせ用・未実施）</h2>
-        <p style="margin-bottom:8px">基準は会議で決めた「名刺に近いもの」：<strong>何をしている会社か／誰向けか／信頼できるか／どう相談するか</strong>が伝わること。細かい条件や重複は詳細ページか営業資料に回す。</p>
-        <p class="note" style="margin-bottom:12px">まだ何も削っていません。各行に「OK／残す／修正」を決めていただければ、そのまま反映します。消す情報もgitに残るため、後から戻せます。目安：トップ 約4,500字→約3,300字、/services/ 約5,900字→約3,000字、/lark-dx/ 約6,500字→約4,000字、/company/ 約3,100字→約2,000字。</p>
-        <div class="table-scroll"><table>
-          <thead><tr><th>ページ</th><th>箇所</th><th>現状</th><th>案</th><th>理由</th></tr></thead>
-          <tbody><tr><td>トップ</td><td>よくあるご質問（10件・約1,300字）</td><td>10件すべて表示</td><td><b>移す</b>：04 DX社員／05 操作に不慣れ／06 Base構築／07 1か月伴走／09 助成金 の5件を /lark-dx/ のFAQへ。トップは 01 代理店ではない／02 業務整理だけ／03 無料相談と業務整理の違い／08 神戸以外／10 個人と法人の違い の5件に</td><td>研修・制度の細かい質問は法人研修を検討する人向け。/lark-dx/ のFAQと一部重複（DX社員・助成金）</td></tr><tr><td>トップ</td><td>4つの支援の下の開閉「DX社員を育てる学び方」</td><td>開閉で表示</td><td><b>移す</b>：/lark-dx/ の「研修の5つの段階」に統合</td><td>研修の説明で、会社案内としては詳細すぎる</td></tr><tr><td>トップ</td><td>4つの支援の下の開閉「助成金・補助金の活用相談」</td><td>開閉で表示</td><td><b>削る</b>（/lark-dx/#support-programs と助成金試算ページで案内済み）</td><td>制度の話はトップの目的（何をしている会社か）から外れる</td></tr><tr><td>トップ</td><td>「Larkで、日々の仕事をひとつの流れに」4ステップ</td><td>常時表示</td><td><b>要相談</b>：残す／削る</td><td>Lark活用の具体像として有効。一方で直後のCycle Pro事例と役割が近い</td></tr><tr><td>トップ</td><td>提携企業（開閉）</td><td>開閉で表示</td><td><b>削る</b>（会社ページに掲載済み）</td><td>仕様書05では「現状維持」。確認のうえ判断</td></tr><tr><td>トップ・複数</td><td>「Lark Japanの代理店ではありません」の注記</td><td>事業概要・FAQ01・問い合わせ・会社・フッターの5か所</td><td><b>統合</b>：FAQ01・問い合わせ・フッターの3か所に絞る</td><td>同じ注記の繰り返し</td></tr><tr><td>/services/</td><td>12サービス（約4,100字）</td><td>12件すべて・料金は開閉内</td><td><b>統合・移す</b>：03 Lark導入講座・04 実務講座とAcademy は「講座・研修」と重複のため一覧から外す／05 Cycle Pro は事例ページへ／06・07 補助金・助成金は /lark-dx/ の制度活用へ／10 サポートデスク と 11 FLOW ONE は「導入後の伴走・サポート」に統合／09 AI初期設定は /ai-setup/ へのリンクだけ／12 オンライン秘書は会社ページの提携企業へ。残るのは 01 業務整理・02 法人研修・伴走サポート・08 Web・LINE構築（要相談）の4〜5件</td><td>仕様書10の案と同じ方向。会議で「3事業と12サービスの重複」「そこまで読んで問い合わせるか」と指摘あり</td></tr><tr><td>/services/</td><td>各サービスの料金</td><td>開閉内に掲載</td><td><b>要相談</b>：料金は各詳細ページか営業資料に集約し、一覧からは外す</td><td>料金の公開範囲が確定待ち（仕様書06）</td></tr><tr><td>/lark-dx/</td><td>「Lark導入で、情報共有と業務をひとつの流れへ」（Larkの機能説明・約700字）</td><td>常時表示</td><td><b>削る</b>または2〜3行に要約</td><td>Lark自体の製品説明で、SFLの情報ではない</td></tr><tr><td>/lark-dx/</td><td>制度活用（3パッケージ・約1,800字）</td><td>常時表示</td><td><b>要約</b>：各パッケージを名称・対象・1行説明に絞り、細則（賃金引上げ額・助成率など）は助成金試算ページと営業資料へ</td><td>ページ内で最も長い。条件の細部は相談時に説明する方が誤解が少ない</td></tr><tr><td>/lark-dx/</td><td>よくあるご質問（9件）</td><td>9件すべて表示</td><td><b>整理</b>：04 料金（受講プランと重複）を削除し、07〜09の制度の質問は1件にまとめる。トップから移す5件と合わせて重複を除く</td><td>重複の解消</td></tr><tr><td>/company/</td><td>「実績の数字だけでなく、支援体制まで見える」（約1,350字）</td><td>代表・LARK MASTER・実績・コアチーム・スペシャリスト・講座修了パートナー</td><td><b>移す</b>：コアチーム・スペシャリスト・講座修了パートナーは /instructors/ に集約。実績とLARK MASTERは /case-study/ に一本化し、会社ページはリンクだけに</td><td>トップ・事例・会社の3ページで同じ実績を表示している</td></tr><tr><td>/company/</td><td>「現場を知り、人を育て、仕組みを整える」（3つの姿勢）</td><td>常時表示</td><td><b>要相談</b>：代表メッセージと統合するか</td><td>代表メッセージと内容が近い</td></tr><tr><td>/case-study/</td><td>講座の開催・コミュニティの活動状況</td><td>常時表示</td><td><b>削る</b>：講座の状況は講座カード（data.js）だけで表示。あわせてページの見出し・説明文・metaから「講座の開催状況」を外す</td><td>実績ページの主旨（導入・研修・取引実績）から外れる。講座の状況を二重に管理しなくて済む</td></tr><tr><td>/ai-setup/</td><td>「AI導入の初期設定で止まっていませんか」と「こんな方におすすめです」</td><td>別々に表示</td><td><b>統合</b>：1つのセクションに</td><td>内容が近い</td></tr><tr><td>残す</td><td>/contact/・/ai-dx-training/・/instructors/・/support-policy/・/information-security-policy/・/privacy/・助成金試算</td><td>—</td><td><b>残す</b></td><td>分量が適切、または法令・信頼の情報のため</td></tr></tbody>
-        </table></div>
+        <h2>情報の整理（重複の削除）</h2>
+        <p style="margin-bottom:12px">2026-09-26、「内容が重複しているものは削除してよい」との指示で実施。重複していない情報は残し、下の「残した候補」で判断を待っている。消した内容は git 履歴から戻せる。</p>
+        <h3 class="sub-heading">削除・統合したもの</h3>
+        <div class="table-scroll"><table><thead><tr><th>ページ</th><th>箇所</th><th>理由・移した先</th></tr></thead><tbody><tr><td>トップ</td><td>「Lark Japanの代理店ではありません」の注記ボックス</td><td>FAQ01・問い合わせ・フッターに残す（/lark-dx/・支援契約ガイドにも残す）</td></tr><tr><td>トップ</td><td>開閉「DX社員を育てる学び方」</td><td>/lark-dx/ の「研修の5つの段階」と重複</td></tr><tr><td>トップ</td><td>開閉「助成金・補助金の活用相談」</td><td>/lark-dx/#support-programs・助成金試算と重複</td></tr><tr><td>トップ</td><td>開閉「提携企業」</td><td>/company/#partners と重複（仕様書05では現状維持の指示だったが重複として削除）</td></tr><tr><td>トップ</td><td>FAQ 04「DX社員とは」・09「助成金・補助金の活用」</td><td>/lark-dx/ のFAQ 01・07と同じ内容。トップのFAQは8件に（JSON-LDも同時に更新）</td></tr><tr><td>/services/</td><td>12サービスのうち 03 Lark導入講座・04 実務講座とAcademy</td><td>同じページの「講座・研修」と重複</td></tr><tr><td>/services/</td><td>12サービスのうち 06 UNIQS連携パッケージ・07 業務改善助成金</td><td>/lark-dx/ の制度活用（#digital-ai-subsidy・#business-improvement-grant）と重複。関連サービス欄から /lark-dx/#support-programs へリンク</td></tr><tr><td>/services/</td><td>10 サポートデスク・11 Lark FLOW ONE</td><td>「導入後の伴走・サポート」1件に統合（内容・料金は両方残した）。一覧は7件、見出しは「ご相談いただけるサービス」（数字なし）</td></tr><tr><td>/services/</td><td>3事業ブロックのチェックリスト（Lark・AI）</td><td>右の「関連するサービス」と同じ項目</td></tr><tr><td>/services/</td><td>Lark代理店の注記ボックス</td><td>トップと同じ理由</td></tr><tr><td>/company/</td><td>代表カード・LARK MASTER・数値・実績カード</td><td>代表メッセージ・/case-study/ と重複。「実績と支援体制」は2枚のリンクカードに</td></tr><tr><td>/company/</td><td>コアチーム・スペシャリスト・講座修了パートナー</td><td>/instructors/ へ移設（/instructors/ の要約カードと重複していたため、詳細版に置き換え）</td></tr><tr><td>/company/</td><td>会社概要のLark代理店の注記</td><td>トップと同じ理由</td></tr><tr><td>/case-study/</td><td>講座の開催・コミュニティの活動状況</td><td>講座カード（data.js）と重複。h1・title・description を「実績・事例」に変更（ナビ表記と一致）</td></tr><tr><td>/lark-dx/</td><td>FAQ 04「時間・料金」</td><td>同じページの受講プランと重複</td></tr><tr><td>/ai-setup/</td><td>「こんな方におすすめです」</td><td>「初期設定で止まっていませんか」と重複。重ならない2点だけ1文で残した</td></tr><tr><td>/contact/</td><td>相談の流れのSTEP 01・02カード</td><td>直上のフロー図と同じ内容。契約の一文だけ残した</td></tr></tbody></table></div>
+        <h3 class="sub-heading" style="margin-top:32px">残した候補（重複ではない・要相談）</h3>
+        <div class="table-scroll"><table><thead><tr><th>ページ</th><th>箇所</th><th>状態</th></tr></thead><tbody><tr><td>トップ</td><td>「Larkで、日々の仕事をひとつの流れに」4ステップ</td><td>要相談：残す／削る（直後のCycle Pro事例と役割が近い）</td></tr><tr><td>トップ</td><td>FAQ 05 操作に不慣れ・06 Base構築・07 1か月伴走</td><td>重複ではないため残した。/lark-dx/ へ移すかは要相談</td></tr><tr><td>/services/</td><td>Cycle Pro・Web／LINE構築・AI初期設定・オンライン秘書</td><td>重複ではないため残した。Web／LINE構築を載せるか、料金を一覧から外すかは要相談（仕様書10）</td></tr><tr><td>/lark-dx/</td><td>Larkの機能説明（約700字）・制度活用の細則（約1,800字）</td><td>重複ではないため残した。削る／要約するかは要相談</td></tr><tr><td>/company/</td><td>「3つの姿勢」</td><td>代表メッセージと近いが同じ内容ではないため残した</td></tr></tbody></table></div>
       </section>
 
       <section id="spec">
@@ -147,16 +146,16 @@
             <tr><td>業務整理（希望者のみ）</td><td>個人事業主・フリーランス 3時間 40,000円／法人 5時間 70,000円（各税別）</td><td>/services/#workflow-review、/support-policy/（時間のみ：/contact/#flow）</td></tr>
             <tr><td>法人向けLark・DX研修／SFL AI研修</td><td>3時間×5コマ・計15時間・1名あたり360,000円（税別）、1回最大5名</td><td>/services/#lark-education、/lark-dx/、/ai-dx-training/、/reskilling-subsidy-simulator/</td></tr>
             <tr><td>人材開発支援助成金の試算</td><td>経費助成75％で負担目安90,000円／人（税抜ベース）、賃金助成15,000円／人</td><td>/lark-dx/#support-programs、/reskilling-subsidy-simulator/</td></tr>
-            <tr><td>SFL Lark導入講座</td><td>10時間・2期以降180,000円（税別）</td><td>/services/#lark-intro-course、/lark-dx/#individual-course</td></tr>
-            <tr><td>SFL Larkサポートデスク</td><td>月額980円（税込）</td><td>/services/#support-desk、/lark-dx/</td></tr>
+            <tr><td>SFL Lark導入講座</td><td>10時間・2期以降180,000円（税別）</td><td>/lark-dx/#individual-course</td></tr>
+            <tr><td>SFL Larkサポートデスク</td><td>月額980円（税込）</td><td>/services/#lark-flow-one、/lark-dx/</td></tr>
             <tr><td>Claude Code・Codex×Lark 初期設定</td><td>2時間・99,000円（税込）</td><td>/services/#ai-setup、/ai-setup/#price</td></tr>
-            <tr><td>UNIQS連携パッケージ</td><td>Lark業務改善パッケージ 2,300,000円／DX ONE 2,600,000円（税別）</td><td>/services/#subsidy-package</td></tr>
+            <tr><td>UNIQS連携パッケージ</td><td>Lark業務改善パッケージ 2,300,000円／DX ONE 2,600,000円（税別）</td><td>/lark-dx/#digital-ai-subsidy</td></tr>
           </tbody>
         </table></div>
       </section>
 
       <section id="services12">
-        <h2>12サービスの掲載先（仕様書 10 の案）</h2>
+        <h2>12サービスの掲載先（仕様書 10 の案。重複の削除で03・04・06・07は各ページへ移し、10・11は統合済み）</h2>
         <div class="table-scroll"><table>
           <thead><tr><th>現行メニュー</th><th>アンカー</th><th>掲載先・変更内容（案）</th></tr></thead>
           <tbody>

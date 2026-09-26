@@ -26,7 +26,7 @@
 | ページ | パス |
 |---|---|
 | トップ | `/` |
-| 事業・サービス（3事業・講座研修・12サービス） | `/services/` |
+| 事業・サービス（3事業・講座研修・サービス一覧） | `/services/` |
 | 法人向けLark・DX研修／SFL Lark導入講座 | `/lark-dx/` |
 | 法人向け生成AI研修 | `/ai-dx-training/` |
 | Claude Code・Codex×Lark 初期設定支援 | `/ai-setup/` |
