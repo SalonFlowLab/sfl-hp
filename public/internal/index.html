@@ -51,6 +51,7 @@
           <thead><tr><th>項目</th><th>現在の実装</th><th>決めること</th></tr></thead>
           <tbody>
             <tr><td><span class="st st-temp">暫定</span> 公開ドメイン</td><td>canonical・OG・JSON-LD・sitemap・robots を <code>https://salonflowlab.com</code> で統一</td><td>新ドメインにするか。変える場合は一括置換（<code>rg -l "salonflowlab.com" public</code>）</td></tr>
+            <tr><td><span class="st st-wait">保留</span> ロゴ画像</td><td>ヘッダー・フッター・JSON-LD のロゴ（<code>sfl-logo.jpg</code> と縮小版 <code>sfl-logo-mark.webp</code>）のマーク下に旧ブランド名「SALON FLOW LAB.」の文字が入っている</td><td>一般業種向けの新ロゴを用意するか。用意したら両ファイルを差し替える（縮小版は132px・WebP）</td></tr>
             <tr><td><span class="st st-done">決定</span> 既存の美容向けページ</td><td>2026-09-26 に廃止を決定（一般業種全体に向けたHPへ）。旧ページ・旧資産・資料請求フォームAPIを削除し、旧URLは内容の近い新ページへ301転送（public/_redirects）</td><td>—</td></tr>
             <tr><td><span class="st st-done">決定</span> 個人向け講座の受講窓口</td><td>2026-09-26、法人と個人の混在を解消するため個人向け講座のページ /courses/ を新設。受講のお問い合わせは /courses/#entry から各講座の案内・申込ページへ（事業相談のLINE・フォームとは分ける）</td><td>—（既存LINEで受講相談も受けるなら追記）</td></tr>
             <tr><td><span class="st st-wait">保留</span> 時間・料金の公開範囲</td><td>トップからは時間・料金を外した。下層ページは現行の記載を維持（下の「料金・時間の掲載箇所」）</td><td>どこまで公開するか。決まったら全掲載箇所を同時に揃える（仕様書 06）</td></tr>
