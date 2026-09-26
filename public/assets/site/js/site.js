@@ -152,6 +152,12 @@
     if (fn) el.innerHTML = fn(el);
   });
 
+  /* ---------- 外部URL: HTML は data-url="キー" だけ書き、URL は data.js の urls を正とする ---------- */
+  document.querySelectorAll('a[data-url]').forEach((link) => {
+    const url = SFL.urls[link.dataset.url];
+    if (url) link.href = url;
+  });
+
   /* ---------- Reveal on scroll ---------- */
   const revealTargets = document.querySelectorAll('[data-reveal]');
   if ('IntersectionObserver' in window && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {

@@ -35,9 +35,10 @@ HTML/CSS/JavaScriptのみの静的サイトです。公開対象のファイル�
 | `<div data-site-header>` / `<div data-site-footer>` | ヘッダー・ドロワー・フッター |
 | `data-sfl="businesses"` | 3事業カード |
 | `data-sfl="courses" data-group="corporate|individual"` | 講座・研修カード（法人→個人の順） |
-| `data-sfl="academy"` | SFL Academy の案内 |
 | `data-sfl="records"` | 導入・研修・取引実績（トップ・事例・会社で共通） |
 | `data-sfl="flow"` | 相談フロー図（主フロー＋希望者のみの分岐） |
+
+**外部URLは `data.js` の `urls` が正です。** HTML には `<a data-url="キー">` だけを書き、`site.js` が href を入れます（`href` に同じURLを直接書くと `npm run check:links` が失敗します）。
 
 `<body data-active="...">` でナビの現在地を決めます。スクリプトは `data.js` → `site.js` の順に `defer` で読み込みます。
 

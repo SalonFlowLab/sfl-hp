@@ -1,10 +1,27 @@
 import { existsSync, readFileSync, statSync } from 'node:fs';
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import vm from 'node:vm';
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const publicDir = resolve(root, 'public');
 const missing = [];
+
+// data.js の外部URL。HTML は data-url="キー" で参照し、同じURLを href に直接書かない。
+const dataContext = { window: {} };
+vm.runInNewContext(readFileSync(resolve(publicDir, 'assets/site/js/data.js'), 'utf8'), dataContext);
+const siteUrls = dataContext.window.SFL.urls;
+const urlKeyOf = new Map(Object.entries(siteUrls).map(([key, url]) => [url, key]));
+
+function checkExternalUrls(file, html) {
+  const label = file.replace(`${root}/`, '');
+  for (const [, key] of html.matchAll(/\sdata-url=["']([^"']+)["']/g)) {
+    if (!(key in siteUrls)) missing.push(`${label} -> data-url="${key}"（data.js の urls に無い）`);
+  }
+  for (const [, href] of html.matchAll(/\shref=["']([^"']+)["']/g)) {
+    if (urlKeyOf.has(href)) missing.push(`${label} -> ${href}（data-url="${urlKeyOf.get(href)}" に置き換える）`);
+  }
+}
 
 // JS（site.js）が描画時に付与する id。静的HTMLには無いのでアンカー検査の対象外にする。
 const runtimeIdPattern = /^(business|course|record)-/;
@@ -72,6 +89,7 @@ const siteScripts = new Set([
 ]);
 
 for (const file of await walk(publicDir)) {
+  if (file.endsWith('.html')) checkExternalUrls(file, readFileSync(file, 'utf8'));
   const refs = file.endsWith('.html')
     ? collectHtmlRefs(readFileSync(file, 'utf8'))
     : file.endsWith('.css')
