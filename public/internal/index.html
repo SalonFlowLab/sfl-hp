@@ -1,0 +1,270 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <title>内部資料｜SFLコーポレートサイト</title>
+  <link rel="icon" href="/assets/site/img/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@600;700&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/assets/site/css/site.css?v=20260926-4">
+  <style>
+    .internal-bar { background: #7a1f1f; color: #fff; font-size: .86rem; font-weight: 700; padding: 8px 0; text-align: center; }
+    .internal table { width: 100%; border-collapse: collapse; font-size: .9rem; }
+    .internal th, .internal td { padding: 10px 12px; border-bottom: 1px solid var(--line); text-align: left; vertical-align: top; }
+    .internal th { background: var(--cream); color: var(--navy); white-space: nowrap; }
+    .internal td:first-child { white-space: nowrap; }
+    .internal table { min-width: 640px; }
+    .internal h2 { font-size: 1.4rem; margin: 0 0 16px; }
+    .internal section + section { margin-top: 56px; }
+    .st { display: inline-block; padding: 1px 8px; border-radius: 4px; font-size: .76rem; font-weight: 700; white-space: nowrap; }
+    .st-done { background: #e3f1e6; color: #1d5e2c; }
+    .st-temp { background: #fdf1d6; color: #7a5600; }
+    .st-wait { background: #fbe3e3; color: #7a1f1f; }
+    .toc { display: flex; flex-wrap: wrap; gap: 8px; }
+    .toc a { padding: 4px 12px; border: 1px solid var(--line-strong); border-radius: 6px; text-decoration: none; font-size: .86rem; }
+    main { padding-top: 0; }
+  </style>
+</head>
+<body>
+  <div class="internal-bar">内部資料｜プレビュー環境専用（本番では表示されません）</div>
+  <main id="main" class="internal">
+    <section class="page-hero">
+      <div class="shell">
+        <p class="eyebrow">Internal</p>
+        <h1>SFLコーポレートサイト リニューアル 内部資料</h1>
+        <p class="lead">仕様書・会議・コメントの内容と、実装時に行った判断、確定待ちの事項を1ページに集約しています。公開サイトへ戻る場合は <a href="/">トップページ</a> へ。</p>
+        <nav class="toc" aria-label="目次" style="margin-top:20px">
+          <a href="#wait">確定待ち</a><a href="#trim">情報の整理</a><a href="#spec">仕様書の対応状況</a><a href="#comments">コメントへの判断</a><a href="#prices">料金・時間の掲載箇所</a><a href="#services12">12サービスの掲載先</a><a href="#pages">ページ一覧</a><a href="#urls">外部URL</a><a href="#design">デザイン・運用ルール</a><a href="#meeting">会議の決定事項</a><a href="#sources">出典</a>
+        </nav>
+      </div>
+    </section>
+
+    <div class="shell section">
+
+      <section id="wait">
+        <h2>確定待ち（会社側の判断が必要）</h2>
+        <p class="note" style="margin-bottom:12px">暫定対応で実装済みのものは「暫定」、決まるまで現状維持のものは「保留」。</p>
+        <div class="table-scroll"><table>
+          <thead><tr><th>項目</th><th>現在の実装</th><th>決めること</th></tr></thead>
+          <tbody>
+            <tr><td><span class="st st-temp">暫定</span> 公開ドメイン</td><td>canonical・OG・JSON-LD・sitemap・robots を <code>https://salonflowlab.com</code> で統一</td><td>新ドメインにするか。変える場合は一括置換（<code>rg -l "salonflowlab.com" public</code>）</td></tr>
+            <tr><td><span class="st st-wait">保留</span> ロゴ画像</td><td>ヘッダー・フッター・JSON-LD のロゴ（<code>sfl-logo.jpg</code> と縮小版 <code>sfl-logo-mark.webp</code>）のマーク下に旧ブランド名「SALON FLOW LAB.」の文字が入っている</td><td>一般業種向けの新ロゴを用意するか。用意したら両ファイルを差し替える（縮小版は132px・WebP）</td></tr>
+            <tr><td><span class="st st-done">決定</span> 既存の美容向けページ</td><td>2026-09-26 に廃止を決定（一般業種全体に向けたHPへ）。旧ページ・旧資産・資料請求フォームAPIを削除し、旧URLは内容の近い新ページへ301転送（public/_redirects）</td><td>—</td></tr>
+            <tr><td><span class="st st-done">決定</span> 個人向け講座の受講窓口</td><td>2026-09-26、法人と個人の混在を解消するため個人向け講座のページ /courses/ を新設。受講のお問い合わせは /courses/#entry から各講座の案内・申込ページへ（事業相談のLINE・フォームとは分ける）</td><td>—（既存LINEで受講相談も受けるなら追記）</td></tr>
+            <tr><td><span class="st st-wait">保留</span> 時間・料金の公開範囲</td><td>トップからは時間・料金を外した。下層ページは現行の記載を維持（下の「料金・時間の掲載箇所」）</td><td>どこまで公開するか。決まったら全掲載箇所を同時に揃える（仕様書 06）</td></tr>
+            <tr><td><span class="st st-temp">一部実施</span> 情報量の削減</td><td>重複は削除済み。重複でない情報は残している</td><td>「情報の整理」の「残した候補」を判断</td></tr>
+            <tr><td><span class="st st-wait">保留</span> サービス一覧の掲載先</td><td>重複を除いて7件に（講座2件・補助金2件を各ページへ、伴走とサポートデスクを統合）。残りの掲載可否は未決</td><td>掲載先・提供中／準備中・料金の公開範囲（仕様書 10。特に06・07・09・10・11・12）</td></tr>
+            <tr><td><span class="st st-wait">保留</span> 法人Lark研修カードのリンク先</td><td>トップ・/services/ の「SFL DX(Lark)研修」カードは外部の研修サイト（sfl-reskilling-2026）へ。AI研修カードはサイト内 /ai-dx-training/ へ飛ぶため揃っていない</td><td>/lark-dx/ に変えるか（仕様書09は「現在のリンク先のまま」）</td></tr>
+            <tr><td><span class="st st-wait">保留</span> /lark-dx/ の外部「Lark研修の詳細」ボタン</td><td>研修の詳細ページ内に、別の外部詳細ページへのボタンが2つ（冒頭・研修欄）。どちらが正式な案内か分かりにくい</td><td>外部ページの役割（申込用か／旧説明か）。申込用なら文言を「お申し込み」に、旧説明なら削除</td></tr>
+            <tr><td><span class="st st-wait">保留</span> 外部サイト（ChatGPTサイト）への移動</td><td>講座・研修・サポートデスク・SFL Academy・Lark基礎ガイドが別ドメイン・別デザインのサイトへ別タブで開く（7種類）</td><td>独自ドメインへ移すか、見た目を揃えるか（公開ドメインの判断と合わせて）</td></tr>
+            <tr><td><span class="st st-temp">暫定</span> トップの実績カード</td><td>現行4件をすべて表示</td><td>どれを載せるか、取引先名・肩書きの表記と掲載可否（仕様書 05）</td></tr>
+            <tr><td><span class="st st-temp">暫定</span> 講座カードの掲載情報</td><td>開始年月・募集期のみ表示。Lark導入講座2期生は「2026年11月募集予定」に統一</td><td>開始年月・募集期・学習時間をどこまで載せるか（仕様書 09）</td></tr>
+            <tr><td><span class="st st-temp">暫定</span> 官公庁入札事業カードのリンク先</td><td>/services/#public-procurement（事業の説明＋講座案内へのリンク）</td><td>事業としての詳細ページを別に作るか</td></tr>
+            <tr><td><span class="st st-wait">保留</span> Eyelash Salon Lucia サイトへのリンク</td><td>/case-study/ の事例欄だけにリンク。トップには置かない</td><td>トップにも置くか（仕様書 04）</td></tr>
+            <tr><td><span class="st st-temp">暫定</span> 法人の問い合わせ手段</td><td>現行どおり Lark のお問い合わせフォーム（別タブ）</td><td>旧HPのようなサイト内フォーム（項目ごとのエラー表示・Lark Base登録・送信完了の計測）に戻すか。戻す場合は削除済みの <code>functions/api/contact.js</code>（git履歴に残っている）を流用できる</td></tr>
+          </tbody>
+        </table></div>
+      </section>
+
+      <section id="trim">
+        <h2>情報の整理（重複の削除）</h2>
+        <p style="margin-bottom:12px">2026-09-26、「内容が重複しているものは削除してよい」との指示で実施。重複していない情報は残し、下の「残した候補」で判断を待っている。消した内容は git 履歴から戻せる。</p>
+        <h3 class="sub-heading">削除・統合したもの</h3>
+        <div class="table-scroll"><table><thead><tr><th>ページ</th><th>箇所</th><th>理由・移した先</th></tr></thead><tbody><tr><td>トップ</td><td>「Lark Japanの代理店ではありません」の注記ボックス</td><td>FAQ01・問い合わせ・フッターに残す（/lark-dx/・支援契約ガイドにも残す）</td></tr><tr><td>トップ</td><td>開閉「DX社員を育てる学び方」</td><td>/lark-dx/ の「研修の5つの段階」と重複</td></tr><tr><td>トップ</td><td>開閉「助成金・補助金の活用相談」</td><td>/lark-dx/#support-programs・助成金試算と重複</td></tr><tr><td>トップ</td><td>開閉「提携企業」</td><td>/company/#partners と重複（仕様書05では現状維持の指示だったが重複として削除）</td></tr><tr><td>トップ</td><td>FAQ 04「DX社員とは」・09「助成金・補助金の活用」</td><td>/lark-dx/ のFAQ 01・07と同じ内容。トップのFAQは8件に（JSON-LDも同時に更新）</td></tr><tr><td>/services/</td><td>12サービスのうち 03 Lark導入講座・04 実務講座とAcademy</td><td>同じページの「講座・研修」と重複</td></tr><tr><td>/services/</td><td>12サービスのうち 06 UNIQS連携パッケージ・07 業務改善助成金</td><td>/lark-dx/ の制度活用（#digital-ai-subsidy・#business-improvement-grant）と重複。関連サービス欄から /lark-dx/#support-programs へリンク</td></tr><tr><td>/services/</td><td>10 サポートデスク・11 Lark FLOW ONE</td><td>「導入後の伴走・サポート」1件に統合（内容・料金は両方残した）。一覧は7件、見出しは「ご相談いただけるサービス」（数字なし）</td></tr><tr><td>/services/</td><td>3事業ブロックのチェックリスト（Lark・AI）</td><td>右の「関連するサービス」と同じ項目</td></tr><tr><td>/services/</td><td>Lark代理店の注記ボックス</td><td>トップと同じ理由</td></tr><tr><td>/company/</td><td>代表カード・LARK MASTER・数値・実績カード</td><td>代表メッセージ・/case-study/ と重複。「実績と支援体制」は2枚のリンクカードに</td></tr><tr><td>/company/</td><td>コアチーム・スペシャリスト・講座修了パートナー</td><td>/instructors/ へ移設（/instructors/ の要約カードと重複していたため、詳細版に置き換え）</td></tr><tr><td>/company/</td><td>会社概要のLark代理店の注記</td><td>トップと同じ理由</td></tr><tr><td>/case-study/</td><td>講座の開催・コミュニティの活動状況</td><td>講座カード（data.js）と重複。h1・title・description を「実績・事例」に変更（ナビ表記と一致）</td></tr><tr><td>/lark-dx/</td><td>FAQ 04「時間・料金」</td><td>同じページの受講プランと重複</td></tr><tr><td>/ai-setup/</td><td>「こんな方におすすめです」</td><td>「初期設定で止まっていませんか」と重複。重ならない2点だけ1文で残した</td></tr><tr><td>/contact/</td><td>相談の流れのSTEP 01・02カード</td><td>直上のフロー図と同じ内容。契約の一文だけ残した</td></tr></tbody></table></div>
+        <h3 class="sub-heading" style="margin-top:32px">残した候補（重複ではない・要相談）</h3>
+        <div class="table-scroll"><table><thead><tr><th>ページ</th><th>箇所</th><th>状態</th></tr></thead><tbody><tr><td>トップ</td><td>「Larkで、日々の仕事をひとつの流れに」4ステップ</td><td>要相談：残す／削る（直後のCycle Pro事例と役割が近い）</td></tr><tr><td>トップ</td><td>FAQ 05 操作に不慣れ・06 Base構築・07 1か月伴走</td><td>重複ではないため残した。/lark-dx/ へ移すかは要相談</td></tr><tr><td>/services/</td><td>Cycle Pro・Web／LINE構築・AI初期設定・オンライン秘書</td><td>重複ではないため残した。Web／LINE構築を載せるか、料金を一覧から外すかは要相談（仕様書10）</td></tr><tr><td>/lark-dx/</td><td>Larkの機能説明（約700字）・制度活用の細則（約1,800字）</td><td>重複ではないため残した。削る／要約するかは要相談</td></tr><tr><td>/company/</td><td>「3つの姿勢」</td><td>代表メッセージと近いが同じ内容ではないため残した</td></tr></tbody></table></div>
+      </section>
+
+      <section id="spec">
+        <h2>仕様書の対応状況</h2>
+        <div class="table-scroll"><table>
+          <thead><tr><th>章</th><th>状態</th><th>実装内容</th></tr></thead>
+          <tbody>
+            <tr><td>01 3事業の紹介</td><td><span class="st st-done">実装済</span></td><td>h2「事業概要」＋直下のリード文。目的選択ボックスを削除。3カードを「事業名 → 概要文 → 詳細リンク」に統一（カード全体がリンク）。講座の募集・料金はトップの事業欄に載せない</td></tr>
+            <tr><td>02 Larkの4つの支援</td><td><span class="st st-done">実装済</span></td><td>h2「Larkによる4つの支援」（読点なし）＋直下に1文。青い4ステップ図と説明文①②を削除。4カードの概要は常時表示、追加説明だけ見出し行全体で開閉（＋／−）</td></tr>
+            <tr><td>04 Cycle Pro</td><td><span class="st st-done">実装済</span></td><td>見出し「Lark活用事例：美容サロン向けCycle Pro」、説明文差し替え、案内文・4ステップ図・開閉01〜04をトップから削除、「事例を見る→」（/case-study/）。旧「SFLのDXは、実際の現場から。」ブロックはこの事例紹介に統合（LARK MASTER写真・数値・注記を移設）</td></tr>
+            <tr><td>05 実績・会社情報</td><td><span class="st st-done">実装済</span></td><td>開閉をやめて常時表示。見出し「導入・研修・取引実績」、実績カード4件＋「実績をすべて見る→」。講座の4枚は実績欄から削除。会社情報は代表・会社概要・支援体制の3点を常時表示。提携企業の開閉は現状維持</td></tr>
+            <tr><td>06 相談フロー</td><td><span class="st st-done">実装済</span></td><td>主フロー（無料相談 → ご提案・お見積もり）＋点線の分岐（業務整理・フロー図作成｜希望者のみ・有料）。「01 → 04」行を削除。リード文差し替え。トップは概要だけにして「相談の流れ・料金を見る→」（/contact/#flow）。/contact/ も同じ図に揃え、詳細（時間・見本・ご契約）は /contact/ に残した</td></tr>
+            <tr><td>08 官公庁入札の実施状況</td><td><span class="st st-done">実装済</span></td><td>コメントで「実施中」に決定。/services/ 冒頭、会社ページ、/contact/ の05、フッターを「官公庁案件の調査・入札に取り組んでいます」系に統一。講座は2026年10月開始</td></tr>
+            <tr><td>09 講座・研修</td><td><span class="st st-done">実装済</span></td><td>小見出し「法人向け研修｜社員の育成」「個人向け講座｜ご自身のスキル習得」で振り分け（法人→個人）。カード上の対象ラベルを削除し Lark／AI／官公庁入札 だけ残す。リンク先は現行のまま。個人向けの末尾に受講窓口への1行。トップとサービスページは同じデータから描画</td></tr>
+            <tr><td>10 12サービス</td><td><span class="st st-wait">保留</span></td><td>章全体が確定待ちのため、12件・番号・アンカーは現行どおり。見出しにアンカー（#service-list）を追加。読みやすさのため概要常時表示＋条件を開閉に変更</td></tr>
+            <tr><td>11 お問い合わせ</td><td><span class="st st-done">実装済</span></td><td>個人事業主＝LINE／法人＝フォームは維持。カード文言・ボタン文言を差し替え。講座受講の入口を別枠で追加（#course-entry、リンク先は暫定）。05を「官公庁入札事業」に変更。「別タブで開きます」等の案内は維持。フッターの入口文言も揃えた</td></tr>
+          </tbody>
+        </table></div>
+      </section>
+
+      <section id="comments">
+        <h2>コメントへの判断（実装時に決めたこと）</h2>
+        <div class="table-scroll"><table>
+          <thead><tr><th>論点</th><th>判断</th></tr></thead>
+          <tbody>
+            <tr><td>見出しレベル</td><td>「事業概要」「Larkによる4つの支援」は h2（ページの h1 はFVの「Larkで、仕事の流れを整える。」）。見出しの句読点は全体で外した</td></tr>
+            <tr><td>「必要な支援から相談できる」</td><td>修正後の1文「…必要な支援をご相談いただけます」で表現されるため、別の場所には置かない</td></tr>
+            <tr><td>「DX社員」の学び方・助成金の開閉</td><td>4つの支援の下に開閉のまま残した（追加説明の位置づけ）</td></tr>
+            <tr><td>Lark一般業務の例「Larkで、日々の仕事をひとつの流れに。」</td><td>残したうえで、開閉と案内文をやめ、4ステップを常時表示の短い説明に変更（開閉の多さへの指摘に対応）</td></tr>
+            <tr><td>/case-study/ の Cycle Pro 見出し</td><td>トップと部品を分け、/case-study/ は旧見出し「Cycle Proで、来店前から次の来店まで。」と4ステップのまま</td></tr>
+            <tr><td>「SFLのDXは、実際の現場から。」ブロック</td><td>トップの Cycle Pro 事例紹介に統合。/case-study/ へのボタンは「事例を見る→」の1つだけ、実績欄の下はテキストリンク「実績をすべて見る→」</td></tr>
+            <tr><td>講座・研修ブロック（旧：実績の開閉内に入れ子）</td><td>独立したセクションとして常時表示</td></tr>
+            <tr><td>講座の4枚を実績欄から外す範囲</td><td>トップのみ。/case-study/ は「講座の開催状況」を別セクションとして残した（ページの説明文が前提にしているため）</td></tr>
+            <tr><td>SFL Academy</td><td>実績欄から外した代わりに、個人向け講座グループの末尾に1行で案内（トップ・サービス）</td></tr>
+            <tr><td>代表メッセージ</td><td>全文を /company/#message へ移設。トップは冒頭1文＋「代表メッセージを読む→」</td></tr>
+            <tr><td>会社情報欄の残り3点</td><td>「顔が見える…」の見出しは削除。/support-policy/ へのリンクはフッター・/contact/・会社ページへ。Kazu先生の注記は「事業概要」の Lark 注記と /instructors/ に集約</td></tr>
+            <tr><td>業務整理の「ここで終了も可」</td><td>分岐の説明に「業務整理だけで終えることもできます」を入れ、FAQ 02 も維持（業務整理だけの利用を歓迎する案内と矛盾させない）</td></tr>
+            <tr><td>トップFAQ 03 の料金</td><td>トップから時間・料金を外す方針に合わせ、FAQ 03 は「時間・料金はお問い合わせページの相談の流れで案内」に変更（JSON-LD も同文）</td></tr>
+            <tr><td>TRUST &amp; GOVERNANCE 欄</td><td>トップからは外し、/contact/ の相談の流れの下とフッター・会社ページに移設</td></tr>
+            <tr><td>トップの「法人向け研修／個人向け講座」タブ</td><td>小見出しと二重になるためトップから削除。料金・助成金の試算・学習ステップは /lark-dx/ と /reskilling-subsidy-simulator/ で案内</td></tr>
+            <tr><td>Lark導入講座 2期生の募集時期</td><td>全ページ「2026年11月募集予定」に統一（data.js で一元管理）</td></tr>
+            <tr><td>12サービス見出しのアンカー</td><td>#service-list（見出しは #service-list-title）を追加</td></tr>
+            <tr><td>フッターの入口文言</td><td>「LINEで業務の相談（個人事業主）」「法人の相談フォーム」に揃え、「個人向け講座の受講について」を追加</td></tr>
+            <tr><td>美容に関する記載の扱い</td><td>一般業種向けに切り替えたうえで、Lucia事例・ヘアーサロンの実績・Cycle Pro（仕様書04でLark事業の事例と位置づけ）は事実の実績として残した。/contact/ の相談内容04は「業種に合わせた業務システム・AI活用」に変更。業務整理のフロー図見本はサロンの架空例のままなので、一般業種の見本に差し替えると良い</td></tr>
+            <tr><td>法人向けと個人向けの分け方</td><td>サイト全体は分けず、「事業の相談（法人・個人事業主）」と「個人の学び（講座）」で分けた。/courses/ を新設し、/lark-dx/ は法人研修だけに。ナビは「法人研修」（/services/#corporate-training）と「個人向け講座」（/courses/）の2つに</td></tr>
+            <tr><td>導線の点検（2026-09-26）</td><td>「構築サービスを見る」が美容向けCycle Proに着地していたのを /services/#lark（Lark事業）へ。「相談の流れ・料金を見る」の着地先に料金が無かったため /contact/#flow に業務整理の料金を掲載（/services/・/support-policy/ で公開済みの金額）。「支援体制／講師・支援体制／講師・支援チーム」の3表記を「講師・支援体制」に統一。ナビ「法人研修」の着地先の見出しを「法人研修」にし、個人向け講座は案内カード1枚に</td></tr>
+            <tr><td>事業カードのリンク先</td><td>3事業とも /services/ 内の事業ごとの説明（#lark #ai #public-procurement）へ。研修ページや外部講座ページへ直接飛ばさない</td></tr>
+          </tbody>
+        </table></div>
+        <h3 class="sub-heading" style="margin-top:32px">下層ページで決めたこと</h3>
+        <div class="table-scroll"><table id="page-decisions">
+          <thead><tr><th>ページ</th><th>判断</th></tr></thead>
+          <tbody>
+            <tr><td>/services/</td><td>h1「3つの事業と、SFLのサービス」。冒頭文は仕様書08の案（官公庁入札は実施中）。3事業の詳細は /services/ 内の3ブロック（#lark #ai #public-procurement）で、各ブロックに「関連するサービス」（12サービスへのリンク）を置いた。官公庁入札のブロックに実績「陸上自衛隊等に関する官公庁入札・取引」を掲載</td></tr>
+            <tr><td>/services/ 12サービス</td><td>12件・並び・料金は現行どおり。カードは名称・ひとこと説明・対象を常時表示し、内容・料金は「内容・料金を見る」の開閉に入れた</td></tr>
+            <tr><td>/lark-dx/</td><td>各セクションを常時表示にし、開閉は「1人あたりの研修費負担目安」とFAQだけ。トップと重なるLark業務例の4ステップは載せない。資料画像「Larkでできること」を追加。補助金パッケージは #digital-ai-subsidy、伴走は #aftercare</td></tr>
+            <tr><td>/ai-dx-training/</td><td>開閉はFAQだけ。数字・料金・注記は現行どおり</td></tr>
+            <tr><td>/ai-setup/</td><td>パンくずを「ホーム / AI事業 / AI連携・初期設定支援」にし /services/#ai へ戻れる形。「研修との違い」の枠を追加（環境構築までの導入支援で、社員教育は /ai-dx-training/）</td></tr>
+            <tr><td>/company/</td><td>代表メッセージ全文を #message に移設（写真は旧HPの代表写真を採用）。#company-profile に取引銀行・事業内容（3事業）まで掲載。冒頭文と description の官公庁入札を「実施中」に修正。旧ページの開閉はすべて常時表示に</td></tr>
+            <tr><td>/case-study/</td><td>旧見出し「Cycle Proで、来店前から次の来店まで。」と4ステップを常時表示で維持。実績・講座の開催状況（2期生は2026年11月募集予定）・#lucia-case（5指標と注記、Lucia公式サイト・Cycle Pro見本へのリンク）・LARK MASTERを掲載</td></tr>
+            <tr><td>/support-policy/</td><td>業務整理の料金（3時間40,000円／5時間70,000円）は掲載可否が未決のため現行どおり</td></tr>
+            <tr><td>/privacy/</td><td>既存の文面は会社全体向けだったため本文は変更せず、見た目と head だけ新サイトに合わせた</td></tr>
+            <tr><td>/reskilling-subsidy-simulator/</td><td>企業区分はラジオボタン、人数はスライダー。結果は読み上げにも対応。JavaScriptが無効でも中小企業・1名の結果を表示。初回操作時に GA イベント <code>subsidy_simulator_use</code> を1回送信。計算式・定数は旧サイトと同じ</td></tr>
+          </tbody>
+        </table></div>
+      </section>
+
+      <section id="prices">
+        <h2>料金・時間の掲載箇所</h2>
+        <p class="note" style="margin-bottom:12px">料金を変える・非公開にする場合は、ここに挙げた箇所を同時に直す。トップには料金・時間を載せていない。</p>
+        <div class="table-scroll"><table>
+          <thead><tr><th>内容</th><th>金額・時間</th><th>掲載ページ</th></tr></thead>
+          <tbody>
+            <tr><td>業務整理（希望者のみ）</td><td>個人事業主・フリーランス 3時間 40,000円／法人 5時間 70,000円（各税別）</td><td>/services/#workflow-review、/support-policy/、/contact/#flow</td></tr>
+            <tr><td>法人向けLark・DX研修／SFL AI研修</td><td>3時間×5コマ・計15時間・1名あたり360,000円（税別）、1回最大5名</td><td>/services/#lark-education、/lark-dx/、/ai-dx-training/、/reskilling-subsidy-simulator/</td></tr>
+            <tr><td>人材開発支援助成金の試算</td><td>経費助成75％で負担目安90,000円／人（税抜ベース）、賃金助成15,000円／人</td><td>/lark-dx/#support-programs、/reskilling-subsidy-simulator/</td></tr>
+            <tr><td>SFL Lark導入講座</td><td>10時間・2期以降180,000円（税別）</td><td>/courses/#lark-intro</td></tr>
+            <tr><td>SFL Larkサポートデスク</td><td>月額980円（税込）</td><td>/services/#lark-flow-one、/lark-dx/</td></tr>
+            <tr><td>Claude Code・Codex×Lark 初期設定</td><td>2時間・99,000円（税込）</td><td>/services/#ai-setup、/ai-setup/#price</td></tr>
+            <tr><td>UNIQS連携パッケージ</td><td>Lark業務改善パッケージ 2,300,000円／DX ONE 2,600,000円（税別）</td><td>/lark-dx/#digital-ai-subsidy</td></tr>
+          </tbody>
+        </table></div>
+      </section>
+
+      <section id="services12">
+        <h2>12サービスの掲載先（仕様書 10 の案。重複の削除で03・04・06・07は各ページへ移し、10・11は統合済み）</h2>
+        <div class="table-scroll"><table>
+          <thead><tr><th>現行メニュー</th><th>アンカー</th><th>掲載先・変更内容（案）</th></tr></thead>
+          <tbody>
+            <tr><td>01 フロー【業務整理】</td><td>#workflow-review</td><td>トップの「業務改善」に概要。詳細はサービスページ</td></tr>
+            <tr><td>02 DX社員育成｜法人向けLark・生成AI研修</td><td>#lark-education</td><td>トップの「教育」に概要。法人研修の詳細へ</td></tr>
+            <tr><td>03 SFL Lark導入講座</td><td>#lark-intro-course</td><td>個人向け講座の一覧へ。法人研修とは分ける</td></tr>
+            <tr><td>04 実務講座とSFL Academy</td><td>#learning-academy</td><td>個人向け学習の案内へ。受講後支援との関係を整理</td></tr>
+            <tr><td>05 美容サロンDXシステム「Cycle Pro」</td><td>#cycle-pro</td><td>トップにLark事業の代表事例（実装済）。機能の詳細は事例ページへ</td></tr>
+            <tr><td>06 デジタル化・AI導入補助金2026を見据えたDX導入パッケージ</td><td>#subsidy-package</td><td>サービス詳細の関連情報へ。トップで独立した主力項目にはしない案</td></tr>
+            <tr><td>07 業務改善助成金の活用に向けた業務整理・DX支援</td><td>#business-improvement-grant</td><td>業務整理・DX支援に関連付けた詳細へ</td></tr>
+            <tr><td>08 ホームページ・LP・公式LINE構築</td><td>#web-line</td><td>関連する構築支援の詳細へ。3事業との関係を1文で説明</td></tr>
+            <tr><td>09 Claude Code・Codex×Lark連携 初期設定支援</td><td>#ai-setup</td><td>AI事業の導入・構築支援の詳細へ。研修と区別する</td></tr>
+            <tr><td>10 SFL Larkサポートデスク</td><td>#support-desk</td><td>相談窓口・導入相談の案内へまとめる</td></tr>
+            <tr><td>11 Lark FLOW ONE｜導入後の伴走支援</td><td>#lark-flow-one</td><td>トップの「伴走支援」に概要。条件は詳細へ</td></tr>
+            <tr><td>12 Larkが使えるオンライン秘書（株式会社KAIEI連携）</td><td>#online-secretary</td><td>関連する運用支援の詳細へ。提携サービスと明記</td></tr>
+          </tbody>
+        </table></div>
+      </section>
+
+      <section id="pages">
+        <h2>ページ一覧</h2>
+        <div class="table-scroll"><table>
+          <thead><tr><th>ページ</th><th>パス</th><th>元にした旧サイトのページ</th></tr></thead>
+          <tbody>
+            <tr><td>トップ</td><td><a href="/">/</a></td><td>ChatGPTサイト /（仕様書 01〜09 を反映）</td></tr>
+            <tr><td>事業・サービス</td><td><a href="/services/">/services/</a></td><td>/services</td></tr>
+            <tr><td>法人向けLark・DX研修／Lark導入講座</td><td><a href="/lark-dx/">/lark-dx/</a></td><td>/lark-dx</td></tr>
+            <tr><td>法人向け生成AI研修</td><td><a href="/ai-dx-training/">/ai-dx-training/</a></td><td>/ai-dx-training</td></tr>
+            <tr><td>AI初期設定支援</td><td><a href="/ai-setup/">/ai-setup/</a></td><td>/ai-setup</td></tr>
+            <tr><td>助成金の費用試算</td><td><a href="/reskilling-subsidy-simulator/">/reskilling-subsidy-simulator/</a></td><td>/reskilling-subsidy-simulator</td></tr>
+            <tr><td>実績・事例</td><td><a href="/case-study/">/case-study/</a></td><td>/case-study</td></tr>
+            <tr><td>会社案内</td><td><a href="/company/">/company/</a></td><td>/company ＋ 旧トップの代表メッセージ</td></tr>
+            <tr><td>講師・支援チーム</td><td><a href="/instructors/">/instructors/</a></td><td>/instructors</td></tr>
+            <tr><td>個人向け講座</td><td><a href="/courses/">/courses/</a></td><td>新設（旧 /lark-dx/ の個人向け講座・/services/ の講座と Academy の案内を集約）</td></tr>
+            <tr><td>お問い合わせ</td><td><a href="/contact/">/contact/</a></td><td>/contact（仕様書 06・11 を反映）</td></tr>
+            <tr><td>支援・契約ガイド</td><td><a href="/support-policy/">/support-policy/</a></td><td>/support-policy</td></tr>
+            <tr><td>情報セキュリティ基本方針</td><td><a href="/information-security-policy/">/information-security-policy/</a></td><td>/information-security-policy</td></tr>
+            <tr><td>プライバシーポリシー</td><td><a href="/privacy/">/privacy/</a></td><td>このリポジトリの既存 /privacy/（旧サイトは salonflowlab.com/privacy/ を参照していた）</td></tr>
+            <tr><td>廃止した美容向けページ</td><td>/salon-flow-one/ /lark-flow-one/ /ai-flow-one/ /cycle-pro/ /faq/ /download/ /knowledge/</td><td>301転送：/services/、/services/#lark-flow-one、/services/#ai、/case-study/#lucia-case、/#faq、/contact/、/</td></tr>
+          </tbody>
+        </table></div>
+      </section>
+
+      <section id="urls">
+        <h2>外部URL（data.js で一元管理）</h2>
+        <div class="table-scroll"><table>
+          <thead><tr><th>用途</th><th>URL</th></tr></thead>
+          <tbody>
+            <tr><td>公式LINE（個人事業主の相談）</td><td>https://lin.ee/NrJGMVt</td></tr>
+            <tr><td>法人のお問い合わせフォーム（Lark Base）</td><td>https://bjp66vk3my8x.jp.larksuite.com/share/base/form/shrjpRix2tACyaiGsWFkjy98FYk</td></tr>
+            <tr><td>公式note</td><td>https://note.com/sfl_lark_dx_ai</td></tr>
+            <tr><td>法人向けLark研修（リスキリング）</td><td>https://sfl-reskilling-2026.lucia20200524.chatgpt.site/#lark</td></tr>
+            <tr><td>SFL AI導入講座</td><td>https://sfl-codex-app-bootcamp.lucia20200524.chatgpt.site/</td></tr>
+            <tr><td>SFL 官公庁入札講座</td><td>https://sfl-public-procurement.lucia20200524.chatgpt.site</td></tr>
+            <tr><td>SFL Academy</td><td>https://sfl-lark-graduate-community.lucia20200524.chatgpt.site/#join</td></tr>
+            <tr><td>SFL Larkサポートデスク</td><td>https://sfl-lark-supportdesk.lucia20200524.chatgpt.site/</td></tr>
+            <tr><td>Cycle Pro の見本（Lark Base）</td><td>https://bjp66vk3my8x.jp.larksuite.com/base/CyUhb47braUdwTsSJ0YjtDFNpjg</td></tr>
+            <tr><td>Eyelash Salon Lucia</td><td>https://eyelash-salon-lucia.lucia20200524.chatgpt.site/#top</td></tr>
+            <tr><td>Lark公式 アカウント登録</td><td>https://www.larksuite.com/global/register（パラメータ付き）</td></tr>
+          </tbody>
+        </table></div>
+        <p class="note" style="margin-top:12px">外部の講座ページ・研修ページは ChatGPT サイト（lucia20200524.chatgpt.site）上にある。独自ドメインへ移す場合は data.js と各ページのリンクを差し替える。</p>
+      </section>
+
+      <section id="design">
+        <h2>デザイン・運用ルール</h2>
+        <ul class="dot-list">
+          <li>色：ブランド6色（#F8F5EF #103A71 #C99A1A #E7D3A0 #1E88E5 #333333）＋フッターだけ中間の青 #1A5796。主ボタンは紺、金は線・番号などの装飾だけ（文字色には使わない＝コントラスト確保）。</li>
+          <li>文字：Noto Sans JP、本文16px・行間1.85。太字の文章を並べない。見出しの句読点なし。</li>
+          <li>ボタン：角丸6px・高さ52px（小44px）。カードはカード全体を押せる形。</li>
+          <li>開閉：追加説明だけ。見出し行全体を押せる＋／−表示。概要・実績・会社情報は常時表示。</li>
+          <li>アニメーション：セクション登場時のフェードのみ。視差効果を減らす設定の端末では無効。</li>
+          <li>CTA：主CTAは「60分無料相談」。ヘッダー・FV・ページ末尾だけに置き、本文で同じボタンを重ねない。問い合わせページには末尾CTAを置かない。</li>
+          <li>共通部品（事業・講座・実績・相談フロー・ナビ・フッター）は <code>public/assets/site/js/data.js</code> を直せば全ページに反映。JSON-LD は静的なので同時に直す。</li>
+          <li>検査：<code>npm run check</code>（ページ間アンカーまで検査）＋ <code>git diff --check</code> ＋ ブラウザ確認。</li>
+          <li>この内部ページ：<code>functions/internal/_middleware.js</code> がプレビューURL（&lt;ブランチ&gt;.&lt;project&gt;.pages.dev）とローカルだけ通し、本番ドメインと &lt;project&gt;.pages.dev では404。注意：本番デプロイにも固有のハッシュURLが発行されるため、そのURLでは表示される（noindex・no-store）。</li>
+        </ul>
+      </section>
+
+      <section id="meeting">
+        <h2>会議（2026-09-22）の決定事項</h2>
+        <ul class="dot-list">
+          <li>掲載内容の整理を先に行い、その後に実装へ進む（9/29 9:00〜10:00 に大城・遠藤で整理）。</li>
+          <li>Lark・AI・官公庁入札の3事業を軸にする。美容限定ではない会社案内とする。</li>
+          <li>元のChatGPTサイトは素材集として残し、必要な内容を抜き出して調整する。</li>
+          <li>フッターは中間的な青、本文文字は濃いグレー系へ統一する。高級感より誠実さ。</li>
+          <li>サイトの役割は「名刺」に近い。問い合わせはフォームにつなげる。</li>
+          <li>見やすさ：文字サイズ・余白・配置・ボタンの分かりやすさを改善してよい。アコーディオン過多・クリック範囲の狭さ・色数の多さが課題。強いアニメーションは今は優先しない。ボタンは丸すぎない角丸。</li>
+          <li>2026-09-26 追記：美容向けの既存ページは廃止し、一般業種全体に向けたHPにすると決定。</li>
+          <li>未確定：公開日、12サービス・料金の掲載範囲、官公庁入札の説明・誘導、アクセント色、画像素材、番組出演の時期。</li>
+        </ul>
+      </section>
+
+      <section id="sources">
+        <h2>出典</h2>
+        <ul class="dot-list">
+          <li>仕様書：Lark文書「SFLコーポレートHP｜公開前の修正・調整箇所」（コメント33件を含む、2026-09-26 取得）</li>
+          <li>会議：【2026-09-22】SFLホームページ再構成 打ち合わせ議事録（Minutes objp6w5sh8ak8k2if72enx3k）</li>
+          <li>素材：ChatGPTサイト版のソース（sfl-corporation-aidx リポジトリ）</li>
+          <li>ベースにした良い点（旧HP）：ビルドなしの静的構成、共通UIのJS生成、データの単一ソース化、固定ヘッダーのCTA、CTAを重ねない方針、控えめなスクロール演出、JSON-LD、_headers／_redirects、参照チェックスクリプト、GA4</li>
+        </ul>
+      </section>
+    </div>
+  </main>
+</body>
+</html>

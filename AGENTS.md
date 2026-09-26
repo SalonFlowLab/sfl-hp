@@ -1,81 +1,74 @@
 # リポジトリ作業ガイド
 
-合同会社SFL（SALON FLOW LAB.）の静的Webサイトです。
+合同会社SFLのコーポレートサイト（Lark・AI・官公庁入札の3事業）です。2026-09 のリニューアルで、美容サロン向け（SALON FLOW LAB.）の構成から、一般業種全体に向けた会社案内へ切り替えました。美容向けの旧ページは廃止済みです（旧URLは `_redirects` で301転送）。
 
 ## プロジェクト構成
 
-このリポジトリは、HTML/CSS/JavaScriptのみで構成された静的サイトです。公開対象のファイルは `public/` に集約しています。
+HTML/CSS/JavaScriptのみの静的サイトです。公開対象のファイルは `public/` に集約しています。
 
-- `public/index.html`: ルート入口ページ。
-- `public/{slug}/index.html`: 各ページのHTML（公開URLは `/{slug}/`）。
-- `public/assets/css/`: 共通スタイルと旧デザイン調整用CSS。
-- `public/assets/js/`: 共通ナビゲーションとUIスクリプト。
-- `public/assets/images/`, `public/assets/icons/`, `public/assets/textures/`: 画像・アイコン・背景素材。
-- `public/assets/pdf/`: 配布用PDF。
-- `functions/api/contact.js`: Cloudflare Pages Functions のフォーム受付API。
+- `public/index.html`: トップページ。
+- `public/{slug}/index.html`: 各ページ（公開URLは `/{slug}/`）。
+- `public/assets/site/`: **新サイトの共通資産**（`css/site.css`、`js/data.js`、`js/site.js`、`img/`）。
+- `public/internal/index.html`: 内部向けの集約ページ（仕様・判断・確定待ち・料金掲載箇所など）。`functions/internal/_middleware.js` がプレビュー環境とローカル以外では 404 を返す。
+- `functions/internal/_middleware.js`: `/internal/` をプレビュー限定にするミドルウェア。
 - `wrangler.jsonc`: Cloudflare Pages の最小デプロイ設定。
-- `public/_headers`: Cloudflare Pages のセキュリティ・キャッシュヘッダー。
-- `docs/deployment/`: Cloudflare Pages のデプロイメモ。
+- `public/_headers` / `public/_redirects`: ヘッダーと旧URLの301転送（転送先は最終ページへ直接。連鎖させない）。
+- `docs/deployment/`: デプロイメモ。
 
-ビルド用のソースディレクトリはありません。静的ファイルを直接編集します。セットアップ、デプロイ、テンプレート利用手順を変更する前に `README.md` を確認してください。
+ビルド工程はありません。静的ファイルを直接編集します。
 
 ## 開発・確認コマンド
 
-- `python3 -m http.server 8123 --directory public`: `http://127.0.0.1:8123/index.html` でローカル確認（静的確認のみ）。
-- `npm install`: Cloudflare Pages 用の Wrangler をインストール。
-- `npm run dev`: `public/` を Cloudflare Pages 相当の環境でプレビュー。フォームAPIの動作確認はこちら。
-- `npm run deploy`: Cloudflare Pages へデプロイ。
-- `npm run check:links`: HTML/CSS のローカル参照を確認。
-- `npm run check:assets`: `public/assets/` 配下の未使用アセットを検出。
-- `npm run check`: すべてのチェックを実行。
-- `rg "検索語" public`: サイト内の文言・参照を検索。
-
-ビルド工程はありません。Cloudflare Pages が `public/` をそのまま配信します。
-
-テンプレートとして再利用する場合は、`package.json` の `name`、`config.cloudflare_project_name`、`wrangler.jsonc` の `name` を同じ案件名に更新してください。
+- `python3 -m http.server 8123 --directory public`: 静的確認のみ。
+- `npm run dev`: Cloudflare Pages 相当のプレビュー（Functions・`/internal/` の動作確認はこちら）。
+- `npm run check:links`: HTML/CSS と `assets/site/js` 内のサイト内リンク・画像・**ページ間アンカー（#id）**を検査。
+- `npm run check:assets`: 未使用アセット検出。
+- `npm run check`: すべて。
+- `npm run deploy`: Cloudflare Pages へデプロイ（本番反映は必ず確認を取ってから）。
 
 ## アーキテクチャ
 
-**共通UIはJSがランタイム生成します。** ヘッダー・ドロワー・フッターは `public/assets/js/site-chrome.js`、ページ下部CTAは `sfl-wide-cta.js`、問い合わせ・資料請求フォームのマークアップは `sfl-lead-form.js` が生成します。各ページの `index.html` にはこれらのHTMLは書かれていないので、ナビ・フッター・CTA・フォームの変更はJS側で行います。
+**共通UIと繰り返し部品は JS が描画します。** `data.js`（`window.SFL`）が単一ソースで、`site.js` が以下を描画します。各HTMLには置き場所だけを書きます。
 
-**サービス定義の単一ソースは `public/assets/js/sfl-services-catalog.js`**（`window.SFL_SERVICES`）です。ナビ・フッター・フォームの「興味を持ったサービス」はここを参照して連動します。サービス追加時の更新箇所: ①catalog定義 ②`public/services/index.html` のカードとJSON-LDのItemList ③`public/{slug}/index.html` の新規LP（`<title>` とService JSON-LDを含む） ④`sitemap.xml`。
+| 置き場所 | 内容 |
+|---|---|
+| `<div data-site-header>` / `<div data-site-footer>` | ヘッダー・ドロワー・フッター |
+| `data-sfl="businesses"` | 3事業カード |
+| `data-sfl="courses" data-group="corporate|individual"` | 講座・研修カード（法人→個人の順） |
+| `data-sfl="records"` | 導入・研修・取引実績（トップ・事例・会社で共通） |
+| `data-sfl="flow"` | 相談フロー図（主フロー＋希望者のみの分岐） |
 
-**`<head>` のSEO情報**: 全ページに `<title>`、noindexの `knowledge` 以外にJSON-LD（`<script type="application/ld+json">`）があります。値は本文と二重管理なので、料金・FAQ・会社情報を変えたらJSON-LDも同時に直します。料金は各LPのService、FAQは `faq/` のFAQPage（本文と完全一致させる）、会社情報は `index.html` と `company/` の2か所のOrganizationです。
+**外部URLは `data.js` の `urls` が正です。** HTML には `<a data-url="キー">` だけを書き、`site.js` が href を入れます（`href` に同じURLを直接書くと `npm run check:links` が失敗します）。
 
-**フォームAPI**: `functions/api/contact.js` が Cloudflare Pages Functions として `/api/contact` で動きます。クライアント側（`contact-form.js`）と同じ検証をサーバー側でも行い、`company_website` ハニーポットを持ちます。環境変数: `RESEND_API_KEY` / `CONTACT_FROM_EMAIL`（メール送信に必須）、`CONTACT_TO_EMAIL`、`LARK_CONTACT_WEBHOOK_URL`（任意）。GitHub Pages プレビュー（`shoma-endo.github.io/sfl-hp`）は静的配信のみで Functions は動きません。
+`<body data-active="...">` でナビの現在地を決めます。スクリプトは `data.js` → `site.js` の順に `defer` で読み込みます。
 
-**旧URL**: `public/_redirects` で301転送します（features→cycle-pro、lark→lark-flow-one、flow/pricing→salon-flow-one のアンカー）。`public/pages/` にHTMLは置きません。
+**`<head>` のSEO情報**: 全ページに `<title>`・description・canonical・OG・JSON-LD があります。JSON-LD は静的なので、会社情報・FAQ・講座名を変えたら JSON-LD も同時に直します（FAQ はトップ本文と完全一致）。組織情報は `index.html` の Organization が正で、他ページは `@id` で参照します。
+
+**正規URL**: `https://salonflowlab.com/`（新ドメインが決まったら全ページの canonical・OG・JSON-LD・sitemap・robots を一括置換）。
+
+## デザイン・CTA・文言の制約
+
+- ブランドカラーは固定: `#F8F5EF` `#103A71` `#C99A1A` `#E7D3A0` `#1E88E5` `#333333`。フッターだけ中間の青 `#1A5796`（2026-09-22 打ち合わせで決定）。本文は `#333333`。
+- 誠実さ優先。ボタンは角丸控えめ（6px）。アニメーションはセクション登場時の控えめなものだけ（`prefers-reduced-motion` で無効）。
+- 開閉（details）は「追加説明」だけに使う。概要・実績・会社情報は常時表示。開閉は見出し行全体を押せる形（`.disclosure`、＋／−表示）。
+- 見出し（h2）の末尾に句読点を付けない。
+- 主CTAは「60分無料相談」（`/contact/`）。ヘッダー・トップFV・ページ末尾に置き、本文で同じボタンを重ねない。
+- 申し込み窓口は「個人事業主・フリーランス＝公式LINE」「法人＝Lark のお問い合わせフォーム（別タブ）」。個人向け講座の受講は別窓口（`/courses/#entry`）。
+- 法人向けと個人向けは「事業の相談（法人・個人事業主）」と「個人の学び（講座）」で分ける。個人向け講座は `/courses/` に集約し、法人研修のページ（`/lark-dx/` `/ai-dx-training/`）に個人向けの内容を混ぜない。
+- 対象は一般業種全体。美容は Cycle Pro・Lucia 事例などの実績としてのみ扱い、美容向けの訴求を主にしない。
+- 官公庁入札事業は「実施中」の表記（官公庁案件の調査・入札に取り組んでいます）。講座は2026年10月開始。
 
 ## コーディング規約
 
-HTML、CSS、JavaScriptは既存の書き方に合わせてください。HTML/CSSは既存と同じ2スペース寄りのインデントを維持し、クラス名は `site-header` や `glass-card` のような説明的な kebab-case を使います。日本語コピーは周辺の文体とトーンに合わせます。
-
-相対パスは既存ルールを維持してください。ルートページは `assets/...`、`public/{slug}/` 配下のページは `/assets/...` を使います。
-
-## デザイン・CTA・フォームの制約
-
-- ブランドカラーは固定: `#F8F5EF` `#103A71` `#C99A1A` `#E7D3A0` `#1E88E5` `#333333`。構成・密度・見せ方のみ調整し、色は変えない。
-- CTAは「お問い合わせ」「資料請求」の2種に統一。公式LINEへの直接誘導CTAは使わない。
-- フォームのバリデーションエラーは全体ステータスに集約せず、該当入力欄の直下に表示する。
-- 問い合わせ・資料請求のサービス選択肢はページごとに分岐させず同一リストを使う。
+既存の書き方に合わせます。インデント2スペース、クラス名は kebab-case。新ページは `/assets/site/...` の絶対パスで参照します。日本語コピーは周辺の文体に合わせます。
 
 ## テスト方針
 
-自動テストフレームワークはありません。検証はブラウザ確認 + `npm run check` + `git diff --check` で行います。見た目やナビゲーションを変更した場合は、`index.html`、ネストされたページ1つ、直接変更したページを確認します。レスポンシブ表示、リンク、画像、PDF、ブラウザコンソールエラーも確認してください。
-
-HTML、CSS、JavaScript、アセット、パスを変更した場合は、引き渡し前に `npm run check` を実行してください。フォーム関連を触った場合は追加で以下も実行します。
-
-```bash
-node --check public/assets/js/contact-form.js
-node --check public/assets/js/sfl-lead-form.js
-node --check functions/api/contact.js
-```
+自動テストフレームワークはありません。`npm run check` + `git diff --check` + ブラウザ確認（トップ・変更ページ・もう1ページ、デスクトップと390px幅、コンソールエラー）で検証します。JS を触ったら `node --check public/assets/site/js/*.js` も実行します。
 
 ## コミット・プルリクエスト
 
-コミットは日本語の Conventional Commits（`feat:`, `fix:`, `docs:`, `chore:` などの `type: summary` 形式）を使います。
-
-プルリクエストには、変更概要、影響するページやアセット、ローカル確認手順を記載してください。見た目が変わる場合はスクリーンショットも添付します。関連Issueや依頼がある場合はリンクしてください。
+日本語の Conventional Commits（`feat:` `fix:` `docs:` `chore:` など）。PR には変更概要・影響ページ・確認手順を書き、見た目が変わる場合はスクリーンショットを添付します。
 
 `tasks/lessons.md` は廃止済みです（auto-memory へ移行）。追記しないでください。
 
@@ -83,9 +76,8 @@ node --check functions/api/contact.js
 
 秘密情報、Cloudflare APIトークン、未公開の顧客情報はコミットしないでください。住所、電話番号、料金、スタッフ名、実績値は公開前に必ず実データとして確認してください。
 
-Cloudflare Pages の仕様確認が必要な場合は、まず以下を参照してください。
-
 - https://developers.cloudflare.com/pages/
 - https://developers.cloudflare.com/pages/configuration/headers/
 - https://developers.cloudflare.com/pages/configuration/redirects/
+- https://developers.cloudflare.com/pages/functions/middleware/
 - https://developers.cloudflare.com/workers/wrangler/

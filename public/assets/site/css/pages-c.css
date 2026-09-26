@@ -1,0 +1,62 @@
+/* 会社案内・実績・講師・ポリシー系ページの追加スタイル（site.css を前提） */
+
+/* 代表メッセージ */
+.message-grid { display: grid; grid-template-columns: minmax(0, .8fr) minmax(0, 1.2fr); gap: clamp(28px, 5vw, 64px); align-items: start; }
+.message-portrait { margin: 0; border-radius: var(--radius); overflow: hidden; background: var(--cream); }
+.message-portrait img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; object-position: center top; }
+.message-portrait figcaption { padding: 16px 20px; display: grid; gap: 2px; }
+.message-portrait small { font-family: var(--font-en); font-size: .72rem; letter-spacing: .14em; color: var(--gold); font-weight: 700; }
+.message-portrait strong { font-size: 1.2rem; color: var(--navy); }
+.message-portrait span { font-size: .86rem; color: var(--muted); }
+.message-title { font-size: clamp(1.5rem, 1.1rem + 1.6vw, 2.1rem); }
+.message-body p { font-size: 1.02rem; line-height: 2; }
+.message-signature { display: flex; flex-direction: column; align-items: flex-end; gap: 2px; padding-top: 16px; border-top: 1px solid var(--line); }
+.message-signature span { font-size: .86rem; color: var(--muted); }
+.message-signature strong { font-size: 1.2rem; color: var(--navy); letter-spacing: .12em; }
+@media (max-width: 860px) {
+  .message-grid { grid-template-columns: 1fr; }
+  .message-portrait { max-width: 420px; }
+}
+
+/* チーム */
+.team-card { flex-direction: row; align-items: flex-start; gap: 16px; }
+.team-card h4 { font-size: 1.08rem; }
+.team-code {
+  flex-shrink: 0; display: grid; place-items: center; min-width: 52px; height: 52px; padding: 0 8px; border-radius: var(--radius-sm);
+  background: var(--navy); color: #fff; font-family: var(--font-en); font-weight: 700; font-size: .82rem; letter-spacing: .08em;
+}
+.partner-network h4 { font-size: 1rem; margin: 8px 0 4px; }
+.partner-network .grid p { font-size: .92rem; }
+
+/* 実績・事例 */
+.metrics-5 { grid-template-columns: repeat(5, minmax(0, 1fr)); }
+@media (max-width: 860px) { .metrics-5 { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+@media (max-width: 480px) { .metrics-5 { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+.step-points { margin-top: 10px; font-size: .88rem; }
+.steps-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.steps-3 > li:nth-child(2)::after { display: block; }
+@media (max-width: 900px) { .steps-3 { grid-template-columns: 1fr; } .steps-3 > li:not(:last-child)::after { top: auto; bottom: -12px; right: 50%; transform: translateX(50%) rotate(135deg); } }
+.case-sub-title { font-size: clamp(1.35rem, 1.05rem + 1.1vw, 1.8rem); }
+.voice { margin: 40px 0 0; padding: clamp(24px, 3vw, 36px); background: var(--white); border-left: 4px solid var(--gold); border-radius: 0 var(--radius) var(--radius) 0; }
+.voice blockquote { margin: 0 0 14px; font-size: clamp(1rem, .96rem + .3vw, 1.15rem); line-height: 2; color: var(--ink); }
+.voice figcaption { font-size: .9rem; color: var(--muted); }
+.voice figcaption strong { color: var(--navy); }
+
+/* 講師 */
+.instructor-grid { display: grid; grid-template-columns: minmax(0, .8fr) minmax(0, 1.2fr); gap: clamp(28px, 5vw, 64px); align-items: start; }
+.instructor-photo img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; }
+.instructor-name { font-size: clamp(1.8rem, 1.3rem + 2vw, 2.4rem); }
+.instructor-message { font-size: 1.15rem; font-weight: 700; color: var(--navy); }
+.instructor-tags li { border-color: var(--line-strong); color: var(--navy); }
+@media (max-width: 860px) { .instructor-grid { grid-template-columns: 1fr; } .instructor-photo { max-width: 420px; } }
+
+/* ポリシー */
+.policy-signature { margin-top: 36px !important; text-align: right; color: var(--muted); font-size: .92rem; }
+.legal-list { padding-left: 1.6em !important; }
+.legal-list > li { margin-top: 8px; }
+.legal-list > li::marker { color: var(--navy); font-weight: 700; }
+.legal-list h2 { margin-top: 36px; }
+.prose .notice-box p { margin: 0; }
+
+/* カード内のタグは内容幅に（flex column の stretch を解除） */
+.card > .tag { align-self: flex-start; }
