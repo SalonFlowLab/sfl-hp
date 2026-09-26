@@ -8,6 +8,7 @@
     contactForm: 'https://bjp66vk3my8x.jp.larksuite.com/share/base/form/shrjpRix2tACyaiGsWFkjy98FYk',
     note: 'https://note.com/sfl_lark_dx_ai',
     larkRegister: 'https://www.larksuite.com/global/register?app_id=1001&lang=ja-JP&lead_page=plans__ssg_ja_jp&lead_platform=website&lead_position=nav&redirect_uri=https%3A%2F%2Fwww.larksuite.com%2Fgetstarted%3Fdisable_cross_redirect%3Dtrue&registration_process=global_register',
+    larkCourse: 'https://dandeproject.com/lark/sfl/lp/',
     larkTraining: 'https://sfl-reskilling-2026.lucia20200524.chatgpt.site/#lark',
     aiCourse: 'https://sfl-codex-app-bootcamp.lucia20200524.chatgpt.site/',
     procurementCourse: 'https://sfl-public-procurement.lucia20200524.chatgpt.site',
@@ -30,7 +31,8 @@
 
   const nav = [
     { href: '/services/', label: '事業・サービス', key: 'services' },
-    { href: '/services/#courses', label: '講座・研修', key: 'courses' },
+    { href: '/services/#corporate-training', label: '法人研修', key: 'training' },
+    { href: '/courses/', label: '個人向け講座', key: 'courses' },
     { href: '/case-study/', label: '実績・事例', key: 'case-study' },
     { href: '/company/', label: '会社案内', key: 'company' },
     { href: '/instructors/', label: '支援体制', key: 'instructors' }
@@ -54,7 +56,7 @@
     }
   ];
 
-  // 講座・研修: 法人向け → 個人向けの順（仕様書 09）
+  // 講座・研修: 法人向け → 個人向けの順（仕様書 09）。個人向けは /courses/ の各講座の説明へリンクする
   const courses = [
     {
       id: 'lark-dx-training', group: 'corporate', topic: 'Lark', name: 'SFL DX(Lark)研修',
@@ -70,29 +72,22 @@
       id: 'lark-intro', group: 'individual', topic: 'Lark', name: 'SFL Lark導入講座',
       status: '0期生終了・1期生進行中・2期生は2026年11月募集予定',
       description: '基本操作からBaseの設計・構築まで、仕事で使うLarkのスキルを学びます。',
-      href: '/lark-dx/#individual-course', action: '講座の内容・料金を見る'
+      href: '/courses/#lark-intro', action: '講座の内容・料金を見る'
     },
     {
       id: 'ai-course', group: 'individual', topic: 'AI', name: 'SFL AI導入講座',
       status: '2026年10月開始',
       description: 'AI・プログラミング初心者向け。ChatGPTでWebアプリをつくる体験編（4時間）から、希望者はCodexで保存機能の実装・公開まで学ぶ仕事編（6時間）へ進めます。',
-      href: urls.aiCourse, external: true, action: '講座の案内を見る'
+      href: '/courses/#ai-course', action: '講座の内容を見る'
     },
     {
       id: 'public-procurement-course', group: 'individual', topic: '官公庁入札', name: 'SFL 官公庁入札講座',
       status: '2026年10月開始',
       description: '官公庁入札について学ぶ実務講座です。講座内容・受講方法は専用の案内ページでご案内しています。',
-      href: urls.procurementCourse, external: true, action: '講座の案内を見る'
+      href: '/courses/#public-procurement-course', action: '講座の内容を見る'
     }
   ];
 
-  // 受講後の学び（SFL Academy）: 実績欄から外したため、個人向け講座グループの末尾で案内する
-  const academy = {
-    name: 'SFL Academy',
-    status: '1期生 活動中',
-    description: '各講座のアーカイブを活用し、受講後も学びを続けられるコミュニティです。',
-    href: urls.academy
-  };
 
   // 導入・研修・取引実績（トップ・事例・会社の3ページで共通）
   const records = [
@@ -115,5 +110,5 @@
     }
   };
 
-  window.SFL = { urls, company, nav, businesses, courses, academy, records, flow };
+  window.SFL = { urls, company, nav, businesses, courses, records, flow };
 })();

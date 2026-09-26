@@ -27,7 +27,8 @@
 |---|---|
 | トップ | `/` |
 | 事業・サービス（3事業・講座研修・サービス一覧） | `/services/` |
-| 法人向けLark・DX研修／SFL Lark導入講座 | `/lark-dx/` |
+| 法人向けLark・DX研修 | `/lark-dx/` |
+| 個人向け講座（Lark・AI・官公庁入札・SFL Academy） | `/courses/` |
 | 法人向け生成AI研修 | `/ai-dx-training/` |
 | Claude Code・Codex×Lark 初期設定支援 | `/ai-setup/` |
 | 人材開発支援助成金の費用試算 | `/reskilling-subsidy-simulator/` |
@@ -52,7 +53,7 @@
 ## デザイン・CTA方針
 
 - ブランドカラー: `#F8F5EF`, `#103A71`, `#C99A1A`, `#E7D3A0`, `#1E88E5`, `#333333`。フッターは中間の青 `#1A5796`。
-- 主CTAは「60分無料相談」（`/contact/`）。窓口は個人事業主・フリーランス＝公式LINE、法人＝Larkのお問い合わせフォーム（別タブ）、個人向け講座＝各講座の案内ページ（`/contact/#course-entry`）。
+- 主CTAは「60分無料相談」（`/contact/`）。窓口は個人事業主・フリーランス＝公式LINE、法人＝Larkのお問い合わせフォーム（別タブ）、個人向け講座＝`/courses/#entry` から各講座の案内ページ。
 - 開閉は追加説明だけ。概要・実績・会社情報は常時表示。
 
 ## コマンド

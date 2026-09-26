@@ -52,7 +52,7 @@
           <tbody>
             <tr><td><span class="st st-temp">暫定</span> 公開ドメイン</td><td>canonical・OG・JSON-LD・sitemap・robots を <code>https://salonflowlab.com</code> で統一</td><td>新ドメインにするか。変える場合は一括置換（<code>rg -l "salonflowlab.com" public</code>）</td></tr>
             <tr><td><span class="st st-done">決定</span> 既存の美容向けページ</td><td>2026-09-26 に廃止を決定（一般業種全体に向けたHPへ）。旧ページ・旧資産・資料請求フォームAPIを削除し、旧URLは内容の近い新ページへ301転送（public/_redirects）</td><td>—</td></tr>
-            <tr><td><span class="st st-temp">暫定</span> 個人向け講座の受講窓口</td><td>/contact/#course-entry に各講座の案内ページへのリンクを置いた</td><td>既存LINE か 講座専用ページか（仕様書 09・11）</td></tr>
+            <tr><td><span class="st st-done">決定</span> 個人向け講座の受講窓口</td><td>2026-09-26、法人と個人の混在を解消するため個人向け講座のページ /courses/ を新設。受講のお問い合わせは /courses/#entry から各講座の案内・申込ページへ（事業相談のLINE・フォームとは分ける）</td><td>—（既存LINEで受講相談も受けるなら追記）</td></tr>
             <tr><td><span class="st st-wait">保留</span> 時間・料金の公開範囲</td><td>トップからは時間・料金を外した。下層ページは現行の記載を維持（下の「料金・時間の掲載箇所」）</td><td>どこまで公開するか。決まったら全掲載箇所を同時に揃える（仕様書 06）</td></tr>
             <tr><td><span class="st st-temp">一部実施</span> 情報量の削減</td><td>重複は削除済み。重複でない情報は残している</td><td>「情報の整理」の「残した候補」を判断</td></tr>
             <tr><td><span class="st st-wait">保留</span> サービス一覧の掲載先</td><td>重複を除いて7件に（講座2件・補助金2件を各ページへ、伴走とサポートデスクを統合）。残りの掲載可否は未決</td><td>掲載先・提供中／準備中・料金の公開範囲（仕様書 10。特に06・07・09・10・11・12）</td></tr>
@@ -116,6 +116,7 @@
             <tr><td>12サービス見出しのアンカー</td><td>#service-list（見出しは #service-list-title）を追加</td></tr>
             <tr><td>フッターの入口文言</td><td>「LINEで業務の相談（個人事業主）」「法人の相談フォーム」に揃え、「個人向け講座の受講について」を追加</td></tr>
             <tr><td>美容に関する記載の扱い</td><td>一般業種向けに切り替えたうえで、Lucia事例・ヘアーサロンの実績・Cycle Pro（仕様書04でLark事業の事例と位置づけ）は事実の実績として残した。/contact/ の相談内容04は「業種に合わせた業務システム・AI活用」に変更。業務整理のフロー図見本はサロンの架空例のままなので、一般業種の見本に差し替えると良い</td></tr>
+            <tr><td>法人向けと個人向けの分け方</td><td>サイト全体は分けず、「事業の相談（法人・個人事業主）」と「個人の学び（講座）」で分けた。/courses/ を新設し、/lark-dx/ は法人研修だけに。ナビは「法人研修」（/services/#corporate-training）と「個人向け講座」（/courses/）の2つに</td></tr>
             <tr><td>事業カードのリンク先</td><td>3事業とも /services/ 内の事業ごとの説明（#lark #ai #public-procurement）へ。研修ページや外部講座ページへ直接飛ばさない</td></tr>
           </tbody>
         </table></div>
@@ -146,7 +147,7 @@
             <tr><td>業務整理（希望者のみ）</td><td>個人事業主・フリーランス 3時間 40,000円／法人 5時間 70,000円（各税別）</td><td>/services/#workflow-review、/support-policy/（時間のみ：/contact/#flow）</td></tr>
             <tr><td>法人向けLark・DX研修／SFL AI研修</td><td>3時間×5コマ・計15時間・1名あたり360,000円（税別）、1回最大5名</td><td>/services/#lark-education、/lark-dx/、/ai-dx-training/、/reskilling-subsidy-simulator/</td></tr>
             <tr><td>人材開発支援助成金の試算</td><td>経費助成75％で負担目安90,000円／人（税抜ベース）、賃金助成15,000円／人</td><td>/lark-dx/#support-programs、/reskilling-subsidy-simulator/</td></tr>
-            <tr><td>SFL Lark導入講座</td><td>10時間・2期以降180,000円（税別）</td><td>/lark-dx/#individual-course</td></tr>
+            <tr><td>SFL Lark導入講座</td><td>10時間・2期以降180,000円（税別）</td><td>/courses/#lark-intro</td></tr>
             <tr><td>SFL Larkサポートデスク</td><td>月額980円（税込）</td><td>/services/#lark-flow-one、/lark-dx/</td></tr>
             <tr><td>Claude Code・Codex×Lark 初期設定</td><td>2時間・99,000円（税込）</td><td>/services/#ai-setup、/ai-setup/#price</td></tr>
             <tr><td>UNIQS連携パッケージ</td><td>Lark業務改善パッケージ 2,300,000円／DX ONE 2,600,000円（税別）</td><td>/lark-dx/#digital-ai-subsidy</td></tr>
@@ -189,6 +190,7 @@
             <tr><td>実績・事例</td><td><a href="/case-study/">/case-study/</a></td><td>/case-study</td></tr>
             <tr><td>会社案内</td><td><a href="/company/">/company/</a></td><td>/company ＋ 旧トップの代表メッセージ</td></tr>
             <tr><td>講師・支援チーム</td><td><a href="/instructors/">/instructors/</a></td><td>/instructors</td></tr>
+            <tr><td>個人向け講座</td><td><a href="/courses/">/courses/</a></td><td>新設（旧 /lark-dx/ の個人向け講座・/services/ の講座と Academy の案内を集約）</td></tr>
             <tr><td>お問い合わせ</td><td><a href="/contact/">/contact/</a></td><td>/contact（仕様書 06・11 を反映）</td></tr>
             <tr><td>支援・契約ガイド</td><td><a href="/support-policy/">/support-policy/</a></td><td>/support-policy</td></tr>
             <tr><td>情報セキュリティ基本方針</td><td><a href="/information-security-policy/">/information-security-policy/</a></td><td>/information-security-policy</td></tr>

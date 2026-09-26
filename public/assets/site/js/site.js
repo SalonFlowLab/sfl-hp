@@ -1,6 +1,6 @@
 /* 合同会社SFL サイト共通UI
    - ヘッダー / ドロワー / フッター（[data-site-header] [data-site-footer]）
-   - 共通部品（[data-sfl="businesses|courses|records|flow|academy"]）
+   - 共通部品（[data-sfl="businesses|courses|records|flow"]）
    - セクション登場アニメーション（[data-reveal]）
    - 計測イベント（gtag があるときだけ送信）
    データは data.js の window.SFL を参照する。data.js → site.js の順で読み込むこと。 */
@@ -70,7 +70,8 @@
         { href: '/services/#lark', label: 'Lark事業' },
         { href: '/services/#ai', label: 'AI事業' },
         { href: '/services/#public-procurement', label: '官公庁入札事業' },
-        { href: '/services/#courses', label: '講座・研修' },
+        { href: '/services/#corporate-training', label: '法人研修' },
+        { href: '/courses/', label: '個人向け講座' },
         { href: '/services/#service-list', label: 'ご相談いただけるサービス' },
         { href: '/reskilling-subsidy-simulator/', label: '人材開発支援助成金の費用試算' }
       ])
@@ -86,7 +87,7 @@
         { href: '/contact/', label: '60分無料相談・お問い合わせ' },
         { href: SFL.urls.contactForm, label: '法人の相談フォーム', external: true },
         { href: SFL.urls.line, label: 'LINEで業務の相談（個人事業主）', external: true },
-        { href: '/contact/#course-entry', label: '個人向け講座の受講について' },
+        { href: '/courses/#entry', label: '個人向け講座の受講について' },
         { href: SFL.urls.larkRegister, label: 'Lark公式｜アカウント登録', external: true }
       ])
       + '</div><div class="shell footer-bottom"><p>法人番号 ' + esc(c.corporateNumber) + '</p><p>© 2026 SFL LLC.</p></div></footer>';
@@ -106,11 +107,6 @@
       + '<h3>' + esc(course.name) + '</h3><p>' + esc(course.description) + '</p>'
       + '<div class="card-foot"><a class="text-link" ' + linkAttrs(course) + '>' + esc(course.action) + arrow(course.external) + newTab(course.external) + '</a></div></article>').join(''),
 
-    academy: () => {
-      const a = SFL.academy;
-      return '<p><strong>' + esc(a.name) + '</strong>（' + esc(a.status) + '）｜' + esc(a.description)
-        + ' <a href="' + a.href + '" ' + ext + '>SFL Academyの案内 ↗' + newTab(true) + '</a></p>';
-    },
 
     records: () => SFL.records.map((r) => ''
       + '<article class="card record-card" id="record-' + r.id + '" data-reveal>'
