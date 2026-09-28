@@ -14,6 +14,7 @@
     procurementCourse: 'https://sfl-public-procurement.lucia20200524.chatgpt.site',
     academy: 'https://sfl-lark-graduate-community.lucia20200524.chatgpt.site/#join',
     supportDesk: 'https://sfl-lark-supportdesk.lucia20200524.chatgpt.site/',
+    larkGuide: 'https://sfl-lark-guide.lucia20200524.chatgpt.site/',
     cycleProSample: 'https://bjp66vk3my8x.jp.larksuite.com/base/CyUhb47braUdwTsSJ0YjtDFNpjg?from=from_copylink',
     luciaSite: 'https://eyelash-salon-lucia.lucia20200524.chatgpt.site/#top',
     uniqs: 'https://www.uniq-s.co.jp/'
