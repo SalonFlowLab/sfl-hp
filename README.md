@@ -28,7 +28,12 @@
 | トップ | `/` |
 | 事業・サービス（3事業・講座研修・サービス一覧） | `/services/` |
 | 法人向けLark・DX研修 | `/lark-dx/` |
+| SFL Lark企業研修（15時間・料金・助成金） | `/lark-training/` |
 | 個人向け講座（Lark・AI・官公庁入札・SFL Academy） | `/courses/` |
+| SFL AI導入講座 | `/ai-course/` |
+| SFL 官公庁入札講座 | `/public-procurement-course/` |
+| SFL Academy（受講後の実践コミュニティ） | `/academy/` |
+| SFL Larkサポートデスク | `/support-desk/` |
 | 法人向け生成AI研修 | `/ai-dx-training/` |
 | Claude Code・Codex×Lark 初期設定支援 | `/ai-setup/` |
 | 人材開発支援助成金の費用試算 | `/reskilling-subsidy-simulator/` |

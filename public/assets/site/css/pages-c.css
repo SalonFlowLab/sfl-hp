@@ -60,3 +60,6 @@
 
 /* カード内のタグは内容幅に（flex column の stretch を解除） */
 .card > .tag { align-self: flex-start; }
+
+/* 講座・サポートページ（/ai-course/ など）：カード内の図の余白 */
+.card > .figure-frame { margin-bottom: 4px; }

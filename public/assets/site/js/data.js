@@ -9,11 +9,13 @@
     note: 'https://note.com/sfl_lark_dx_ai',
     larkRegister: 'https://www.larksuite.com/global/register?app_id=1001&lang=ja-JP&lead_page=plans__ssg_ja_jp&lead_platform=website&lead_position=nav&redirect_uri=https%3A%2F%2Fwww.larksuite.com%2Fgetstarted%3Fdisable_cross_redirect%3Dtrue&registration_process=global_register',
     larkCourse: 'https://dandeproject.com/lark/sfl/lp/',
-    larkTraining: 'https://sfl-reskilling-2026.lucia20200524.chatgpt.site/#lark',
-    aiCourse: 'https://sfl-codex-app-bootcamp.lucia20200524.chatgpt.site/',
-    procurementCourse: 'https://sfl-public-procurement.lucia20200524.chatgpt.site',
-    academy: 'https://sfl-lark-graduate-community.lucia20200524.chatgpt.site/#join',
-    supportDesk: 'https://sfl-lark-supportdesk.lucia20200524.chatgpt.site/',
+    // 講座の申込・説明会フォーム（Lark Base）。旧ChatGPTサイトの内容はサイト内ページ（/ai-course/ など）へ移設済み
+    aiCourseApply: 'https://becomerich.jp.larksuite.com/share/base/form/shrjp7Lv52QkW28LOi8gQyhXekg?prefill_%E8%AC%9B%E5%BA%A7=AI%E5%B0%8E%E5%85%A5%E8%AC%9B%E5%BA%A7&hide_%E8%AC%9B%E5%BA%A7=1&hide_%E9%80%81%E4%BF%A1%E6%97%A5%E6%99%82=1&from=navigation',
+    aiCourseBriefing: 'https://becomerich.jp.larksuite.com/share/base/form/shrjpPw3TOhNOfv4LgFiO4rKiGe?prefill_%E8%AA%AC%E6%98%8E%E4%BC%9A%E7%A8%AE%E5%88%A5=AI%E5%B0%8E%E5%85%A5%E8%AC%9B%E5%BA%A7&hide_%E8%AA%AC%E6%98%8E%E4%BC%9A%E7%A8%AE%E5%88%A5=1&from=navigation',
+    procurementApply: 'https://becomerich.jp.larksuite.com/share/base/form/shrjpsdH9uV4HtO0KkMp9YnD46e?from=navigation',
+    procurementBriefing: 'https://becomerich.jp.larksuite.com/share/base/form/shrjpUGpZAHOf9CHcvfZqbmj1zh?prefill_%E8%AA%AC%E6%98%8E%E4%BC%9A%E7%A8%AE%E5%88%A5=%E5%AE%98%E5%85%AC%E5%BA%81%E5%85%A5%E6%9C%AD%E8%AC%9B%E5%BA%A7&hide_%E8%AA%AC%E6%98%8E%E4%BC%9A%E7%A8%AE%E5%88%A5=1&from=navigation',
+    academyMail: 'mailto:info@salonflowlab.com?subject=SFL%20Academy%E5%8D%92%E6%A5%AD%E7%94%9F%E3%82%B3%E3%83%9F%E3%83%A5%E3%83%8B%E3%83%86%E3%82%A3%E3%81%AE%E7%9B%B8%E8%AB%87',
+    supportDeskMail: 'mailto:info@salonflowlab.com?subject=SFL%20Lark%E3%82%B5%E3%83%9D%E3%83%BC%E3%83%88%E3%83%87%E3%82%B9%E3%82%AF%E5%88%A9%E7%94%A8%E7%9B%B8%E8%AB%87&body=SFL%20Lark%E3%82%B5%E3%83%9D%E3%83%BC%E3%83%88%E3%83%87%E3%82%B9%E3%82%AF%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6%E7%9B%B8%E8%AB%87%E3%82%92%E5%B8%8C%E6%9C%9B%E3%81%97%E3%81%BE%E3%81%99%E3%80%82',
     cycleProSample: 'https://bjp66vk3my8x.jp.larksuite.com/base/CyUhb47braUdwTsSJ0YjtDFNpjg?from=from_copylink',
     luciaSite: 'https://eyelash-salon-lucia.lucia20200524.chatgpt.site/#top',
     uniqs: 'https://www.uniq-s.co.jp/'
@@ -61,7 +63,7 @@
     {
       id: 'lark-dx-training', group: 'corporate', topic: 'Lark', name: 'SFL DX(Lark)研修',
       description: '法人向けリスキリングのLark研修。自社業務を題材に、Lark・Baseによる業務改善と仕組みづくりを実践します。',
-      href: urls.larkTraining, external: true, action: 'Lark研修の詳細を見る'
+      href: '/lark-training/', action: '研修の内容・料金を見る'
     },
     {
       id: 'ai-training', group: 'corporate', topic: 'AI', name: 'SFL AI研修',
@@ -76,15 +78,15 @@
     },
     {
       id: 'ai-course', group: 'individual', topic: 'AI', name: 'SFL AI導入講座',
-      status: '2026年10月開始',
+      status: '1期生 2026年10月27日開講',
       description: 'AI・プログラミング初心者向け。ChatGPTでWebアプリをつくる体験編（4時間）から、希望者はCodexで保存機能の実装・公開まで学ぶ仕事編（6時間）へ進めます。',
-      href: '/courses/#ai-course', action: '講座の内容を見る'
+      href: '/ai-course/', action: '講座の内容・料金を見る'
     },
     {
       id: 'public-procurement-course', group: 'individual', topic: '官公庁入札', name: 'SFL 官公庁入札講座',
-      status: '2026年10月開始',
-      description: '官公庁入札について学ぶ実務講座です。講座内容・受講方法は専用の案内ページでご案内しています。',
-      href: '/courses/#public-procurement-course', action: '講座の内容を見る'
+      status: '1期生 2026年10月15日開講',
+      description: '国の仕事（官公庁案件）の探し方・条件確認・見積もりを、未経験から90分×全5コマで学ぶオンライン講座です。',
+      href: '/public-procurement-course/', action: '講座の内容・料金を見る'
     }
   ];
 
