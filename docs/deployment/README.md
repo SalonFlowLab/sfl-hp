@@ -7,12 +7,11 @@
 
 ## 環境変数
 
-Cloudflare PagesのSettings > Environment variablesに以下を設定します。
+必須の環境変数はありません。旧・資料請求フォームAPI用の `RESEND_API_KEY` `CONTACT_FROM_EMAIL` `CONTACT_TO_EMAIL` `LARK_CONTACT_WEBHOOK_URL` などは、2026-09 のリニューアルでAPIを廃止したため不要です（Cloudflare 側から削除してよい）。
 
-- `RESEND_API_KEY`: メール送信用のResend APIキー。
-- `CONTACT_FROM_EMAIL`: 送信元メールアドレス。
-- `CONTACT_TO_EMAIL`: `salonflowlab2603@gmail.com`。
-- `LARK_CONTACT_WEBHOOK_URL`: Larkチャット通知用webhook URL。URL確定後に追加。
+## 内部向け集約ページ
+
+`/internal/` は `functions/internal/_middleware.js` により、プレビューURL（`<branch>.sfl-hp.pages.dev`）とローカルだけで表示されます。本番ドメインと `sfl-hp.pages.dev` では 404 です。本番デプロイにも固有のハッシュURLが発行され、そこでは表示される点に注意してください（noindex・no-store）。
 
 CLIでデプロイする場合:
 

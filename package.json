@@ -12,6 +12,6 @@
     "check": "npm run check:links && npm run check:assets"
   },
   "devDependencies": {
-    "wrangler": "^4.0.0"
+    "wrangler": "^4.138.0"
   }
 }

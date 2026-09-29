@@ -1,5 +1,7 @@
 # ホームページ アニメーション詳細設計 — Phase 1〜2
 
+> **注記（2026-09-26）:** 美容向けの旧サイト時代の設計記録です。記載のファイルは廃止済み。新サイトの演出は `public/assets/site/` の `[data-reveal]` のみです。
+
 > **対象:** `public/pages/home/index.html`（第1弾）。下層ページ展開は Phase 2 完了後。  
 > **方針:** 依存ライブラリなし（CSS + `Intersection Observer` + 小さな `sfl-motion.js`）。  
 > **関連:** [homepage-improvement-learnings.md](./homepage-improvement-learnings.md)  
