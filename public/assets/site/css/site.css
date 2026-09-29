@@ -245,14 +245,6 @@ body.drawer-open { overflow: hidden; }
 .hero .button-secondary:hover { background: rgba(255, 255, 255, .1); color: #fff; }
 .hero-figure { margin: 0; border-radius: var(--radius); overflow: hidden; background: #fff; box-shadow: 0 24px 48px rgba(0, 0, 0, .25); }
 .hero-figure img { width: 100%; aspect-ratio: 1366 / 1152; object-fit: cover; }
-.hero-proof { border-top: 1px solid rgba(255, 255, 255, .18); }
-.hero-proof-inner { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px 32px; padding: 18px 0; }
-.hero-proof a { display: inline-flex; align-items: center; gap: 14px; color: #fff; text-decoration: none; min-height: 44px; }
-.hero-proof a:hover { color: var(--gold-pale); }
-.hero-proof img { width: 72px; height: 46px; object-fit: cover; border-radius: 4px; }
-.hero-proof small { display: block; font-family: var(--font-en); font-size: .7rem; letter-spacing: .14em; color: var(--gold-pale); }
-.hero-proof strong { font-size: .98rem; }
-.hero-proof p { font-size: .88rem; color: rgba(255, 255, 255, .8); }
 @media (max-width: 900px) {
   .hero-inner { grid-template-columns: 1fr; }
   .hero-figure { max-width: 520px; }
