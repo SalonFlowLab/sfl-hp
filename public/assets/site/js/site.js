@@ -25,7 +25,7 @@
     header.outerHTML = ''
       + '<a class="skip-link" href="#main">本文へスキップ</a>'
       + '<header class="site-header"><div class="shell site-header-inner">'
-      + '<a class="brand" href="/" aria-label="合同会社SFL ホーム"><img src="/assets/site/img/sfl-logo-mark.webp?v=20260929-3" alt="" width="44" height="44"><span><strong>合同会社SFL</strong></span></a>'
+      + '<a class="brand" href="/" aria-label="合同会社SFL ホーム"><img src="/assets/site/img/sfl-logo-mark.webp?v=20260929-4" alt="" width="44" height="44"><span><strong>合同会社SFL</strong></span></a>'
       + '<nav class="global-nav" aria-label="メインナビゲーション">' + navLinks + '</nav>'
       + '<a class="button button-primary button-small header-cta" href="/contact/">60分無料相談' + arrow() + '</a>'
       + '<button class="menu-button" type="button" aria-expanded="false" aria-controls="site-drawer" aria-label="メニューを開く"><span></span><span></span><span></span></button>'
@@ -83,7 +83,7 @@
     const c = SFL.company;
     footer.outerHTML = '<footer class="site-footer"><div class="shell footer-main">'
       + '<div class="footer-brand">'
-      + '<a class="brand" href="/"><img src="/assets/site/img/sfl-logo-mark.webp?v=20260929-3" alt="" width="44" height="44" loading="lazy"><span><strong>合同会社SFL</strong><small>LARK / AI</small></span></a>'
+      + '<a class="brand" href="/"><img src="/assets/site/img/sfl-logo-mark.webp?v=20260929-4" alt="" width="44" height="44" loading="lazy"><span><strong>合同会社SFL</strong><small>LARK / AI</small></span></a>'
       + '<p>Larkを軸に、業務改善・構築・教育・伴走支援を提供。AIの活用・教育にも取り組んでいます。</p>'
       + '<address>' + esc(c.postal) + '<br>' + esc(c.address) + '</address>'
       + '<p class="note" style="color:rgba(255,255,255,.75)">合同会社SFLはLark Japanの代理店ではありません。</p>'
@@ -109,7 +109,6 @@
       + col('CONTACT', [
         { href: '/contact/', label: '60分無料相談・お問い合わせ' },
         { href: SFL.urls.contactForm, label: '法人の相談フォーム', external: true },
-        { href: SFL.urls.line, label: 'LINEで業務の相談（個人事業主）', external: true },
         { href: '/courses/#entry', label: '個人向け講座の受講について' }
       ])
       + '</div><div class="shell footer-bottom"><p>法人番号 ' + esc(c.corporateNumber) + '</p><p>© 2026 SFL LLC.</p></div></footer>';
