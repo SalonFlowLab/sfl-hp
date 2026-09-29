@@ -9,6 +9,7 @@
     note: 'https://note.com/sfl_lark_dx_ai',
     larkRegister: 'https://www.larksuite.com/global/register?app_id=1001&lang=ja-JP&lead_page=plans__ssg_ja_jp&lead_platform=website&lead_position=nav&redirect_uri=https%3A%2F%2Fwww.larksuite.com%2Fgetstarted%3Fdisable_cross_redirect%3Dtrue&registration_process=global_register',
     larkCourse: 'https://dandeproject.com/lark/sfl/lp/',
+    larkOfficial: 'https://www.larksuite.com/ja_jp/',
     // 講座の申込・説明会フォーム（Lark Base）。旧ChatGPTサイトの内容はサイト内ページ（/ai-course/ など）へ移設済み
     aiCourseApply: 'https://becomerich.jp.larksuite.com/share/base/form/shrjp7Lv52QkW28LOi8gQyhXekg?prefill_%E8%AC%9B%E5%BA%A7=AI%E5%B0%8E%E5%85%A5%E8%AC%9B%E5%BA%A7&hide_%E8%AC%9B%E5%BA%A7=1&hide_%E9%80%81%E4%BF%A1%E6%97%A5%E6%99%82=1&from=navigation',
     aiCourseBriefing: 'https://becomerich.jp.larksuite.com/share/base/form/shrjpPw3TOhNOfv4LgFiO4rKiGe?prefill_%E8%AA%AC%E6%98%8E%E4%BC%9A%E7%A8%AE%E5%88%A5=AI%E5%B0%8E%E5%85%A5%E8%AC%9B%E5%BA%A7&hide_%E8%AA%AC%E6%98%8E%E4%BC%9A%E7%A8%AE%E5%88%A5=1&from=navigation',

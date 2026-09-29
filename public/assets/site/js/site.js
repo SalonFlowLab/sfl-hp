@@ -90,6 +90,7 @@
       + '<div class="footer-actions"><a href="' + SFL.urls.note + '" ' + ext + '>SFL公式note ↗</a></div>'
       + '</div>'
       + col('BUSINESS', [
+        { href: '/what-is-lark/', label: 'Larkとは' },
         { href: '/services/#lark', label: 'Lark事業' },
         { href: '/services/#ai', label: 'AI事業' },
         { href: '/services/#corporate-training', label: '法人研修' },
