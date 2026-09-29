@@ -9,7 +9,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@600;700&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="/assets/site/css/site.css?v=20260929-1">
+  <link rel="stylesheet" href="/assets/site/css/site.css?v=20260929-3">
   <style>
     .internal-bar { background: #7a1f1f; color: #fff; font-size: .86rem; font-weight: 700; padding: 8px 0; text-align: center; }
     .internal table { width: 100%; border-collapse: collapse; font-size: .9rem; }
@@ -52,7 +52,7 @@
           <tbody>
             <tr><td><span class="st st-temp">暫定</span> 公開ドメイン</td><td>canonical・OG・JSON-LD・sitemap・robots を <code>https://salonflowlab.com</code> で統一</td><td>新ドメインにするか。変える場合は一括置換（<code>rg -l "salonflowlab.com" public</code>）</td></tr>
             <tr><td><span class="st st-temp">暫定</span> /what-is-lark/ の置き換え比較のツールロゴ</td><td>ロゴは <code>/assets/site/img/tools/</code>。Wikimedia Commons の公式ロゴSVG（LINE・Slack・Word・Excel・OneDrive・Teams・Googleドキュメント／スプレッドシート／カレンダー／Meet・Notion・Zoom・Dropbox・Salesforce）、TimeTree公式ブランドキットのシンボル、各社サイトのファビコン（Eight・ギガファイル便）。Chatwork は kubell の利用規約に同意して入手した正規のロゴマーク単体（無加工、Web最小16px以上・白背景）。Appleのメモ・カレンダー・リマインダーは Apple の規定で第三者のロゴ・アイコン使用が認められないため、自作の汎用アイコン（<code>memo.svg</code> <code>calendar.svg</code> <code>reminder.svg</code>）＋名称に「（Apple）」を併記</td><td>公開前に各社のブランド規定を確認（競合比較・乗り換え訴求でのロゴ使用が許されるか）。Zoom は正方形アイコンが無くワードマークを使用</td></tr>
-            <tr><td><span class="st st-wait">保留</span> ロゴ画像</td><td>ヘッダー・フッター・JSON-LD のロゴ（<code>sfl-logo.jpg</code> と縮小版 <code>sfl-logo-mark.webp</code>）のマーク下に旧ブランド名「SALON FLOW LAB.」の文字が入っている</td><td>一般業種向けの新ロゴを用意するか。用意したら両ファイルを差し替える（縮小版は132px・WebP）</td></tr>
+            <tr><td><span class="st st-temp">暫定</span> ロゴ画像</td><td>2026-09-29、旧ブランド名「SALON FLOW LAB.」の文字を外した。ヘッダー・フッターは文字なしのS＋マーク（<code>sfl-logo-mark.webp</code>・132px）、JSON-LD の組織ロゴは原本の文字の上で切り抜いた <code>sfl-logo-mark.png</code>（512px）、ファビコンは <code>favicon.png</code>。OG画像 <code>sfl-og-image.jpg</code> は左下の「SFL | SALON FLOW LAB.」を「合同会社SFL」に書き換えた。文字入りの原本は <code>docs/brand/sfl-logo-original-salon-flow-lab.jpg</code> に移した（公開しない）</td><td>一般業種向けの新ロゴを作るか（S＋マークは旧ブランドから継続中）。作る場合は上の4ファイルとOG画像を差し替える。SNSはOG画像をキャッシュするため、反映にはFacebookのシェアデバッガー等で再取得が必要</td></tr>
             <tr><td><span class="st st-wait">要確認</span> Lark企業研修の時間割</td><td>/lark-training/ は旧研修サイトどおり「DAY1対面5時間・DAY2〜4オンライン各2時間・DAY5対面4時間」「動画36本」。/lark-dx/・/services/・助成金試算は「3時間×5コマ」「動画26本」「1回最大5名」「研修後1か月の無料伴走」のまま（合計15時間・全5回・360,000円は一致）</td><td>正しい時間割・動画本数・人数上限・研修後の伴走の有無。決まったら全ページを揃える</td></tr>
             <tr><td><span class="st st-wait">要確認</span> サポートデスクの料金表記</td><td>/support-desk/ は旧サイトどおり「月額980円（税別）」。/lark-dx/ は「月額980円（税込）」、/public-procurement-course/ は「通常料金980円」（税区分なし）</td><td>税込か税別か。決まったら3ページを揃える</td></tr>
             <tr><td><span class="st st-wait">要確認</span> AI導入講座の相談窓口</td><td>旧AI講座サイトは公式LINE（lin.ee/VdZRYiM、会社の公式LINEとは別アカウント）で「仕事編だけの受講」相談を受けていた。/ai-course/ では使わず、無料説明会と /courses/#entry へ案内</td><td>講座の相談窓口をどれにするか</td></tr>
