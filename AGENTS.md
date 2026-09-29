@@ -9,7 +9,7 @@ HTML/CSS/JavaScriptのみの静的サイトです。公開対象のファイル�
 - `public/index.html`: トップページ。
 - `public/{slug}/index.html`: 各ページ（公開URLは `/{slug}/`）。
 - `public/assets/site/`: **新サイトの共通資産**（`css/site.css`、`js/data.js`、`js/site.js`、`img/`）。
-- `public/internal/index.html`: 内部向けの集約ページ（仕様・判断・確定待ち・料金掲載箇所など）。`functions/internal/_middleware.js` がプレビュー環境とローカル以外では 404 を返す。
+- `public/internal/index.html`: 内部向けの集約ページ（仕様・判断・確定待ち・料金掲載箇所など）。`functions/internal/_middleware.js` がプレビュー環境とローカル以外では 404 を返す。**公開ページの内容を追加・削除・変更したら、同じコミットで `/internal/` の該当箇所（情報の整理・仕様書の対応状況・確定待ち・料金の掲載箇所・会議の決定事項）も更新する。**
 - `functions/internal/_middleware.js`: `/internal/` をプレビュー限定にするミドルウェア。
 - `wrangler.jsonc`: Cloudflare Pages の最小デプロイ設定。
 - `public/_headers` / `public/_redirects`: ヘッダーと旧URLの301転送（転送先は最終ページへ直接。連鎖させない）。
