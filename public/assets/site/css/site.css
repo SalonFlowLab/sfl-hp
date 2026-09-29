@@ -381,8 +381,6 @@ body.drawer-open { overflow: hidden; }
 /* ---------- Course groups ---------- */
 .course-group + .course-group { margin-top: 48px; }
 .course-card .course-status { font-size: .86rem; font-weight: 700; color: var(--footer-blue); }
-.course-note { margin-top: 20px; padding: 16px 20px; border-left: 3px solid var(--gold); background: var(--white); border-radius: 0 var(--radius-sm) var(--radius-sm) 0; font-size: .94rem; }
-
 /* ---------- FAQ ---------- */
 .faq-list { max-width: 880px; }
 .faq-list .disclosure > summary { font-size: 1.02rem; }

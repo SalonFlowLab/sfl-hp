@@ -50,11 +50,6 @@
       id: 'ai', number: '02', name: 'AI事業', en: 'AI',
       summary: '生成AIの研修・活用支援・アプリ制作を通じて、日々の業務でAIを使いこなせる環境づくりを支援します。',
       href: '/services/#ai', action: 'AI事業の詳細を見る'
-    },
-    {
-      id: 'public-procurement', number: '03', name: '官公庁入札事業', en: 'PUBLIC PROCUREMENT',
-      summary: '官公庁案件の情報収集・入札に向けた準備を通じて、公共分野での事業機会の開拓に取り組みます。',
-      href: '/services/#public-procurement', action: '官公庁入札事業の詳細を見る'
     }
   ];
 
@@ -72,19 +67,16 @@
     },
     {
       id: 'lark-intro', group: 'individual', topic: 'Lark', name: 'SFL Lark導入講座',
-      status: '0期生終了・1期生進行中・2期生は2026年11月募集予定',
       description: '基本操作からBaseの設計・構築まで、仕事で使うLarkのスキルを学びます。',
       href: '/courses/#lark-intro', action: '講座の内容・料金を見る'
     },
     {
       id: 'ai-course', group: 'individual', topic: 'AI', name: 'SFL AI導入講座',
-      status: '1期生 2026年10月27日開講',
       description: 'AI・プログラミング初心者向け。ChatGPTでWebアプリをつくる体験編（4時間）から、希望者はCodexで保存機能の実装・公開まで学ぶ仕事編（6時間）へ進めます。',
       href: '/ai-course/', action: '講座の内容・料金を見る'
     },
     {
       id: 'public-procurement-course', group: 'individual', topic: '官公庁入札', name: 'SFL 官公庁入札講座',
-      status: '1期生 2026年10月15日開講',
       description: '国の仕事（官公庁案件）の探し方・条件確認・見積もりを、未経験から90分×全5コマで学ぶオンライン講座です。',
       href: '/public-procurement-course/', action: '講座の内容・料金を見る'
     }
