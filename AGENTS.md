@@ -6,9 +6,11 @@
 
 HTML/CSS/JavaScriptのみの静的サイトです。公開対象のファイルは `public/` に集約しています。
 
-- `public/index.html`: トップページ。
+- `public/index.html`: トップページ。2026-10-05 にトップ案（FVアニメーション＋本文）へ差し替え。本文は共通部品（`data-sfl`）を使わず、HTML に直接書いている。
 - `public/{slug}/index.html`: 各ページ（公開URLは `/{slug}/`）。
 - `public/assets/site/`: **新サイトの共通資産**（`css/site.css`、`js/data.js`、`js/site.js`、`img/`）。
+- `public/assets/site/css/home.css` / `js/home.js`: **トップページ専用**。`home.css` は `<main class="home">` の中だけに効く（site.css のトークンを使用）。`home.js` は FV の演出（幕 → 業務の断片が集まりロゴを描く → ダッシュボードが組み上がる、約12秒）。
+- `public/assets/site/css/pages-a.css`〜`pages-d.css`: 下層ページ用の追加スタイル（各ファイル冒頭のコメントに対象ページ）。
 - `public/internal/index.html`: 内部向けの集約ページ（仕様・判断・確定待ち・料金掲載箇所など）。`functions/internal/_middleware.js` がプレビュー環境とローカル以外では 404 を返す。**公開ページの内容を追加・削除・変更したら、同じコミットで `/internal/` の該当箇所（情報の整理・仕様書の対応状況・確定待ち・料金の掲載箇所・会議の決定事項）も更新する。**
 - `functions/internal/_middleware.js`: `/internal/` をプレビュー限定にするミドルウェア。
 - `wrangler.jsonc`: Cloudflare Pages の最小デプロイ設定。
@@ -33,29 +35,32 @@ HTML/CSS/JavaScriptのみの静的サイトです。公開対象のファイル�
 | 置き場所 | 内容 |
 |---|---|
 | `<div data-site-header>` / `<div data-site-footer>` | ヘッダー・ドロワー・フッター |
-| `data-sfl="businesses"` | 事業カード（Lark・AI） |
-| `data-sfl="courses" data-group="corporate|individual"` | 講座・研修カード（法人→個人の順） |
-| `data-sfl="records"` | 導入・研修・取引実績（トップ・事例・会社で共通） |
-| `data-sfl="flow"` | 相談フロー図（主フロー＋希望者のみの分岐） |
+| `data-sfl="businesses"` | 事業カード（Lark・AI）。2026-10-05 のトップ差し替え以降、使っているページは無い |
+| `data-sfl="courses" data-group="corporate|individual"` | 講座・研修カード（法人→個人の順）。`/services/`・`/courses/` |
+| `data-sfl="records"` | 導入・研修・取引実績。`/case-study/` |
+| `data-sfl="flow"` | 相談フロー図（主フロー＋希望者のみの分岐）。`/contact/` |
 
 **外部URLは `data.js` の `urls` が正です。** HTML には `<a data-url="キー">` だけを書き、`site.js` が href を入れます（`href` に同じURLを直接書くと `npm run check:links` が失敗します）。
 
-`<body data-active="...">` でナビの現在地を決めます。スクリプトは `data.js` → `site.js` の順に `defer` で読み込みます。
+`<body data-active="...">` でナビの現在地を決めます。スクリプトは `data.js` → `site.js` の順に `defer` で読み込みます（トップだけ続けて `home.js`）。
 
-**`<head>` のSEO情報**: 全ページに `<title>`・description・canonical・OG・JSON-LD があります。JSON-LD は静的なので、会社情報・FAQ・講座名を変えたら JSON-LD も同時に直します（FAQ はトップ本文と完全一致）。組織情報は `index.html` の Organization が正で、他ページは `@id` で参照します。
+**トップFVの演出（`home.js`）**: 初回は自動再生し、同じタブの2回目以降（`sessionStorage`）と `prefers-reduced-motion` では最終状態だけを表示。再生／一時停止・スキップのボタンあり。h1・サブコピー・FVのCTAは演出の後半で表示される。ロゴは SVG パスで描き、下に「SALON FLOW LAB.」の文字を描く（2026-10-05 の指示でトップ案のまま。ヘッダー・フッター・OG画像・JSON-LD のロゴは文字なし）。ダッシュボードは装飾扱い（`aria-hidden`、「※画面はイメージです」）。
+
+**`<head>` のSEO情報**: 全ページに `<title>`・description・canonical・OG・JSON-LD があります。JSON-LD は静的なので、会社情報・FAQ・講座名を変えたら JSON-LD も同時に直します（FAQ はトップ本文と完全一致。現在3問。旧URL `/faq/` の転送先は `/#faq` なので、トップのFAQ欄の `id="faq"` は消さない）。組織情報は `index.html` の Organization が正で、他ページは `@id` で参照します。
 
 **正規URL**: `https://salonflowlab.com/`（新ドメインが決まったら全ページの canonical・OG・JSON-LD・sitemap・robots を一括置換）。
 
 ## デザイン・CTA・文言の制約
 
 - ブランドカラーは固定: `#F8F5EF` `#103A71` `#C99A1A` `#E7D3A0` `#1E88E5` `#333333`。フッターだけ中間の青 `#1A5796`（2026-09-22 打ち合わせで決定）。本文は `#333333`。
-- 誠実さ優先。ボタンは角丸控えめ（6px）。アニメーションはセクション登場時の控えめなものだけ（`prefers-reduced-motion` で無効）。
-- 開閉（details）は「追加説明」だけに使う。概要・実績・会社情報は常時表示。開閉は見出し行全体を押せる形（`.disclosure`、＋／−表示）。
+- 誠実さ優先。ボタンは角丸控えめ（6px）。アニメーションはセクション登場時の控えめなものだけ（`prefers-reduced-motion` で無効）。例外はトップFVの演出（2026-10-05 にトップ案を採用）。
+- トップは配色をブランド6色に置き換えたが、色の役割はトップ案のまま（金の文字・青や金のボタン）。下層ページのルール（主ボタンは紺、金は文字色に使わない）と食い違っており、どちらに揃えるかは確定待ち（`/internal/` の確定待ち）。
+- 開閉（details）は「追加説明」だけに使う。概要・実績・会社情報は常時表示。開閉は見出し行全体を押せる形（`.disclosure`、＋／−表示。トップのFAQだけは `home.css` の独自スタイル）。
 - 見出し（h2）の末尾に句読点を付けない。
 - 主CTAは「60分無料相談」（`/contact/`）。ヘッダー・トップFV・ページ末尾に置き、本文で同じボタンを重ねない。
 - 申し込み窓口は「個人事業主・フリーランス＝公式LINE」「法人＝Lark のお問い合わせフォーム（別タブ）」。個人向け講座の受講は別窓口（`/courses/#entry`）。
 - 法人向けと個人向けは「事業の相談（法人・個人事業主）」と「個人の学び（講座）」で分ける。個人向け講座は `/courses/` に集約し、法人研修のページ（`/lark-dx/` `/ai-dx-training/`）に個人向けの内容を混ぜない。
-- 講座・研修・サポートの詳細はサイト内ページに置く（`/lark-training/` `/ai-course/` `/public-procurement-course/` `/academy/` `/support-desk/`）。旧 ChatGPT サイト（*.chatgpt.site）へはリンクしない（Lucia 事例サイトのみ例外）。申込・説明会は Lark Base のフォーム（`data.js` の `urls`）。
+- 講座・研修・サポートの詳細はサイト内ページに置く（`/lark-training/` `/ai-course/` `/public-procurement-course/` `/academy/` `/support-desk/`）。旧 ChatGPT サイト（*.chatgpt.site）へはリンクしない（Lucia 事例サイトのみ例外）。申込・説明会は Lark Base のフォーム（`data.js` の `urls`）。ログインしないと見られないリンク（共有されていない Lark Base 本体など）は置かない（2026-10-05、Cycle Pro の見本リンクをサイト全体から削除）。
 - 対象は一般業種全体。美容は Cycle Pro・Lucia 事例などの実績としてのみ扱い、美容向けの訴求を主にしない。
 - 事業紹介は Lark・AI の2事業（2026-09-29 に官公庁入札を事業紹介から外した）。官公庁入札は講座と取引実績としてのみ扱う。
 - 講座の表示価格は正規の受講料（18万円・税別）に統一する。開講日・期別の料金・割引・募集状況は各講座の詳細ページ（`/ai-course/` `/public-procurement-course/` など）にだけ書き、トップ・`/courses/`・`/services/` などには書かない（2026-09-29 打ち合わせで決定）。
@@ -67,7 +72,7 @@ HTML/CSS/JavaScriptのみの静的サイトです。公開対象のファイル�
 
 ## テスト方針
 
-自動テストフレームワークはありません。`npm run check` + `git diff --check` + ブラウザ確認（トップ・変更ページ・もう1ページ、デスクトップと390px幅、コンソールエラー）で検証します。JS を触ったら `node --check public/assets/site/js/*.js` も実行します。
+自動テストフレームワークはありません。`npm run check` + `git diff --check` + ブラウザ確認（トップ・変更ページ・もう1ページ、デスクトップと390px幅、コンソールエラー）で検証します。JS を触ったら `node --check public/assets/site/js/*.js` も実行します。トップFVを確認するときは、演出の途中と終了後（約12秒後、またはスキップ）の両方を見ます。
 
 ## コミット・プルリクエスト
 
