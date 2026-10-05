@@ -27,14 +27,14 @@
       + '<header class="site-header"><div class="shell site-header-inner">'
       + '<a class="brand" href="/" aria-label="合同会社SFL ホーム"><img src="/assets/site/img/sfl-logo-mark.webp?v=20260929-4" alt="" width="44" height="44"><span><strong>合同会社SFL</strong></span></a>'
       + '<nav class="global-nav" aria-label="メインナビゲーション">' + navLinks + '</nav>'
-      + '<a class="button button-primary button-small header-cta" href="/contact/">60分無料相談' + arrow() + '</a>'
+      + '<a class="button button-consult button-small header-cta" href="/contact/">60分無料相談' + arrow() + '</a>'
       + '<button class="menu-button" type="button" aria-expanded="false" aria-controls="site-drawer" aria-label="メニューを開く"><span></span><span></span><span></span></button>'
       + '</div></header>'
       + '<div class="drawer" id="site-drawer" hidden><nav aria-label="モバイルナビゲーション">'
       + '<a href="/">ホーム<span aria-hidden="true">→</span></a>'
       + SFL.nav.map((item) => '<a href="' + item.href + '"' + current(item) + '>' + esc(item.label) + '<span aria-hidden="true">→</span></a>').join('')
       + '<a href="' + SFL.urls.note + '" ' + ext + '>SFL公式note<span aria-hidden="true">↗</span></a>'
-      + '</nav><a class="button button-primary" href="/contact/">60分無料相談' + arrow() + '</a></div>';
+      + '</nav><a class="button button-consult" href="/contact/">60分無料相談' + arrow() + '</a></div>';
 
     const button = document.querySelector('.menu-button');
     const drawer = document.getElementById('site-drawer');

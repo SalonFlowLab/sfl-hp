@@ -123,6 +123,9 @@ body.drawer-open { overflow: hidden; }
 .button:hover { transform: translateY(-1px); }
 .button-primary { background: var(--navy); color: #fff; }
 .button-primary:hover { background: var(--navy-deep); color: #fff; }
+/* 主CTA「60分無料相談」専用：全ページ金地に濃紺文字（2026-10-05 決定。白文字は金地で読みにくいため濃紺。他のボタンに金を使わない） */
+.button-consult { background: var(--gold); color: var(--navy-deep); }
+.button-consult:hover { background: var(--gold-pale); color: var(--navy-deep); }
 .button-secondary { background: var(--white); color: var(--navy); border-color: var(--navy); }
 .button-secondary:hover { background: var(--tint); color: var(--navy); }
 .button-line { background: #06C755; color: #fff; }

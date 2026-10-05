@@ -4,9 +4,9 @@
 .home { line-height: 1.8; letter-spacing: normal; }
 .home a { color: inherit; text-decoration: none; }
 .home :is(h1, h2, h3, h4) { letter-spacing: normal; line-height: inherit; }
-/* 主ボタンは全ページ共通の色：明るい背景では紺、紺の背景では白地に紺文字（site.css の .button-primary・.cta-band と同じ） */
-.home .btn { display: inline-block; background: var(--navy); color: #fff; padding: 13px 28px; border: 1.5px solid transparent; border-radius: var(--radius-sm); font-weight: 700; font-size: 15px; }
-.home .btn:hover { background: var(--navy-deep); color: #fff; }
+/* 「60分無料相談」は全ページ共通の金地に濃紺文字（site.css の .button-consult と同じ） */
+.home .btn { display: inline-block; background: var(--gold); color: var(--navy-deep); padding: 13px 28px; border: 1.5px solid transparent; border-radius: var(--radius-sm); font-weight: 700; font-size: 15px; }
+.home .btn:hover { background: var(--gold-pale); color: var(--navy-deep); }
 .home br.sp { display: none; }
 @media (max-width: 720px) { .home br.sp { display: inline; } }
 
@@ -160,7 +160,5 @@
 .home .final p { color: rgba(255, 255, 255, .8); max-width: 560px; margin: 0 auto 24px; }
 .home .final .ey { justify-content: center; }
 .home .final .frow { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
-.home .btn.inv { background: #fff; color: var(--navy); }
-.home .btn.inv:hover { background: var(--cream); color: var(--navy); }
-.home .btn.o { background: transparent; border-color: rgba(255, 255, 255, .7); }
+.home .btn.o { background: transparent; color: #fff; border-color: rgba(255, 255, 255, .7); }
 .home .btn.o:hover { background: rgba(255, 255, 255, .1); color: #fff; }
