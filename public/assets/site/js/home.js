@@ -3,7 +3,6 @@
 var NAVY='#103A71',BLUE='#1E88E5',GOLD='#C99A1A',NS='http://www.w3.org/2000/svg';
 var track=document.getElementById('track'),stage=document.getElementById('stage'),scene=document.getElementById('scene');
 var ct=document.getElementById('ct'),cb=document.getElementById('cb'),vt=document.getElementById('vtext'),vp=document.getElementById('vp'),copy=document.getElementById('copy');
-var playBtn=document.getElementById('play'),playLabel=document.getElementById('playlabel');
 var reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 var W=0,H=0,mobile=false,cur=0,S={};
 function ease(t){t=Math.max(0,Math.min(1,t));return t*t*(3-2*t)}
@@ -168,10 +167,8 @@ function render(g){
   vt.style.opacity=String(1-ease((p-.08)/.09));
   V.render(p,E);
   phase2(g);
-  if(!reduce){playLabel.textContent=playing?'一時停止':(g>.995?'もう一度':(g>.005?'再開':'再生'));playBtn.classList.toggle('on',playing)}
 }
 var playing=false,raf=0,last=0,DURATION=12000,t0=0;
-function stop(){playing=false;cancelAnimationFrame(raf);render(cur)}
 function tick(ts){
   if(!playing)return;var dt=Math.min(64,ts-last);last=ts;
   var p=cur+dt/DURATION;
@@ -179,11 +176,10 @@ function tick(ts){
   render(p);raf=requestAnimationFrame(tick);
 }
 function play(){if(cur>.995){cur=0}playing=true;last=performance.now();raf=requestAnimationFrame(tick);render(cur)}
-playBtn.addEventListener('click',function(){playing?stop():play()});
 var rt;window.addEventListener('resize',function(){clearTimeout(rt);rt=setTimeout(function(){build()},120)});
 vp.innerHTML='<span>'+TEXT[0]+'</span><span>'+TEXT[1]+'</span>';
 build();
 function seen(){try{if(sessionStorage.getItem('sflfv6'))return true;sessionStorage.setItem('sflfv6','1')}catch(e){}return false}
-function start(){cur=0;build();if(reduce||seen()){render(1);if(reduce)playBtn.style.display='none'}else{render(0);setTimeout(play,350)}}
+function start(){cur=0;build();if(reduce||seen()){render(1)}else{render(0);setTimeout(play,350)}}
 if(document.fonts&&document.fonts.ready)document.fonts.ready.then(start);else start();
 })();
