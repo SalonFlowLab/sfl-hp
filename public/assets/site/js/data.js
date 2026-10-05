@@ -40,19 +40,6 @@
     { href: '/instructors/', label: '講師・支援体制', key: 'instructors' }
   ];
 
-  const businesses = [
-    {
-      id: 'lark', number: '01', name: 'Lark事業', en: 'LARK',
-      summary: 'Larkを活用した業務整理・仕組みづくりを通じて、導入から社員教育、運用の定着まで支援します。',
-      href: '/services/#lark', action: 'Lark事業の詳細を見る'
-    },
-    {
-      id: 'ai', number: '02', name: 'AI事業', en: 'AI',
-      summary: '生成AIの研修・活用支援・アプリ制作を通じて、日々の業務でAIを使いこなせる環境づくりを支援します。',
-      href: '/services/#ai', action: 'AI事業の詳細を見る'
-    }
-  ];
-
   // 講座・研修: 法人向け → 個人向けの順（仕様書 09）。個人向けは /courses/ の各講座の説明へリンクする
   const courses = [
     {
@@ -104,5 +91,5 @@
     }
   };
 
-  window.SFL = { urls, company, nav, businesses, courses, records, flow };
+  window.SFL = { urls, company, nav, courses, records, flow };
 })();

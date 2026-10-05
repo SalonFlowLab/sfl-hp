@@ -269,11 +269,6 @@ body.drawer-open { overflow: hidden; }
 }
 .page-nav a:hover { border-color: var(--navy); }
 
-/* ---------- Business cards ---------- */
-.business-card { gap: 14px; }
-.business-card .card-head .en { font-family: var(--font-en); font-size: .74rem; letter-spacing: .14em; color: var(--muted); font-weight: 700; }
-.business-card h3 { font-size: 1.35rem; }
-
 /* ---------- Support cards ---------- */
 .support-card .support-title { font-size: 1.12rem; }
 .support-card .support-label { font-size: .82rem; font-weight: 700; color: var(--footer-blue); letter-spacing: .06em; }

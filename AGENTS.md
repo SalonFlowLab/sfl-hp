@@ -35,7 +35,6 @@ HTML/CSS/JavaScriptのみの静的サイトです。公開対象のファイル�
 | 置き場所 | 内容 |
 |---|---|
 | `<div data-site-header>` / `<div data-site-footer>` | ヘッダー・ドロワー・フッター |
-| `data-sfl="businesses"` | 事業カード（Lark・AI）。2026-10-05 のトップ差し替え以降、使っているページは無い |
 | `data-sfl="courses" data-group="corporate|individual"` | 講座・研修カード（法人→個人の順）。`/services/`・`/courses/` |
 | `data-sfl="records"` | 導入・研修・取引実績。`/case-study/` |
 | `data-sfl="flow"` | 相談フロー図（主フロー＋希望者のみの分岐）。`/contact/` |

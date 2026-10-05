@@ -1,6 +1,6 @@
 /* 合同会社SFL サイト共通UI
    - ヘッダー / ドロワー / フッター（[data-site-header] [data-site-footer]）
-   - 共通部品（[data-sfl="businesses|courses|records|flow"]）
+   - 共通部品（[data-sfl="courses|records|flow"]）
    - セクション登場アニメーション（[data-reveal]）
    - 計測イベント（gtag があるときだけ送信）
    データは data.js の window.SFL を参照する。data.js → site.js の順で読み込むこと。 */
@@ -116,12 +116,6 @@
 
   /* ---------- Shared components ---------- */
   const render = {
-    businesses: () => SFL.businesses.map((b) => ''
-      + '<a class="card card-link business-card" id="business-' + b.id + '" href="' + b.href + '" data-reveal>'
-      + '<div class="card-head"><span class="card-num">' + b.number + '</span><span class="en">' + b.en + '</span></div>'
-      + '<h3>' + esc(b.name) + '</h3><p>' + esc(b.summary) + '</p>'
-      + '<div class="card-foot"><span class="text-link">' + esc(b.action) + arrow() + '</span></div></a>').join(''),
-
     courses: (el) => SFL.courses.filter((course) => !el.dataset.group || course.group === el.dataset.group).map((course) => ''
       + '<article class="card course-card" id="course-' + course.id + '" data-reveal>'
       + '<div class="card-head"><span class="tag">' + esc(course.topic) + '</span>' + (course.status ? '<span class="course-status">' + esc(course.status) + '</span>' : '') + '</div>'
