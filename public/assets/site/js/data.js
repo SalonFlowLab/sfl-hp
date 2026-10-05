@@ -17,7 +17,6 @@
     procurementBriefing: 'https://becomerich.jp.larksuite.com/share/base/form/shrjpUGpZAHOf9CHcvfZqbmj1zh?prefill_%E8%AA%AC%E6%98%8E%E4%BC%9A%E7%A8%AE%E5%88%A5=%E5%AE%98%E5%85%AC%E5%BA%81%E5%85%A5%E6%9C%AD%E8%AC%9B%E5%BA%A7&hide_%E8%AA%AC%E6%98%8E%E4%BC%9A%E7%A8%AE%E5%88%A5=1&from=navigation',
     academyMail: 'mailto:info@salonflowlab.com?subject=SFL%20Academy%E5%8D%92%E6%A5%AD%E7%94%9F%E3%82%B3%E3%83%9F%E3%83%A5%E3%83%8B%E3%83%86%E3%82%A3%E3%81%AE%E7%9B%B8%E8%AB%87',
     supportDeskMail: 'mailto:info@salonflowlab.com?subject=SFL%20Lark%E3%82%B5%E3%83%9D%E3%83%BC%E3%83%88%E3%83%87%E3%82%B9%E3%82%AF%E5%88%A9%E7%94%A8%E7%9B%B8%E8%AB%87&body=SFL%20Lark%E3%82%B5%E3%83%9D%E3%83%BC%E3%83%88%E3%83%87%E3%82%B9%E3%82%AF%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6%E7%9B%B8%E8%AB%87%E3%82%92%E5%B8%8C%E6%9C%9B%E3%81%97%E3%81%BE%E3%81%99%E3%80%82',
-    cycleProSample: 'https://bjp66vk3my8x.jp.larksuite.com/base/CyUhb47braUdwTsSJ0YjtDFNpjg?from=from_copylink',
     luciaSite: 'https://eyelash-salon-lucia.lucia20200524.chatgpt.site/#top',
     uniqs: 'https://www.uniq-s.co.jp/'
   };
