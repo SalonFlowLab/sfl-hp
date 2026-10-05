@@ -43,7 +43,7 @@ HTML/CSS/JavaScriptのみの静的サイトです。公開対象のファイル�
 
 `<body data-active="...">` でナビの現在地を決めます。スクリプトは `data.js` → `site.js` の順に `defer` で読み込みます（トップだけ続けて `home.js`）。
 
-**トップFVの演出（`home.js`）**: 初回は自動再生し、同じタブの2回目以降（`sessionStorage`）と `prefers-reduced-motion` では最終状態だけを表示。再生／一時停止・スキップのボタンあり。h1・サブコピー・FVのCTAは演出の後半で表示される。ロゴは SVG パスで描き、下に「SALON FLOW LAB.」の文字を描く（2026-10-05 の指示でトップ案のまま。ヘッダー・フッター・OG画像・JSON-LD のロゴは文字なし）。ダッシュボードは装飾扱い（`aria-hidden`、「※画面はイメージです」）。
+**トップFVの演出（`home.js`）**: 初回は自動再生し、同じタブの2回目以降（`sessionStorage`）と `prefers-reduced-motion` では最終状態だけを表示。再生／一時停止のボタンあり（スキップボタンは2026-10-05に削除。自動で5秒以上動くため、一時停止ボタンは消さない）。h1・サブコピー・FVのCTAは演出の後半で表示される。ロゴは SVG パスで描き、下に「SALON FLOW LAB.」の文字を描く（2026-10-05 の指示でトップ案のまま。ヘッダー・フッター・OG画像・JSON-LD のロゴは文字なし）。ダッシュボードは装飾扱い（`aria-hidden`、「※画面はイメージです」）。
 
 **`<head>` のSEO情報**: 全ページに `<title>`・description・canonical・OG・JSON-LD があります。JSON-LD は静的なので、会社情報・FAQ・講座名を変えたら JSON-LD も同時に直します（FAQ はトップ本文と完全一致。現在3問。旧URL `/faq/` の転送先は `/#faq` なので、トップのFAQ欄の `id="faq"` は消さない）。組織情報は `index.html` の Organization が正で、他ページは `@id` で参照します。
 
@@ -71,7 +71,7 @@ HTML/CSS/JavaScriptのみの静的サイトです。公開対象のファイル�
 
 ## テスト方針
 
-自動テストフレームワークはありません。`npm run check` + `git diff --check` + ブラウザ確認（トップ・変更ページ・もう1ページ、デスクトップと390px幅、コンソールエラー）で検証します。JS を触ったら `node --check public/assets/site/js/*.js` も実行します。トップFVを確認するときは、演出の途中と終了後（約12秒後、またはスキップ）の両方を見ます。
+自動テストフレームワークはありません。`npm run check` + `git diff --check` + ブラウザ確認（トップ・変更ページ・もう1ページ、デスクトップと390px幅、コンソールエラー）で検証します。JS を触ったら `node --check public/assets/site/js/*.js` も実行します。トップFVを確認するときは、演出の途中と終了後（約12秒後）の両方を見ます。
 
 ## コミット・プルリクエスト
 

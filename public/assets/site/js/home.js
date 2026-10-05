@@ -183,7 +183,6 @@ playBtn.addEventListener('click',function(){playing?stop():play()});
 var rt;window.addEventListener('resize',function(){clearTimeout(rt);rt=setTimeout(function(){build()},120)});
 vp.innerHTML='<span>'+TEXT[0]+'</span><span>'+TEXT[1]+'</span>';
 build();
-document.getElementById('skip').addEventListener('click',function(){stop();render(1)});
 function seen(){try{if(sessionStorage.getItem('sflfv6'))return true;sessionStorage.setItem('sflfv6','1')}catch(e){}return false}
 function start(){cur=0;build();if(reduce||seen()){render(1);if(reduce)playBtn.style.display='none'}else{render(0);setTimeout(play,350)}}
 if(document.fonts&&document.fonts.ready)document.fonts.ready.then(start);else start();
