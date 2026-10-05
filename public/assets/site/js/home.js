@@ -177,9 +177,11 @@ function tick(ts){
 }
 function play(){if(cur>.995){cur=0}playing=true;last=performance.now();raf=requestAnimationFrame(tick);render(cur)}
 var rt;window.addEventListener('resize',function(){clearTimeout(rt);rt=setTimeout(function(){build()},120)});
+/* 同じタブの2回目以降と視差効果を減らす設定では演出を省き、最初から最終状態を描く（<head> の判定と同じ条件） */
+var skip=reduce||seen();
 vp.innerHTML='<span>'+TEXT[0]+'</span><span>'+TEXT[1]+'</span>';
-build();
+cur=skip?1:0;build();
 function seen(){try{if(sessionStorage.getItem('sflfv6'))return true;sessionStorage.setItem('sflfv6','1')}catch(e){}return false}
-function start(){cur=0;build();if(reduce||seen()){render(1)}else{render(0);setTimeout(play,350)}}
+function start(){if(skip){build();return}cur=0;build();render(0);setTimeout(play,350)}
 if(document.fonts&&document.fonts.ready)document.fonts.ready.then(start);else start();
 })();

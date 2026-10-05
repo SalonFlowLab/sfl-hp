@@ -33,6 +33,9 @@
 .home .copy h1 em { font-style: normal; color: var(--blue); }
 .home .copy .sub { font-size: clamp(13px, 1.8vw, 16px); color: var(--muted); margin-bottom: 20px; }
 .home .copy h1, .home .copy .sub, .home .copy .btn { opacity: 0; }
+/* 演出を省くとき（<head> のスクリプトが表示前に html.fv-skip を付ける）：幕と縦書きを出さず、コピーを最初から表示 */
+.fv-skip .home .curtain, .fv-skip .home .vtext { display: none; }
+.fv-skip .home .copy h1, .fv-skip .home .copy .sub, .fv-skip .home .copy .btn { opacity: 1; }
 @media (max-width: 860px) {
   .home .copy { left: 22px; right: 22px; width: auto; top: 6%; transform: none; }
   .home .copy h1 { font-size: 28px; }

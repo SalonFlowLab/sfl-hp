@@ -10,6 +10,14 @@
     gtag('config', 'G-63J47P3D1P');
   </script>
   <meta charset="utf-8">
+  <script>
+    // トップFV：同じタブの2回目以降と視差効果を減らす設定では、表示前に演出を省く（判定は home.js と同じ）
+    (function () {
+      var root = document.documentElement;
+      if (window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches) root.classList.add('fv-skip');
+      try { if (sessionStorage.getItem('sflfv6')) root.classList.add('fv-skip'); } catch (e) {}
+    })();
+  </script>
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>合同会社SFL｜Lark導入・構築・研修・伴走支援</title>
   <meta name="description" content="合同会社SFLは、Larkを軸に業務改善・構築・教育・伴走支援を提供。業務の整理から社員研修、運用の定着まで支援します。Lark・AIの2事業を展開。神戸を拠点に全国オンライン対応。">
@@ -27,10 +35,10 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@600;700&family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/assets/site/css/site.css?v=20261005-1">
-  <link rel="stylesheet" href="/assets/site/css/home.css?v=20261005-5">
+  <link rel="stylesheet" href="/assets/site/css/home.css?v=20261005-6">
   <script defer src="/assets/site/js/data.js?v=20261005-1"></script>
   <script defer src="/assets/site/js/site.js?v=20261005-1"></script>
-  <script defer src="/assets/site/js/home.js?v=20261005-3"></script>
+  <script defer src="/assets/site/js/home.js?v=20261005-4"></script>
   <script type="application/ld+json">
 {
   "@context": "https://schema.org",
