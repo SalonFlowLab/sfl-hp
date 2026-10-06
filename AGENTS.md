@@ -11,7 +11,7 @@ HTML/CSS/JavaScriptのみの静的サイトです。公開対象のファイル�
 - `public/assets/site/`: **新サイトの共通資産**（`css/site.css`、`js/data.js`、`js/site.js`、`img/`）。
 - `public/assets/site/css/home.css` / `js/home.js`: **トップページ専用**。`home.css` は `<main class="home">` の中だけに効く（site.css のトークンを使用）。`home.js` は FV の演出（幕 → 業務の断片が集まりロゴを描く → ダッシュボードが組み上がる、約12秒）。
 - `public/assets/site/css/pages-a.css`〜`pages-d.css`: 下層ページ用の追加スタイル（各ファイル冒頭のコメントに対象ページ）。
-- `public/internal/index.html`: 内部向けの集約ページ（仕様・判断・確定待ち・料金掲載箇所など）。`functions/internal/_middleware.js` がプレビュー環境とローカル以外では 404 を返す。**公開ページの内容を追加・削除・変更したら、同じコミットで `/internal/` の該当箇所（情報の整理・仕様書の対応状況・確定待ち・料金の掲載箇所・会議の決定事項）も更新する。**
+- `public/internal/index.html`: 内部向けの集約ページ（仕様・判断・確定待ち・料金掲載箇所など）。`functions/internal/_middleware.js` がプレビュー環境とローカル以外では 404 を返す。
 - `functions/internal/_middleware.js`: `/internal/` をプレビュー限定にするミドルウェア。
 - `wrangler.jsonc`: Cloudflare Pages の最小デプロイ設定。
 - `public/_headers` / `public/_redirects`: ヘッダーと旧URLの301転送（転送先は最終ページへ直接。連鎖させない）。
@@ -43,7 +43,7 @@ HTML/CSS/JavaScriptのみの静的サイトです。公開対象のファイル�
 
 `<body data-active="...">` でナビの現在地を決めます。スクリプトは `data.js` → `site.js` の順に `defer` で読み込みます（トップだけ続けて `home.js`）。
 
-**トップFVの演出（`home.js`）**: 初回は自動再生し、同じタブの2回目以降（`sessionStorage` の `sflfv6`）と `prefers-reduced-motion` では最終状態だけを表示。この判定は `index.html` の `<head>` の短いスクリプトでも行い、表示前に `html.fv-skip` を付けて幕・縦書きを隠す（リロード時に最初のコマが一瞬見えるのを防ぐため。条件を変えるときは `home.js` と両方直す）。操作ボタンは置かない（2026-10-05、オーナーの意向で「待たせても演出を見せる」方針。スキップ・再生／一時停止ボタンを削除）。動きを止める手段が無いため、アクセシビリティ基準 WCAG 2.2.2（自動で5秒以上動く表示には停止手段）は満たさない。`prefers-reduced-motion` の端末では演出せず最終状態を表示する（この分岐は消さない）。h1・サブコピー・FVのCTAは演出の後半で表示される。ロゴは SVG パスで描き、下に「SALON FLOW LAB.」の文字を描く（2026-10-05 の指示でトップ案のまま。ヘッダー・フッター・OG画像・JSON-LD のロゴは文字なし）。ダッシュボードは装飾扱い（`aria-hidden`、「※画面はイメージです」）。
+**トップFVの演出（`home.js`）**: 初回は自動再生。同じタブの2回目以降（`sessionStorage` の `sflfv6`）と `prefers-reduced-motion` では最終状態だけを表示する（reduced-motion の分岐を削除することは禁止）。同じ判定を `index.html` の `<head>` のスクリプトでも行い、表示前に `html.fv-skip` を付けて幕・縦書きを隠す。条件を変えるときは `home.js` と `<head>` の両方を直す。スキップ・再生／一時停止ボタンを置くことは禁止（オーナー決定。WCAG 2.2.2 は満たさない）。h1・サブコピー・FVのCTAは演出の後半で表示。FVのロゴだけ下に「SALON FLOW LAB.」の文字を描く（ヘッダー・フッター・OG画像・JSON-LD のロゴは文字なし）。ダッシュボードは装飾扱い（`aria-hidden`、「※画面はイメージです」）。
 
 **`<head>` のSEO情報**: 全ページに `<title>`・description・canonical・OG・JSON-LD があります。JSON-LD は静的なので、会社情報・FAQ・講座名を変えたら JSON-LD も同時に直します（FAQ はトップ本文と完全一致。現在3問。旧URL `/faq/` の転送先は `/#faq` なので、トップのFAQ欄の `id="faq"` は消さない）。組織情報は `index.html` の Organization が正で、他ページは `@id` で参照します。
 
@@ -62,7 +62,7 @@ HTML/CSS/JavaScriptのみの静的サイトです。公開対象のファイル�
 - 法人向けと個人向けは「事業の相談（法人・個人事業主）」と「個人の学び（講座）」で分ける。個人向け講座は `/courses/` に集約し、法人研修のページ（`/lark-dx/` `/ai-dx-training/`）に個人向けの内容を混ぜない。
 - 講座・研修・サポートの詳細はサイト内ページに置く（`/lark-training/` `/ai-course/` `/public-procurement-course/` `/academy/` `/support-desk/`）。旧 ChatGPT サイト（*.chatgpt.site）へはリンクしない（Lucia 事例サイトのみ例外）。申込・説明会は Lark Base のフォーム（`data.js` の `urls`）。ログインしないと見られないリンク（共有されていない Lark Base 本体など）は置かない（2026-10-05、Cycle Pro の見本リンクをサイト全体から削除）。
 - 対象は一般業種全体。美容は Cycle Pro・Lucia 事例などの実績としてのみ扱い、美容向けの訴求を主にしない。
-- 事業紹介は Lark・AI の2事業（2026-09-29 に官公庁入札を事業紹介から外した）。官公庁入札は講座と取引実績としてのみ扱う。
+- 事業紹介は Lark・AI の2事業（2026-09-29 に官公庁入札を事業紹介から外した）。官公庁入札は講座・取引実績と、トップの事業概要の帯（2カードの下に1行、リンク先 `/public-procurement-course/`）だけで扱う。`/services/`・`/company/`・ナビに官公庁入札を事業として足すことは禁止。
 - 講座の表示価格は正規の受講料（18万円・税別）に統一する。開講日・期別の料金・割引・募集状況は各講座の詳細ページ（`/ai-course/` `/public-procurement-course/` など）にだけ書き、トップ・`/courses/`・`/services/` などには書かない（2026-09-29 打ち合わせで決定）。
 - SFL Academy はトップ・`/courses/`・`/services/`・`/company/` で前面に出さず、講座詳細ページから案内する。
 
@@ -78,14 +78,10 @@ HTML/CSS/JavaScriptのみの静的サイトです。公開対象のファイル�
 
 日本語の Conventional Commits（`feat:` `fix:` `docs:` `chore:` など）。PR には変更概要・影響ページ・確認手順を書き、見た目が変わる場合はスクリーンショットを添付します。
 
-`tasks/lessons.md` は廃止済みです（auto-memory へ移行）。追記しないでください。
-
 ## セキュリティ・設定
 
 秘密情報、Cloudflare APIトークン、未公開の顧客情報はコミットしないでください。住所、電話番号、料金、スタッフ名、実績値は公開前に必ず実データとして確認してください。
 
-- https://developers.cloudflare.com/pages/
-- https://developers.cloudflare.com/pages/configuration/headers/
-- https://developers.cloudflare.com/pages/configuration/redirects/
-- https://developers.cloudflare.com/pages/functions/middleware/
-- https://developers.cloudflare.com/workers/wrangler/
+## 公開ページを変えたら必ず同時に直すもの
+
+- 公開ページの内容を追加・削除・変更したら、同じコミットで `/internal/` の該当箇所（情報の整理・仕様書の対応状況・確定待ち・料金の掲載箇所・会議の決定事項）も更新する。
