@@ -3,7 +3,7 @@
 /* ---------- AI初期設定: 接続イメージ ---------- */
 .terminal {
   border-radius: var(--radius); overflow: hidden; background: #0f1b2d; color: #d8e3f2;
-  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: .88rem; line-height: 1.8;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, "Noto Serif JP", "Hiragino Mincho ProN", "Yu Mincho", monospace; font-size: .88rem; line-height: 1.8;
   box-shadow: var(--shadow);
 }
 .terminal-bar { display: flex; gap: 6px; padding: 10px 14px; background: #1a2a42; }

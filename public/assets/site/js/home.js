@@ -48,7 +48,7 @@ function makeLogo(withChips){return{
       var t0=blue?(.44+f*.14):(.60+f*.16);
       var g=mk('g',{}),w=t.length*14+26;
       mk('rect',{x:-w/2,y:-14,width:w,height:28,rx:14,fill:'#fff',stroke:'#E3DDD1','stroke-width':1.5},g);
-      var x=mk('text',{x:0,y:1,'text-anchor':'middle','dominant-baseline':'central','font-size':13,'font-weight':700,fill:NAVY,'font-family':'Noto Sans JP,sans-serif'},g);x.textContent=t;
+      var x=mk('text',{x:0,y:1,'text-anchor':'middle','dominant-baseline':'central','font-size':13,'font-weight':700,fill:NAVY,'font-family':'"Noto Serif JP","Hiragino Mincho ProN","Yu Mincho",serif'},g);x.textContent=t;
       g._sp=SCAT[i];g._tx=tx+q[0]*sc;g._ty=ty+q[1]*sc;g._t0=t0;g._blue=blue;return g});
     var cx0=tx+166*sc,cy0=ty+122*sc;S.cx0=cx0;S.cy0=cy0;
     S.stk=[];
