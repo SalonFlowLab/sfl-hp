@@ -113,6 +113,13 @@
 .home .chips span { background: var(--tint); color: var(--navy); font-size: 12.5px; font-weight: 700; padding: 6px 12px; border-radius: var(--radius-sm); }
 .home .ai .chips span { background: var(--cream); }
 @media (max-width: 860px) { .home .biz { grid-template-columns: 1fr; } }
+.home .band { display: flex; align-items: center; gap: 28px; flex-wrap: wrap; margin-top: 20px; background: #fff; border: 1px solid var(--line); border-left: 4px solid var(--gold); border-radius: 16px; padding: 20px 28px; }
+.home .band .bt { display: flex; flex-direction: column; line-height: 1.4; padding-right: 28px; border-right: 1px solid var(--line); }
+.home .band .ey2 { margin: 0; font-size: 12px; letter-spacing: .3em; color: var(--gold); font-weight: 500; }
+.home .band h3 { font-size: 20px; letter-spacing: .1em; margin: 2px 0 0; }
+.home .band > p { flex: 1; min-width: 240px; margin: 0; font-size: 14.5px; color: var(--muted); line-height: 1.75; }
+.home .band .more { margin: 0; white-space: nowrap; }
+@media (max-width: 700px) { .home .band { gap: 12px; padding: 18px 20px; } .home .band .bt { border-right: 0; padding-right: 0; } }
 
 /* Lark事業：4つの支援 */
 .home .four { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-top: 32px; }
