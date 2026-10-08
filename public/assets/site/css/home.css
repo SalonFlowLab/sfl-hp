@@ -7,11 +7,10 @@
 .home :is(h1, h2, h3) { text-wrap: balance; }
 .home :is(p, li, dd, summary) { text-wrap: pretty; }
 .home :is(h1, h2, h3, h4) { line-height: inherit; }
-/* 「60分無料相談」は全ページ共通の金地に濃紺文字（site.css の .button-consult と同じ） */
-.home .btn { display: inline-block; background: var(--gold); color: var(--navy-deep); padding: 17px 40px; border: 1px solid transparent; border-radius: var(--radius-sm); font-weight: 500; font-size: 14px; letter-spacing: .16em; }
-.home .btn:hover { background: var(--gold-pale); color: var(--navy-deep); }
-.home .btn.o { background: transparent; color: #fff; border-color: rgba(255, 255, 255, .55); }
-.home .btn.o:hover { background: rgba(255, 255, 255, .1); color: #fff; }
+/* ボタンは全ページ共通の .button を使う（「60分無料相談」は .button-consult＝金地に濃紺文字）。.home a の色指定に負けないよう色だけ上書き */
+.home a.button-consult, .home a.button-consult:hover { color: var(--navy-deep); }
+.home .final .button-secondary { background: transparent; color: #fff; border-color: rgba(255, 255, 255, .7); }
+.home .final .button-secondary:hover { background: rgba(255, 255, 255, .1); color: #fff; }
 .home br.sp { display: none; }
 @media (max-width: 720px) { .home br.sp { display: inline; } }
 
