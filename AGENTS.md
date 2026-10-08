@@ -6,10 +6,10 @@
 
 HTML/CSS/JavaScriptのみの静的サイトです。公開対象のファイルは `public/` に集約しています。
 
-- `public/index.html`: トップページ。2026-10-05 にトップ案（FVアニメーション＋本文）へ差し替え。本文は共通部品（`data-sfl`）を使わず、HTML に直接書いている。
+- `public/index.html`: トップページ。2026-10-05 にトップ案（FVアニメーション＋本文）へ差し替え、2026-10-08 に最新のトップ案（`sfl-hp-top_1.html`）をもとに全体を作り直した（課題 → 事業概要 → Larkとは → Lark事業：4つの支援 → 写真帯 → 事例 → 講座・研修 → 会社情報 → FAQ → 末尾CTA）。本文は共通部品（`data-sfl`）を使わず、HTML に直接書いている。
 - `public/{slug}/index.html`: 各ページ（公開URLは `/{slug}/`）。
 - `public/assets/site/`: **新サイトの共通資産**（`css/site.css`、`js/data.js`、`js/site.js`、`img/`）。
-- `public/assets/site/css/home.css` / `js/home.js`: **トップページ専用**。`home.css` は `<main class="home">` の中だけに効く（site.css のトークンを使用）。`home.js` は FV の演出（幕 → 業務の断片が集まりロゴを描く → ダッシュボードが組み上がる、約12秒）。
+- `public/assets/site/css/home.css` / `js/home.js`: **トップページ専用**。`home.css` は `<main class="home">` の中だけに効く（site.css のトークンを使用）。`home.js` は FV の演出（幕 → 業務名＋ツール名のカードが集まりロゴを描く → Lark Base 風のダッシュボードが組み上がる。速度カーブ `SPD` で約9秒）と、本文の改行制御（文節の切れ目に `<wbr>` を入れる。`main.home` の中だけ）。トップの写真は `img/home-*.webp`（トップ案に埋め込まれていた画像を書き出したもの。すべて「イメージ」と明記）。
 - `public/assets/site/css/pages-a.css`〜`pages-d.css`: 下層ページ用の追加スタイル（各ファイル冒頭のコメントに対象ページ）。
 - `public/internal/index.html`: 内部向けの集約ページ（仕様・判断・確定待ち・料金掲載箇所など）。`functions/internal/_middleware.js` がプレビュー環境とローカル以外では 404 を返す。**公開ページの内容を追加・削除・変更したら、同じコミットで `/internal/` の該当箇所（情報の整理・仕様書の対応状況・確定待ち・料金の掲載箇所・会議の決定事項）も更新する。**
 - `functions/internal/_middleware.js`: `/internal/` をプレビュー限定にするミドルウェア。
@@ -43,9 +43,9 @@ HTML/CSS/JavaScriptのみの静的サイトです。公開対象のファイル�
 
 `<body data-active="...">` でナビの現在地を決めます。スクリプトは `data.js` → `site.js` の順に `defer` で読み込みます（トップだけ続けて `home.js`）。
 
-**トップFVの演出（`home.js`）**: 初回は自動再生し、同じタブの2回目以降（`sessionStorage` の `sflfv6`）と `prefers-reduced-motion` では最終状態だけを表示。この判定は `index.html` の `<head>` の短いスクリプトでも行い、表示前に `html.fv-skip` を付けて幕・縦書きを隠す（リロード時に最初のコマが一瞬見えるのを防ぐため。条件を変えるときは `home.js` と両方直す）。操作ボタンは置かない（2026-10-05、オーナーの意向で「待たせても演出を見せる」方針。スキップ・再生／一時停止ボタンを削除）。動きを止める手段が無いため、アクセシビリティ基準 WCAG 2.2.2（自動で5秒以上動く表示には停止手段）は満たさない。`prefers-reduced-motion` の端末では演出せず最終状態を表示する（この分岐は消さない）。h1・サブコピー・FVのCTAは演出の後半で表示される。ロゴは SVG パスで描き、下に「SALON FLOW LAB.」の文字を描く（2026-10-05 の指示でトップ案のまま。ヘッダー・フッター・OG画像・JSON-LD のロゴは文字なし）。ダッシュボードは装飾扱い（`aria-hidden`、「※画面はイメージです」）。
+**トップFVの演出（`home.js`）**: 初回は自動再生し、同じタブの2回目以降（`sessionStorage` の `sflfv6`）と `prefers-reduced-motion` では最終状態だけを表示。この判定は `index.html` の `<head>` の短いスクリプトでも行い、表示前に `html.fv-skip` を付けて幕・縦書きを隠す（リロード時に最初のコマが一瞬見えるのを防ぐため。条件を変えるときは `home.js` と両方直す）。操作ボタンは置かない（2026-10-05、オーナーの意向で「待たせても演出を見せる」方針。スキップ・再生／一時停止ボタンを削除）。動きを止める手段が無いため、アクセシビリティ基準 WCAG 2.2.2（自動で5秒以上動く表示には停止手段）は満たさない。`prefers-reduced-motion` の端末では演出せず最終状態を表示する（この分岐は消さない）。h1・サブコピー・FVのCTAは演出の後半で表示される。ロゴは SVG パスで描き、下に「SALON FLOW LAB.」の文字を描く（2026-10-05 の指示でトップ案のまま。ヘッダー・フッター・OG画像・JSON-LD のロゴは文字なし）。ダッシュボードは装飾扱い（`aria-hidden`、「※画面はイメージです」）。ダッシュボードとツール名カードの色は Lark・各ツールの画面を表すため、ブランドカラーに置き換えていない。
 
-**`<head>` のSEO情報**: 全ページに `<title>`・description・canonical・OG・JSON-LD があります。JSON-LD は静的なので、会社情報・FAQ・講座名を変えたら JSON-LD も同時に直します（FAQ はトップ本文と完全一致。現在3問。旧URL `/faq/` の転送先は `/#faq` なので、トップのFAQ欄の `id="faq"` は消さない）。組織情報は `index.html` の Organization が正で、他ページは `@id` で参照します。
+**`<head>` のSEO情報**: 全ページに `<title>`・description・canonical・OG・JSON-LD があります。JSON-LD は静的なので、会社情報・FAQ・講座名を変えたら JSON-LD も同時に直します（FAQ はトップ本文と完全一致。現在6問（トップ案の8問のうち、回答が未記入の「費用」「期間」は外している）。旧URL `/faq/` の転送先は `/#faq` なので、トップのFAQ欄の `id="faq"` は消さない）。組織情報は `index.html` の Organization が正で、他ページは `@id` で参照します。
 
 **正規URL**: `https://salonflowlab.com/`（新ドメインが決まったら全ページの canonical・OG・JSON-LD・sitemap・robots を一括置換）。
 
@@ -72,7 +72,7 @@ HTML/CSS/JavaScriptのみの静的サイトです。公開対象のファイル�
 
 ## テスト方針
 
-自動テストフレームワークはありません。`npm run check` + `git diff --check` + ブラウザ確認（トップ・変更ページ・もう1ページ、デスクトップと390px幅、コンソールエラー）で検証します。JS を触ったら `node --check public/assets/site/js/*.js` も実行します。トップFVを確認するときは、演出の途中と終了後（約12秒後）の両方を見ます。
+自動テストフレームワークはありません。`npm run check` + `git diff --check` + ブラウザ確認（トップ・変更ページ・もう1ページ、デスクトップと390px幅、コンソールエラー）で検証します。JS を触ったら `node --check public/assets/site/js/*.js` も実行します。トップFVを確認するときは、演出の途中と終了後（約9秒後）の両方を見ます。
 
 ## コミット・プルリクエスト
 
