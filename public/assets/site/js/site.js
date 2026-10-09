@@ -83,8 +83,8 @@
     const c = SFL.company;
     footer.outerHTML = '<footer class="site-footer"><div class="shell footer-main">'
       + '<div class="footer-brand">'
-      + '<a class="brand" href="/"><img src="/assets/site/img/sfl-logo-mark.webp?v=20261006-1" alt="" width="44" height="44" loading="lazy"><span><strong>合同会社SFL</strong><small>LARK / AI</small></span></a>'
-      + '<p>Larkを軸に、業務改善・構築・教育・伴走支援を提供。AIの活用・教育にも取り組んでいます。</p>'
+      + '<a class="brand" href="/"><img src="/assets/site/img/sfl-logo-mark.webp?v=20261006-1" alt="" width="44" height="44" loading="lazy"><span><strong>合同会社SFL</strong><small>LARK / AI / PUBLIC PROCUREMENT</small></span></a>'
+      + '<p>Larkを軸に、業務改善・構築・教育・伴走支援を提供。AI・官公庁入札の事業にも取り組んでいます。</p>'
       + '<address>' + esc(c.postal) + '<br>' + esc(c.address) + '</address>'
       + '<p class="note" style="color:rgba(255,255,255,.75)">合同会社SFLはLark Japanの代理店ではありません。</p>'
       + '<div class="footer-actions"><a href="' + SFL.urls.note + '" ' + ext + '>SFL公式note ↗</a></div>'
@@ -93,6 +93,7 @@
         { href: '/what-is-lark/', label: 'Larkとは' },
         { href: '/services/#lark', label: 'Lark事業' },
         { href: '/services/#ai', label: 'AI事業' },
+        { href: '/services/#public-procurement', label: '官公庁入札事業' },
         { href: '/services/#corporate-training', label: '法人研修' },
         { href: '/courses/', label: '個人向け講座' },
         { href: '/services/#service-list', label: 'ご相談いただけるサービス' },
