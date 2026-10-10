@@ -9,7 +9,7 @@ HTML/CSS/JavaScriptのみの静的サイトです。公開対象のファイル�
 - `public/index.html`: トップページ。2026-10-05 にトップ案（FVアニメーション＋本文）へ差し替え、2026-10-08 に最新のトップ案（`sfl-hp-top_1.html`）をもとに全体を作り直した（課題 → 事業概要 → Larkとは → Lark事業：4つの支援 → 写真帯 → 事例 → 講座・研修 → 会社情報 → FAQ → 末尾CTA）。本文は共通部品（`data-sfl`）を使わず、HTML に直接書いている。
 - `public/{slug}/index.html`: 各ページ（公開URLは `/{slug}/`）。
 - `public/assets/site/`: **新サイトの共通資産**（`css/site.css`、`js/data.js`、`js/site.js`、`img/`）。
-- `public/assets/site/css/home.css` / `js/home.js`: **トップページ専用**。`home.css` は `<main class="home">` の中だけに効く（site.css のトークンを使用）。`home.js` は FV の演出（幕 → 業務名＋ツール名のカードが集まりロゴを描く → Lark Base 風のダッシュボードが組み上がる。速度カーブ `SPD` で約9秒）と、本文の改行制御（文節の切れ目に `<wbr>` を入れる。`main.home` の中だけ）。トップの写真は `img/home-*.webp`（トップ案に埋め込まれていた画像を書き出したもの。課題セクションの `home-pains.webp` は 2026-10-08 にオーナーが生成して追加（1024px のため表示幅を 1024px までに抑えている）。すべて「イメージ」と明記）。
+- `public/assets/site/css/home.css` / `js/home.js`: **トップページ専用**。`home.css` は `<main class="home">` の中だけに効く（site.css のトークンを使用）。`home.js` は FV の演出（幕 → 業務名＋ツール名のカードが集まりロゴを描く → Lark Base 風のダッシュボードが組み上がる。速度カーブ `SPD` で約9秒）と、本文の改行制御（文節の切れ目に `<wbr>` を入れる。`main.home` の中だけ）。トップの写真は `img/home-*.webp`（トップ案に埋め込まれていた画像を書き出したもの。課題セクションの写真 `home-pains.webp` は 2026-10-10 にオーナーの判断で削除。すべて「イメージ」と明記）。
 - `public/assets/site/css/pages-a.css`〜`pages-d.css`: 下層ページ用の追加スタイル（各ファイル冒頭のコメントに対象ページ）。
 - `public/internal/index.html`: 内部向けの集約ページ（仕様・判断・確定待ち・料金掲載箇所など）。`functions/internal/_middleware.js` がプレビュー環境とローカル以外では 404 を返す。
 - `functions/internal/_middleware.js`: `/internal/` をプレビュー限定にするミドルウェア。
