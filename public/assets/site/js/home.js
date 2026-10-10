@@ -178,7 +178,15 @@ function phase2(g){
 }
 
 /* ---------- 共通の描画 ---------- */
+/* スマホ幅で縦が短い画面では、コピー・ロゴ・ダッシュボードが重ならない高さまでFVを伸ばす（コピーは上から6%、ロゴ分80px、ダッシュボードの下64px） */
+function fitStage(){
+  track.style.height=stage.style.height='';
+  var w=stage.clientWidth;if(w>=860)return;
+  var need=Math.ceil((copy.offsetHeight+80+410*Math.min((w-32)/620,1.35)+64)/.94);
+  if(need>stage.clientHeight)track.style.height=stage.style.height=need+'px';
+}
 function build(){
+  fitStage();
   W=stage.clientWidth;H=stage.clientHeight;mobile=W<720;
   scene.setAttribute('viewBox','0 0 '+W+' '+H);scene.innerHTML='';S={};
   V.build();
