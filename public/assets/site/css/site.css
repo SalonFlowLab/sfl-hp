@@ -310,6 +310,8 @@ body.drawer-open { overflow: hidden; }
 .case-figure img { width: 100%; aspect-ratio: 3 / 2; object-fit: cover; }
 .case-figure figcaption { position: absolute; left: 0; right: 0; bottom: 0; padding: 16px 20px; color: #fff; background: linear-gradient(transparent, rgba(11, 43, 85, .9)); }
 .case-figure figcaption small { display: block; font-family: var(--font-en); font-size: .72rem; letter-spacing: .14em; color: var(--gold-pale); }
+/* スマホ幅ではキャプションが2行になり写真の中の文字と重なるため、写真の下に出す */
+@media (max-width: 760px) { .case-figure figcaption { position: static; background: var(--navy); } }
 .metrics { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; margin-top: 16px; }
 .metrics > div { padding: 14px 12px; background: var(--white); border: 1px solid var(--line); border-radius: var(--radius-sm); text-align: center; }
 .metrics strong { display: block; font-family: var(--font-en); font-size: clamp(1.4rem, 1.1rem + 1vw, 1.9rem); color: var(--navy); line-height: 1.2; }

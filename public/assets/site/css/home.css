@@ -188,6 +188,9 @@
 /* スマホ幅も PC と同じく中央から広がる。8枚を中央のボタンを囲む3×3のマス目に置く（位置は --mx / --my） */
 @media (max-width: 860px) {
   .home .lkm-head { padding: 14px 18px; }
+  .home .lkm-steps { gap: 8px; }
+  .home .lkm-step { gap: 6px; font-size: 13.5px; white-space: nowrap; }
+  .home .lkm-step span { width: 26px; height: 26px; font-size: 11.5px; }
   .home .lkm-hint { width: 100%; }
   .home .lkm-stage { height: 420px; margin: 0 8px; }
   .home .lkm[data-stage="0"] .lkm-stage { height: 360px; }
@@ -202,15 +205,33 @@
   .home .lkm-intro small { font-size: 12px; margin-top: 6px; }
   .home .lkm-card { left: var(--mx); top: var(--my); width: calc(33.333% - 8px); max-width: none; }
   .home .lkm-card a { min-height: 118px; overflow-wrap: anywhere; }
-  .home .lkm-fn, .home .lkm-rep { padding: 10px 5px; border-radius: 10px; }
+  .home .lkm-fn, .home .lkm-rep { padding: 10px 4px; border-radius: 10px; }
   .home .lkm-ic svg { width: 30px; height: 30px; }
   .home .lkm-fn b { margin-top: 6px; font-size: 13.5px; letter-spacing: 0; }
   .home .lkm-fn small { margin-top: 2px; font-size: 10px; line-height: 1.45; }
   .home .lkm-rep em { font-size: 11px; line-height: 1.4; }
   .home .lkm-tools { grid-template-columns: 1fr; gap: 6px; margin-top: 8px; }
-  .home .lkm-tools span { flex-direction: row; gap: 5px; font-size: 10px; line-height: 1.3; text-align: left; }
-  .home .lkm-tools img, .home .lkm-tools svg { flex: none; width: 20px; height: 20px; }
+  .home .lkm-tools span { flex-direction: row; gap: 4px; font-size: 9.5px; line-height: 1.3; letter-spacing: -.01em; text-align: left; }
+  .home .lkm-tools img, .home .lkm-tools svg { flex: none; width: 18px; height: 18px; }
   .home .lkm-note { padding: 8px 18px 16px; text-align: left; }
+}
+/* 390px 未満ではツール名（「スプレッドシート」など）が横並びだと語の途中で折れるため、ロゴの下に置く。そのぶんカードが高くなるので置き換え例の段だけ図を高くする */
+@media (max-width: 389px) {
+  .home .lkm[data-stage="2"] .lkm-stage { height: 470px; }
+  .home .lkm-tools span { flex-direction: column; gap: 2px; text-align: center; }
+  /* 中央のボタンが左右のカードに重ならない大きさにする（中央のマスの幅に収める） */
+  .home .lkm-core { width: 100px; height: 100px; }
+  .home .lkm-core strong { font-size: 20px; }
+  .home .lkm-act { font-size: 9.5px; }
+}
+@media (max-width: 359px) {
+  .home .lkm-step { font-size: 12px; }
+  .home .lkm-core { width: 88px; height: 88px; border-width: 4px; }
+  .home .lkm-core small { font-size: 6.5px; }
+  .home .lkm-core img { width: 20px; height: 20px; }
+  .home .lkm-core strong { font-size: 18px; }
+  .home .lkm-act { font-size: 8.5px; }
+  .home .lkm-fn b { font-size: 12.5px; }
 }
 @media (prefers-reduced-motion: reduce) { .home .lkm *, .home .lkm-stage { transition: none !important; animation: none !important; } }
 .home .pills3 { list-style: none; display: flex; gap: 12px; flex-wrap: wrap; justify-content: center; margin: 34px 0 26px; }
@@ -290,6 +311,8 @@
 .home .cofig img { display: block; width: 100%; aspect-ratio: 4 / 3; object-fit: cover; border-radius: 3px; box-shadow: 0 18px 40px rgba(16, 58, 113, .12); }
 .home .cofig figcaption { font-size: 11.5px; color: var(--muted); letter-spacing: .08em; margin-top: 10px; }
 @media (max-width: 860px) { .home .co { grid-template-columns: 1fr; } }
+/* 320px 幅でも会社概要の表が画面からはみ出さないように詰める */
+@media (max-width: 520px) { .home dl { grid-template-columns: 72px 1fr; gap: 14px 14px; padding: 22px 20px; } .home dd { overflow-wrap: anywhere; } }
 
 /* FAQ */
 .home details { border-bottom: 1px solid var(--line); padding: 26px 0; }
