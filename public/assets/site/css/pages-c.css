@@ -5,7 +5,7 @@
 .message-portrait { margin: 0; border-radius: var(--radius); overflow: hidden; background: var(--cream); }
 .message-portrait img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; object-position: center top; }
 .message-portrait figcaption { padding: 16px 20px; display: grid; gap: 2px; }
-.message-portrait small { font-family: var(--font-en); font-size: .72rem; letter-spacing: .14em; color: var(--gold); font-weight: 700; }
+.message-portrait small { font-family: var(--font-en); font-size: .72rem; letter-spacing: .14em; color: var(--gold); font-weight: var(--fw-heading); }
 .message-portrait strong { font-size: 1.2rem; color: var(--navy); }
 .message-portrait span { font-size: .86rem; color: var(--muted); }
 .message-title { font-size: clamp(1.5rem, 1.1rem + 1.6vw, 2.1rem); }
@@ -23,7 +23,7 @@
 .team-card h4 { font-size: 1.08rem; }
 .team-code {
   flex-shrink: 0; display: grid; place-items: center; min-width: 52px; height: 52px; padding: 0 8px; border-radius: var(--radius-sm);
-  background: var(--navy); color: #fff; font-family: var(--font-en); font-weight: 700; font-size: .82rem; letter-spacing: .08em;
+  background: var(--navy); color: #fff; font-family: var(--font-en); font-weight: var(--fw-number); font-size: .82rem; letter-spacing: .08em;
 }
 .partner-network h4 { font-size: 1rem; margin: 8px 0 4px; }
 .partner-network .grid p { font-size: .92rem; }
@@ -46,7 +46,7 @@
 .instructor-grid { display: grid; grid-template-columns: minmax(0, .8fr) minmax(0, 1.2fr); gap: clamp(28px, 5vw, 64px); align-items: start; }
 .instructor-photo img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; }
 .instructor-name { font-size: clamp(1.8rem, 1.3rem + 2vw, 2.4rem); }
-.instructor-message { font-size: 1.15rem; font-weight: 700; color: var(--navy); }
+.instructor-message { font-size: 1.15rem; font-weight: var(--fw-heading); color: var(--navy); }
 .instructor-tags li { border-color: var(--line-strong); color: var(--navy); }
 @media (max-width: 860px) { .instructor-grid { grid-template-columns: 1fr; } .instructor-photo { max-width: 420px; } }
 
@@ -54,7 +54,7 @@
 .policy-signature { margin-top: 36px !important; text-align: right; color: var(--muted); font-size: .92rem; }
 .legal-list { padding-left: 1.6em !important; }
 .legal-list > li { margin-top: 8px; }
-.legal-list > li::marker { color: var(--navy); font-weight: 700; }
+.legal-list > li::marker { color: var(--navy); font-weight: var(--fw-heading); }
 .legal-list h2 { margin-top: 36px; }
 .prose .notice-box p { margin: 0; }
 

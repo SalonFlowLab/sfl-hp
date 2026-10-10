@@ -5,7 +5,7 @@
 .lark-point h3 { font-size: 1.12rem; }
 
 /* できること（8機能） */
-.function-card h3 small { display: block; font-family: var(--font-en); font-size: .72rem; letter-spacing: .14em; color: var(--muted); font-weight: 700; }
+.function-card h3 small { display: block; font-family: var(--font-en); font-size: .72rem; letter-spacing: .14em; color: var(--muted); font-weight: var(--fw-heading); }
 .function-card p { font-size: .94rem; }
 
 /* 置き換え比較（8領域・24ツール） */
@@ -15,10 +15,10 @@
 .replace-head .tag { font-family: var(--font-en); font-size: .68rem; letter-spacing: .04em; white-space: nowrap; }
 .replace-tools { list-style: none; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; text-align: center; }
 .replace-tools li { display: flex; flex-direction: column; align-items: center; gap: 6px; min-height: calc(50px + 4.2em); font-size: .74rem; line-height: 1.4; color: var(--muted); }
-.tool-icon { display: grid; place-items: center; width: 44px; height: 44px; border: 1px solid var(--line); border-radius: 10px; background: var(--white); font-family: var(--font-en); font-weight: 700; font-size: .95rem; color: var(--navy); overflow: hidden; }
+.tool-icon { display: grid; place-items: center; width: 44px; height: 44px; border: 1px solid var(--line); border-radius: 10px; background: var(--white); font-family: var(--font-en); font-weight: var(--fw-number); font-size: .95rem; color: var(--navy); overflow: hidden; }
 .tool-icon img { width: auto; height: auto; max-width: 34px; max-height: 28px; object-fit: contain; }
 .replace-arrow { display: flex; flex-direction: column; align-items: center; font-size: .72rem; color: var(--muted); line-height: 1.3; }
-.replace-arrow::after { content: "↓"; font-size: 1.1rem; font-weight: 700; color: var(--navy); }
+.replace-arrow::after { content: "↓"; font-size: 1.1rem; font-weight: var(--fw-number); color: var(--navy); }
 .replace-lark { display: grid; grid-template-columns: 36px 1fr; gap: 4px 12px; align-items: center; margin-top: auto; padding: 14px 16px; background: var(--tint); border-radius: var(--radius-sm); }
 .replace-lark img { grid-row: span 2; width: 36px; height: 36px; }
 .replace-lark strong { color: var(--navy); font-size: 1rem; line-height: 1.3; }
@@ -26,8 +26,8 @@
 
 /* 導入前後 */
 .change-table th[scope="row"] { white-space: nowrap; }
-.change-table td:last-child { color: var(--navy); font-weight: 700; }
-.change-table .change-arrow { color: var(--gold); font-weight: 700; margin-right: 6px; }
+.change-table td:last-child { color: var(--navy); font-weight: var(--fw-number); }
+.change-table .change-arrow { color: var(--gold); font-weight: var(--fw-number); margin-right: 6px; }
 
 /* 業種別の使い方 */
 .industry-card h3 { font-size: 1.05rem; }
