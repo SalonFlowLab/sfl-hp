@@ -29,7 +29,10 @@
 .change-table .change-arrow { color: var(--gold); font-weight: var(--fw-number); margin-right: 6px; }
 
 /* 業種別の使い方 */
-.industry-card h3 { font-size: 1.05rem; }
+.industry-card h3 { display: flex; align-items: center; gap: 12px; font-size: 1.05rem; }
+.industry-icon { flex: none; display: grid; place-items: center; width: 40px; height: 40px; border-radius: var(--radius-sm); background: var(--tint); color: var(--navy); }
+.industry-icon svg { width: 22px; height: 22px; fill: none; stroke: currentColor; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
+.industry-name { word-break: keep-all; }
 .industry-card .check-list { font-size: .94rem; }
 @media (min-width: 961px) { .grid-5 { grid-template-columns: repeat(5, minmax(0, 1fr)); } }
 @media (max-width: 960px) and (min-width: 641px) { .grid-5 { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
