@@ -278,6 +278,17 @@ if(document.fonts&&document.fonts.ready)document.fonts.ready.then(start);else st
     fns.forEach(function(e){e.setAttribute('aria-hidden',String(s===2))});
     reps.forEach(function(e){e.setAttribute('aria-hidden',String(s!==2))});
   }
+  /* 点線の終点は各カードの位置（スマホ幅は --mx / --my）に合わせる */
+  var lines=m.querySelectorAll('.lkm-lines line'),cardEls=m.querySelectorAll('.lkm-card'),narrow=window.matchMedia('(max-width: 860px)');
+  function place(){
+    cardEls.forEach(function(c,i){
+      var cs=getComputedStyle(c);
+      lines[i].setAttribute('x2',parseFloat(cs.getPropertyValue(narrow.matches?'--mx':'--x')));
+      lines[i].setAttribute('y2',parseFloat(cs.getPropertyValue(narrow.matches?'--my':'--y')));
+    });
+  }
+  place();
+  if(narrow.addEventListener)narrow.addEventListener('change',place);
   core.addEventListener('click',function(){set(m.getAttribute('data-stage')==='1'?2:1)});
   steps.forEach(function(b){b.addEventListener('click',function(){set(+b.getAttribute('data-go'))})});
   set(0);
