@@ -27,8 +27,16 @@ for (const file of walk(root)) {
   }
 }
 
+// JS が描く図（FVのツール名カードなど）もゴシック体。明朝体はFVのロゴ下の「SALON FLOW LAB.」（S.txt）だけ。
+const jsDir = join(root, 'assets/site/js');
+for (const file of readdirSync(jsDir).filter((f) => f.endsWith('.js'))) {
+  readFileSync(join(jsDir, file), 'utf8').split('\n').forEach((line, i) => {
+    if (/Serif JP|Mincho/.test(line) && !line.includes('S.txt=')) errors.push(`${file}:${i + 1}: 図の中の文字は明朝体にしない`);
+  });
+}
+
 if (errors.length) {
-  console.error('太さの指定がトップ案（見出し500・数字600・ボタンだけ700）と合いません。var(--fw-heading) / var(--fw-number) を使ってください:');
+  console.error('文字の太さ・書体の指定がルール（見出し500・数字600・ボタンだけ700、図の中はゴシック体）と合いません:');
   for (const e of errors) console.error(`  ${e}`);
   process.exit(1);
 }

@@ -1,7 +1,7 @@
 /* トップページFV：幕 → 業務の断片（業務名＋ツール名のカード）が集まりロゴを描く → Lark Base風のダッシュボードが組み上がる（約9秒）。
    同じタブの2回目以降と prefers-reduced-motion では最終状態を表示。続けて本文の改行制御（文節の切れ目に<wbr>）と「Larkとは」の図の切り替え。 */
 (function(){
-var SERIF='"Noto Serif JP","Hiragino Mincho ProN","Yu Mincho",serif';
+var SANS='"Noto Sans JP","Hiragino Kaku Gothic ProN","Hiragino Sans",Meiryo,sans-serif';
 var NAVY='#103A71',BLUE='#1E88E5',GOLD='#C99A1A',NS='http://www.w3.org/2000/svg';
 var track=document.getElementById('track'),stage=document.getElementById('stage'),scene=document.getElementById('scene');
 var ct=document.getElementById('ct'),cb=document.getElementById('cb'),vt=document.getElementById('vtext'),vp=document.getElementById('vp'),copy=document.getElementById('copy');
@@ -61,8 +61,8 @@ function makeLogo(withChips){return{
       var cx=x0+pad+r;mk('circle',{cx:cx,cy:0,r:r,fill:L[3]},g);
       var ik=r*1.25/10;mk('path',{d:ICON[L[2]],fill:'none',stroke:'#fff','stroke-width':1.6/ik,'stroke-linecap':'round','stroke-linejoin':'round',transform:'translate('+(cx-10*ik)+' '+(-10*ik)+') scale('+ik+')'},g);
       var lx=cx+r+gap;
-      var s2=mk('text',{x:lx,y:-h*.16,'dominant-baseline':'central','font-size':fs2,fill:'#5C6573','font-family':SERIF,'font-weight':500},g);s2.textContent=L[1];
-      var s1=mk('text',{x:lx,y:h*.17,'dominant-baseline':'central','font-size':fs,fill:NAVY,'font-family':SERIF,'font-weight':700},g);s1.textContent=L[0];
+      var s2=mk('text',{x:lx,y:-h*.16,'dominant-baseline':'central','font-size':fs2,fill:'#5C6573','font-family':SANS,'font-weight':500},g);s2.textContent=L[1];
+      var s1=mk('text',{x:lx,y:h*.17,'dominant-baseline':'central','font-size':fs,fill:NAVY,'font-family':SANS,'font-weight':600},g);s1.textContent=L[0];
       var sx=Math.min(W-w/2-10,Math.max(w/2+10,W*SCAT[i][0])),sy=Math.min(H-h/2-10,Math.max(h/2+10,H*SCAT[i][1]));
       g._sx=sx;g._sy=sy;g._tx=tx+q[0]*sc;g._ty=ty+q[1]*sc;g._t0=t0+DLY[i];g._blue=blue;g._rot=ROT[i];g._i=i;
       g._dir=i%2?1:-1;
