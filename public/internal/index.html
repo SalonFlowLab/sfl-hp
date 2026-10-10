@@ -8,8 +8,8 @@
   <link rel="icon" href="/assets/site/img/favicon.png" type="image/png" sizes="192x192">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="/assets/site/css/site.css?v=20261010-1">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700&family=Noto+Serif+JP:wght@500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/assets/site/css/site.css?v=20261010-2">
   <style>
     .internal-bar { background: #7a1f1f; color: #fff; font-size: .86rem; font-weight: 700; padding: 8px 0; text-align: center; }
     .internal table { width: 100%; border-collapse: collapse; font-size: .9rem; }
@@ -248,7 +248,7 @@
         <h2>デザイン・運用ルール</h2>
         <ul class="dot-list">
           <li>色：ブランド6色（#F8F5EF #103A71 #C99A1A #E7D3A0 #1E88E5 #333333）＋フッターだけ中間の青 #1A5796。主ボタンは紺、金は線・番号などの装飾だけ（文字色には使わない＝コントラスト確保）。例外：「60分無料相談」のボタンだけは全ページ金地に濃紺文字（2026-10-05 決定。9/22 の「主ボタンは紺」から変更）。</li>
-          <li>文字：全ページ明朝体（Noto Serif JP → ヒラギノ明朝 → 游明朝）。2026-10-06、トップ案モック（sfl-top-premium-mock）に合わせて Noto Sans JP・Inter から変更。英数字も同じ明朝体。本文16px・行間1.85。太字の文章を並べない。見出しの句読点なし。</li>
+          <li>文字：見出しは明朝体（Noto Serif JP）、本文・ラベル・ボタン・数字はゴシック体（Noto Sans JP）（2026-10-10、オーナーの指示。2026-10-06〜10-10 は全ページ明朝体だった）。見出しは h1〜h4・ヘッダーの社名・トップの見出し相当の一文。本文16px・行間1.85。太字の文章を並べない。見出しの句読点なし。</li>
           <li>文字の太さ（2026-10-10、トップ案の指定「見出し500・数字600」を全ページに適用）：見出し・ラベル・リンク・項目名は500（<code>--fw-heading</code>）、数字・強調（strong）は600（<code>--fw-number</code>）、700は「60分無料相談」などのボタンだけ（トップFVの Lark 画面の模型は除く）。それまでは下層の見出しが700、トップの見出しが600だった。<code>npm run check</code> が700以上の指定を検出する。</li>
           <li>ボタン：角丸6px・高さ52px（小44px）。カードはカード全体を押せる形。</li>
           <li>開閉：追加説明だけ。見出し行全体を押せる＋／−表示。概要・実績・会社情報は常時表示。</li>

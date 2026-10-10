@@ -25,7 +25,7 @@
 .home .curtain.t::after { bottom: 0; }
 .home .curtain.b::after { top: 0; }
 .home .vtext { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; pointer-events: none; }
-.home .vtext p { writing-mode: vertical-rl; color: #fff; font-weight: var(--fw-heading); font-feature-settings: "palt" 1; font-size: clamp(26px, min(5.6vw, 6.6vh), 56px); letter-spacing: .24em; line-height: 1.7; }
+.home .vtext p { font-family: var(--font-heading); writing-mode: vertical-rl; color: #fff; font-weight: var(--fw-heading); font-feature-settings: "palt" 1; font-size: clamp(26px, min(5.6vw, 6.6vh), 56px); letter-spacing: .24em; line-height: 1.7; }
 .home .vtext p span { display: block; }
 .home .vtext .bar { width: 2px; height: min(56%, 340px); background: var(--gold); margin-left: 26px; opacity: .9; }
 @media (max-width: 720px) { .home .vtext .bar { margin-left: 18px; } }
@@ -111,7 +111,7 @@
 
 /* 私たちが向き合う課題 */
 .home .cause { margin-top: 44px; padding-top: 36px; border-top: 1px solid var(--line); }
-.home .cause .cm { font-weight: var(--fw-heading); font-feature-settings: "palt" 1; font-size: clamp(21px, 2.5vw, 30px); letter-spacing: .08em; line-height: 1.7; color: var(--navy); }
+.home .cause .cm { font-family: var(--font-heading); font-weight: var(--fw-heading); font-feature-settings: "palt" 1; font-size: clamp(21px, 2.5vw, 30px); letter-spacing: .08em; line-height: 1.7; color: var(--navy); }
 .home .cause .cm em { font-style: normal; color: var(--blue); white-space: nowrap; }
 .home .cause .cs { font-size: 15px; color: var(--muted); max-width: 640px; margin: 10px 0 16px; line-height: 2.1; }
 
@@ -173,7 +173,7 @@
 .home .photoband::before { content: ""; position: absolute; inset: 0; z-index: 1; background: linear-gradient(90deg, rgba(11, 43, 85, .86) 0%, rgba(11, 43, 85, .62) 38%, rgba(11, 43, 85, .08) 72%); }
 .home .photoband .pbw { position: relative; z-index: 2; max-width: 1120px; height: 100%; margin: 0 auto; padding: 0 32px; display: flex; flex-direction: column; justify-content: center; }
 .home .photoband .ey { color: var(--gold-pale); }
-.home .photoband .pbq { font-weight: var(--fw-heading); font-feature-settings: "palt" 1; color: #fff; font-size: clamp(22px, 2.6vw, 34px); line-height: 1.8; letter-spacing: .08em; max-width: 560px; }
+.home .photoband .pbq { font-family: var(--font-heading); font-weight: var(--fw-heading); font-feature-settings: "palt" 1; color: #fff; font-size: clamp(22px, 2.6vw, 34px); line-height: 1.8; letter-spacing: .08em; max-width: 560px; }
 .home .photoband .pbs { color: rgba(255, 255, 255, .85); font-size: 14.5px; line-height: 2.1; letter-spacing: .05em; margin-top: 18px; max-width: 460px; }
 @media (max-width: 760px) {
   .home .photoband { height: auto; min-height: 440px; }
@@ -225,7 +225,7 @@
 
 /* 会社情報 */
 .home .co { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: start; }
-.home .quote { font-weight: var(--fw-heading); font-feature-settings: "palt" 1; font-size: 20px; line-height: 2.1; letter-spacing: .08em; color: var(--navy); border-left: 4px solid var(--gold); padding-left: 24px; }
+.home .quote { font-family: var(--font-heading); font-weight: var(--fw-heading); font-feature-settings: "palt" 1; font-size: 20px; line-height: 2.1; letter-spacing: .08em; color: var(--navy); border-left: 4px solid var(--gold); padding-left: 24px; }
 .home dl { display: grid; grid-template-columns: 100px 1fr; gap: 16px 20px; font-size: 14.5px; background: #fff; border: 1px solid var(--line); border-radius: 3px; padding: 30px 32px; }
 .home dt { color: var(--gold); letter-spacing: .14em; font-weight: 500; font-size: 13px; }
 .home .cofig { margin-top: 30px; }

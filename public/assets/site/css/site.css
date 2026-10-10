@@ -26,7 +26,8 @@
   --radius: 10px;
   --shadow: 0 1px 2px rgba(16, 58, 113, .06), 0 8px 24px rgba(16, 58, 113, .06);
   --ease: cubic-bezier(.22, 1, .36, 1);
-  --font: "Noto Serif JP", "Hiragino Mincho ProN", "Yu Mincho", serif;
+  --font: "Noto Sans JP", "Hiragino Kaku Gothic ProN", "Hiragino Sans", Meiryo, sans-serif;
+  --font-heading: "Noto Serif JP", "Hiragino Mincho ProN", "Yu Mincho", serif;
   --font-en: var(--font);
   /* トップ案の指定。700 はボタンだけ */
   --fw-heading: 500;
@@ -52,6 +53,7 @@ img { max-width: 100%; height: auto; display: block; }
 a { color: var(--navy); text-underline-offset: .2em; }
 a:hover { color: var(--blue); }
 :focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; border-radius: 4px; }
+h1, h2, h3, h4, .brand strong { font-family: var(--font-heading); }
 h1, h2, h3, h4 { color: var(--navy); line-height: 1.45; letter-spacing: .03em; margin: 0; font-weight: var(--fw-heading); }
 strong, b { font-weight: var(--fw-number); }
 th { font-weight: var(--fw-heading); }
