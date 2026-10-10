@@ -17,12 +17,11 @@
 .replace-tools li { display: flex; flex-direction: column; align-items: center; gap: 6px; min-height: calc(50px + 4.2em); font-size: .74rem; line-height: 1.4; color: var(--muted); }
 .tool-icon { display: grid; place-items: center; width: 44px; height: 44px; border: 1px solid var(--line); border-radius: 10px; background: var(--white); font-family: var(--font-en); font-weight: var(--fw-number); font-size: .95rem; color: var(--navy); overflow: hidden; }
 .tool-icon img { width: auto; height: auto; max-width: 34px; max-height: 28px; object-fit: contain; }
-.replace-arrow { display: flex; flex-direction: column; align-items: center; font-size: .72rem; color: var(--muted); line-height: 1.3; }
+.replace-arrow { display: flex; flex-direction: column; align-items: center; font-size: .78rem; color: var(--muted); line-height: 1.3; }
 .replace-arrow::after { content: "↓"; font-size: 1.1rem; font-weight: var(--fw-number); color: var(--navy); }
 .replace-lark { display: grid; grid-template-columns: 36px 1fr; gap: 4px 12px; align-items: center; margin-top: auto; padding: 14px 16px; background: var(--tint); border-radius: var(--radius-sm); }
-.replace-lark img { grid-row: span 2; width: 36px; height: 36px; }
-.replace-lark strong { color: var(--navy); font-size: 1rem; line-height: 1.3; }
-.replace-lark small { font-size: .8rem; color: var(--muted); line-height: 1.5; }
+.replace-lark img { width: 36px; height: 36px; }
+.replace-lark small { font-size: .84rem; color: var(--ink); line-height: 1.6; }
 
 /* 導入前後 */
 .change-table th[scope="row"] { white-space: nowrap; }
