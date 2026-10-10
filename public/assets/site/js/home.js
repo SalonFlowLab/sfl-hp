@@ -266,8 +266,8 @@ if(document.fonts&&document.fonts.ready)document.fonts.ready.then(start);else st
 /* 「Larkとは」の図：中央のLarkボタンで 0 閉じた状態 → 1 機能が広がる ⇄ 2 置き換え例（カードが裏返る） */
 (function(){
   var m=document.getElementById('lkmap');if(!m)return;
-  var core=m.querySelector('.lk-core'),act=m.querySelector('.lk-act'),hint=m.querySelector('.lk-hint'),cards=m.querySelector('.lk-cards');
-  var steps=m.querySelectorAll('.lk-step'),fns=m.querySelectorAll('.lk-fn'),reps=m.querySelectorAll('.lk-rep');
+  var core=m.querySelector('.lkm-core'),act=m.querySelector('.lkm-act'),hint=m.querySelector('.lkm-hint'),cards=m.querySelector('.lkm-cards');
+  var steps=m.querySelectorAll('.lkm-step'),fns=m.querySelectorAll('.lkm-fn'),reps=m.querySelectorAll('.lkm-rep');
   var ACT=['機能を見る','置き換え例を見る','機能に戻る'],HINT=['','もう一度押すと、置き換え例へ','各カードを押すと、詳しい説明へ'];
   function set(s){
     m.setAttribute('data-stage',s);
