@@ -1,5 +1,5 @@
 /* トップページFV：幕 → 業務の断片（業務名＋ツール名のカード）が集まりロゴを描く → Lark Base風のダッシュボードが組み上がる（約9秒）。
-   同じタブの2回目以降と prefers-reduced-motion では最終状態を表示。末尾は本文の改行制御（文節の切れ目に<wbr>）。 */
+   同じタブの2回目以降と prefers-reduced-motion では最終状態を表示。続けて本文の改行制御（文節の切れ目に<wbr>）と「Larkとは」の図の切り替え。 */
 (function(){
 var SERIF='"Noto Serif JP","Hiragino Mincho ProN","Yu Mincho",serif';
 var NAVY='#103A71',BLUE='#1E88E5',GOLD='#C99A1A',NS='http://www.w3.org/2000/svg';
@@ -261,4 +261,24 @@ if(document.fonts&&document.fonts.ready)document.fonts.ready.then(start);else st
   }
   function run(){var m=document.querySelector('main.home');if(m)walk(m)}
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',run);else run();
+})();
+
+/* 「Larkとは」の図：中央のLarkボタンで 0 閉じた状態 → 1 機能が広がる ⇄ 2 置き換え例（カードが裏返る） */
+(function(){
+  var m=document.getElementById('lkmap');if(!m)return;
+  var core=m.querySelector('.lk-core'),act=m.querySelector('.lk-act'),hint=m.querySelector('.lk-hint'),cards=m.querySelector('.lk-cards');
+  var steps=m.querySelectorAll('.lk-step'),fns=m.querySelectorAll('.lk-fn'),reps=m.querySelectorAll('.lk-rep');
+  var ACT=['機能を見る','置き換え例を見る','機能に戻る'],HINT=['','もう一度押すと、置き換え例へ','各カードを押すと、詳しい説明へ'];
+  function set(s){
+    m.setAttribute('data-stage',s);
+    act.textContent=ACT[s];hint.textContent=HINT[s];
+    core.setAttribute('aria-expanded',String(s>0));
+    cards.inert=s===0;
+    steps.forEach(function(b){if(+b.getAttribute('data-go')===s)b.setAttribute('aria-current','step');else b.removeAttribute('aria-current')});
+    fns.forEach(function(e){e.setAttribute('aria-hidden',String(s===2))});
+    reps.forEach(function(e){e.setAttribute('aria-hidden',String(s!==2))});
+  }
+  core.addEventListener('click',function(){set(m.getAttribute('data-stage')==='1'?2:1)});
+  steps.forEach(function(b){b.addEventListener('click',function(){set(+b.getAttribute('data-go'))})});
+  set(0);
 })();
