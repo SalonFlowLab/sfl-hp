@@ -19,3 +19,6 @@ cloud.md
 # ローカル確認用（Playwright MCP・スクリーンショット）
 .playwright-mcp/
 /*.png
+
+# Claude Code のローカル設定・セッション記録
+.claude/
