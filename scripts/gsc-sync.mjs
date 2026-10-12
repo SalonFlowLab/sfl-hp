@@ -1,10 +1,10 @@
 // Search Console の検索データを Lark Base にため、Lark の個別チャットに要約を送る。
-// launchd が毎月1・11・21日に実行する（~/Library/LaunchAgents/com.salonflowlab.gsc-sync.plist）。
+// launchd が毎月4日に実行し、前月分を前々月と比べる（~/Library/LaunchAgents/com.salonflowlab.gsc-sync.plist）。
 // Lark は lark-cli の bot 身分で操作する（user トークンは期限切れで無人実行が止まるため）。
 // 要約には、この Mac の Claude Code（claude -p）が書く考察を付ける。
 // 設定（Base・テーブル・送信先）は ~/.config/gsc/config.json。
 //
-//   node scripts/gsc-sync.mjs              直近35日分を同期し、要約を送る
+//   node scripts/gsc-sync.mjs              直近70日分を同期し、前月の要約を送る
 //   node scripts/gsc-sync.mjs --days 500   さかのぼって同期（初回）
 import { execFile } from 'node:child_process';
 import { mkdtempSync, readFileSync, rmSync } from 'node:fs';
@@ -15,8 +15,8 @@ import { searchAnalytics, ymd } from './gsc-client.mjs';
 
 const configDir = `${homedir()}/.config/gsc`;
 const config = JSON.parse(readFileSync(`${configDir}/config.json`, 'utf8'));
-// 実行間隔（最長11日）の3倍あれば、Mac が止まっていて1回飛んでも次の実行で埋まる
-const { values } = parseArgs({ options: { days: { type: 'string', default: '35' } } });
+// 実行間隔（1か月）の2倍あれば、Mac が止まっていて1回飛んでも次の実行で埋まる
+const { values } = parseArgs({ options: { days: { type: 'string', default: '70' } } });
 
 const workDir = mkdtempSync(join(tmpdir(), 'gsc-sync-'));
 const run = promisify(execFile);
@@ -144,7 +144,7 @@ const percentile = (sorted, p) => {
 async function variability(cur) {
   const baseEnd = ymd(new Date(new Date(cur[0]) - day));
   const rows = await searchAnalytics(config.site, {
-    startDate: ymd(new Date(new Date(baseEnd) - 89 * day)), endDate: cur[1], dimensions: ['date'],
+    startDate: ymd(new Date(new Date(baseEnd) - 364 * day)), endDate: cur[1], dimensions: ['date'],
   });
   const byDate = new Map(rows.map((r) => [r.keys[0], r]));
   // GSC は表示0の日を返さないので0で埋める。データの始まりより前は含めない
@@ -154,7 +154,7 @@ async function variability(cur) {
   // 連続した合計が20区間に満たないと、5〜95% の幅が当てにならない
   if (baseDays.length - curDays.length + 1 < 20) return null;
   const value = (date, metric) => byDate.get(date)?.[metric] ?? 0;
-  const result = { base: [baseDays[0], baseEnd], n: baseDays.length };
+  const result = { base: [baseDays[0], baseEnd], n: baseDays.length, days: curDays.length };
   for (const [metric] of metricNames) {
     const xs = baseDays.map((d) => value(d, metric));
     const mean = xs.reduce((a, b) => a + b, 0) / xs.length;
@@ -175,17 +175,25 @@ async function variability(cur) {
 
 const tsv = (rows, label) => rows.map((r) => [label(r.keys), r.clicks, r.impressions, (r.ctr * 100).toFixed(1) + '%', r.position.toFixed(1)].join('\t')).join('\n');
 
-async function insight({ cur, prev, now, before, latest, spread }) {
-  const since35 = ymd(new Date(latest - 34 * day));
+async function insight({ cur, prev, now, before, spread }) {
+  const notesSince = ymd(new Date(Date.now() - 40 * day));
   const range = (r) => ({ startDate: r[0], endDate: r[1] });
-  const daily = await searchAnalytics(config.site, { startDate: since35, endDate: ymd(latest), dimensions: ['date'] });
+  const daily = await searchAnalytics(config.site, { startDate: prev[0], endDate: cur[1], dimensions: ['date'] });
   const pagesCur = await searchAnalytics(config.site, { ...range(cur), dimensions: ['page'] });
   const pagesPrev = await searchAnalytics(config.site, { ...range(prev), dimensions: ['page'] });
   const queries = (await searchAnalytics(config.site, { ...range(cur), dimensions: ['query'] }))
     .sort((a, b) => b.impressions - a.impressions).slice(0, 20);
-  const { stdout: commits } = await run('git', ['-C', repoRoot, 'log', `--since=${since35}`, '--date=short', '--format=%ad %s', '--', 'public/']);
+  // 本番は main への反映で公開されるため、作業ブランチのコミットは含めず main の履歴だけを見る。
+  // PR のマージは件名が「Merge pull request …」なので、本文1行目（PR の題名）を使う
+  const { stdout: log } = await run('git', ['-C', repoRoot, 'log', 'main', '--first-parent', `--since=${prev[0]}`,
+    '--date=short', '--format=%cd%x1f%s%x1f%b%x1e', '--', 'public/']);
+  const commits = log.split('\x1e').map((c) => c.trim()).filter(Boolean).map((c) => {
+    const [date, subject, body] = c.split('\x1f');
+    const title = subject.startsWith('Merge pull request') ? body.split('\n').find((l) => l.trim()) ?? subject : subject;
+    return `${date} ${title}`;
+  }).join('\n');
   await lark('base', '+record-list', '--base-token', config.baseToken, '--table-id', config.tables.notes,
-    '--filter-json', JSON.stringify({ logic: 'and', conditions: [['記入日', '>', `ExactDate(${since35} 00:00:00)`]] }),
+    '--filter-json', JSON.stringify({ logic: 'and', conditions: [['記入日', '>', `ExactDate(${notesSince} 00:00:00)`]] }),
     '--output', 'notes.ndjson', '--overwrite');
   const notes = readFileSync(join(workDir, 'notes.ndjson'), 'utf8').split('\n').filter(Boolean).map((l) => JSON.parse(l))
     .filter((n) => n['内容']).map((n) => `${String(n['記入日']).slice(0, 10)} ${n['内容']}`);
@@ -195,23 +203,23 @@ async function insight({ cur, prev, now, before, latest, spread }) {
   const head = '\tクリック\t表示回数\tCTR\t平均順位';
   const material = [
     '列の意味: クリック＝検索結果から押された回数、表示回数＝検索結果に出た回数、CTR＝クリック÷表示回数、平均順位＝小さいほど上位。',
-    'サイトの経緯: 2026-09 にリニューアルし、美容サロン向けから一般業種向けの会社案内に変えた。旧URLは下の「301転送」のとおり新しいページへ転送している。',
+    `サイトの経緯: ${config.renewalDate} に、美容サロン向けの旧サイトから一般業種向けの会社案内へのリニューアルを本番公開した（main へのマージ）。旧URLは下の「301転送」のとおり新しいページへ転送している。`,
     `今回の期間 ${cur[0]}〜${cur[1]}: ${total(now)}`,
     `前回の期間 ${prev[0]}〜${prev[1]}: ${total(before)}`,
     spread
-      ? [`\n揺れの目安（スクリプトで計算済み。基準期間 ${spread.base[0]}〜${spread.base[1]} の${spread.n}日。データの無い日は0。基準期間は 2026-09 のリニューアルをまたぐ）`,
+      ? [`\n揺れの目安（スクリプトで計算済み。基準期間 ${spread.base[0]}〜${spread.base[1]} の${spread.n}日。データの無い日は0。基準期間は${spread.base[1] < config.renewalDate ? 'すべてリニューアル前' : spread.base[0] >= config.renewalDate ? 'すべてリニューアル後' : 'リニューアルの前後をまたぐ'}）`,
         ...metricNames.map(([m, name]) => {
           const v = spread[m];
           return `- ${name}: 1日あたり平均 ${v.mean.toFixed(2)}・標準偏差 ${v.sd.toFixed(2)}（0の日が${v.n}日中${v.zeroDays}日ある偏った分布で、正規分布ではない）。` +
-            `10日合計のふだんの範囲（基準期間の連続10日合計${v.windows}区間の5〜95%。区間は重なり合う）${v.low}〜${v.high}、今回 ${v.total} は${v.inside ? '範囲内' : '範囲外'}。` +
+            `${spread.days}日合計のふだんの範囲（基準期間の連続した${spread.days}日合計${v.windows}区間の5〜95%。区間は重なり合う）${v.low}〜${v.high}、今回 ${v.total} は${v.inside ? '範囲内' : '範囲外'}。` +
             `1日の上限（平均+2σ）${v.dayLimit.toFixed(1)} を超えた日: ${v.spikes.join('、') || 'なし'}`;
         })].join('\n')
       : '\n揺れの目安: 基準期間のデータが足りないため出していない',
-    `\n日別（${since35}〜${ymd(latest)}）\n日付${head}\n${tsv(daily, (k) => k[0])}`,
+    `\n日別（${prev[0]}〜${cur[1]}）\n日付${head}\n${tsv(daily, (k) => k[0])}`,
     `\nページ別・今回\nページ${head}\n${tsv(pagesCur, (k) => pagePath(k[0]))}`,
     `\nページ別・前回\nページ${head}\n${tsv(pagesPrev, (k) => pagePath(k[0]))}`,
     `\n検索語句・今回（表示回数の上位20。件数の少ない語句は Google が伏せるため、合計と一致しない）\n語句${head}\n${tsv(queries, (k) => k[0])}`,
-    `\nサイト変更（public/ のコミット履歴）\n${commits.trim() || 'なし'}`,
+    `\n本番に反映したサイト変更（main の public/ の履歴。日付は反映日）\n${commits || 'なし'}`,
     `\n301転送（旧URL 転送先 ステータス）\n${redirects}`,
     `\nユーザーの気づき\n${notes.join('\n') || '記入なし'}`,
   ].join('\n');
@@ -225,26 +233,24 @@ async function insight({ cur, prev, now, before, latest, spread }) {
 }
 
 async function report() {
-  // 「確定済みの最新10日」とその前の10日を比べる（実行日の前日分はまだ確定していないため）
-  const dates = await searchAnalytics(config.site, {
-    startDate: ymd(new Date(Date.now() - 10 * day)), endDate: ymd(new Date()), dimensions: ['date'],
-  });
-  const latest = new Date(dates.map((r) => r.keys[0]).sort().at(-1) ?? ymd(new Date(Date.now() - 3 * day)));
-  const range = (back) => [ymd(new Date(latest - (back + 9) * day)), ymd(new Date(latest - back * day))];
-  const [cur, prev] = [range(0), range(10)];
+  // 前月（1日〜末日）を前々月と比べる。GSC は2〜3日遅れて確定するので、月の3日より前に実行すると前月末が欠ける
+  const today = new Date();
+  const month = (back) => [new Date(Date.UTC(today.getFullYear(), today.getMonth() - back, 1)),
+    new Date(Date.UTC(today.getFullYear(), today.getMonth() - back + 1, 0))].map(ymd);
+  const [cur, prev] = [month(1), month(2)];
   const [now, before] = [await totals(...cur), await totals(...prev)];
   const top = async (dim, sortKey) => (await searchAnalytics(config.site, { startDate: cur[0], endDate: cur[1], dimensions: [dim] }))
     .sort((a, b) => b[sortKey] - a[sortKey]).slice(0, 5);
   const [pages, queries] = [await top('page', 'clicks'), await top('query', 'impressions')];
   const spread = await variability(cur);
   // 考察が作れなくても数値の要約は送る
-  const analysis = await insight({ cur, prev, now, before, latest, spread })
+  const analysis = await insight({ cur, prev, now, before, spread })
     .catch((e) => `生成できませんでした: ${String(e.message).slice(0, 300)}`);
 
   const sign = (n, digits = 0) => `${n > 0 ? '+' : n < 0 ? '−' : '±'}${Math.abs(n).toFixed(digits)}`;
-  const md = (s) => s.slice(5).replace('-', '/');
+  const label = (s) => `${s.slice(0, 4)}年${Number(s.slice(5, 7))}月`;
   const lines = [
-    `**検索データ** ${md(cur[0])}〜${md(cur[1])}（前の10日との比較）`,
+    `**検索データ** ${label(cur[0])}（${label(prev[0])}との比較）`,
     '',
     `- クリック **${now.clicks}**（${sign(now.clicks - before.clicks)}）`,
     `- 表示回数 **${now.impressions}**（${sign(now.impressions - before.impressions)}）`,
@@ -252,7 +258,7 @@ async function report() {
     `- 平均順位 **${now.position.toFixed(1)}**（${sign(now.position - before.position, 1)}。小さいほど上位）`,
     ...(spread ? [
       `- 1日あたり（基準${spread.n}日）: ` + metricNames.map(([m, name]) => `${name} 平均${spread[m].mean.toFixed(2)}・標準偏差${spread[m].sd.toFixed(2)}`).join('／'),
-      `- ふだんの範囲（過去の10日合計の5〜95%）: ` + metricNames.map(([m, name]) => {
+      `- ふだんの範囲（過去の${spread.days}日合計の5〜95%）: ` + metricNames.map(([m, name]) => {
         const v = spread[m];
         return `${name} ${v.low}〜${v.high}（今回${v.total}・${v.inside ? '範囲内' : '範囲外'}）`;
       }).join('／'),

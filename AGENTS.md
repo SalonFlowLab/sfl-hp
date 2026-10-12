@@ -30,7 +30,7 @@ HTML/CSS/JavaScriptのみの静的サイトです。公開対象のファイル�
 - `npm run check`: すべて。
 - `npm run deploy`: Cloudflare Pages へデプロイ（本番反映は必ず確認を取ってから）。
 - `node scripts/gsc.mjs query https://salonflowlab.com/ --dims page`: Search Console の検索データを表示（サービスアカウントの鍵は `~/.config/gsc/sa.json`。リポジトリに入れない）。
-- `node scripts/gsc-sync.mjs`: 検索データを Lark Base「SFL サイト検索データ（GSC）」にため、Lark の個別チャットに直近10日の要約と考察を送る（考察はこの Mac の `claude -p` が書く。ゴールは問い合わせ（60分無料相談）を増やすこと。Base の「気づき」テーブルの記入が次回の考察に入る）。オーナーの Mac の launchd（`~/Library/LaunchAgents/com.salonflowlab.gsc-sync.plist`）が毎月1・11・21日の 8:00 に実行し、ログは `~/Library/Logs/sfl-gsc-sync.log`。Base・送信先などの設定は `~/.config/gsc/config.json`。
+- `node scripts/gsc-sync.mjs`: 検索データを Lark Base「SFL サイト検索データ（GSC）」にため、Lark の個別チャットに前月の要約と考察を送る（考察はこの Mac の `claude -p` が書く。ゴールは問い合わせ（60分無料相談）を増やすこと。Base の「気づき」テーブルの記入が次回の考察に入る）。オーナーの Mac の launchd（`~/Library/LaunchAgents/com.salonflowlab.gsc-sync.plist`）が毎月4日の 8:00 に実行し、ログは `~/Library/Logs/sfl-gsc-sync.log`。Base・送信先などの設定は `~/.config/gsc/config.json`。
 
 ## アーキテクチャ
 
