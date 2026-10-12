@@ -118,15 +118,51 @@ const insightRules = `あなたは小さな会社のコーポレートサイト�
 - 「事実」には、渡されたデータとサイト変更履歴から直接読めることだけを書く。
 - 「解釈」には、ユーザーの「気づき」に書かれた見立てを、事実と分けて要約する。記入が無ければ「記入なし」とだけ書く。あなた自身の見立てはここに書かない。
 - 「ほかに考えられる説明」には、事実やユーザーの見立てについて考えられる説明を、互いに異なる観点で3つ以上挙げる。どれが正しいかは判定しない。
-- クリックは1日数件と少ないので、増減は偶然の揺れでもありうる前提で書く。
+- 「揺れの目安」（標準偏差から計算済み）を使い、今回の値がふだんの範囲の内か外かを事実に書く。範囲内の増減は偶然の揺れでも説明できると書く。範囲外でも、それだけで原因は決めない。自分では計算しない。
 - このデータから問い合わせ件数は分からない（Search Console は検索結果での表示とクリックだけ）。問い合わせについて推測しない。
 - 分からない点は推測せず「質問」で聞く。質問は3つまで。
 
 出力: Lark のメッセージに貼る Markdown。見出しは「**事実**」「**解釈**」「**ほかに考えられる説明**」「**質問**」の4つをこの順で、中身は箇条書き。全体で800字以内。前置き・結び・見出し以外の文は書かない。`;
 
+const dayList = (from, to) => {
+  const out = [];
+  for (let d = new Date(from); d <= new Date(to); d = new Date(+d + day)) out.push(ymd(d));
+  return out;
+};
+
+// 日ごとの値が互いに独立だと仮定した目安で、曜日の偏りやリニューアル前後の違いは見ていない。
+// 基準期間が長くなり曜日の偏りが見えたら、曜日別の基準に切り替える
+async function variability(cur) {
+  const baseEnd = ymd(new Date(new Date(cur[0]) - day));
+  const rows = await searchAnalytics(config.site, {
+    startDate: ymd(new Date(new Date(baseEnd) - 89 * day)), endDate: cur[1], dimensions: ['date'],
+  });
+  const byDate = new Map(rows.map((r) => [r.keys[0], r]));
+  // GSC は表示0の日を返さないので0で埋める。データの始まりより前は含めない
+  const first = rows.map((r) => r.keys[0]).sort()[0];
+  const baseDays = first ? dayList(first, baseEnd) : [];
+  if (baseDays.length < 14) return null;
+  const curDays = dayList(...cur);
+  const value = (date, metric) => byDate.get(date)?.[metric] ?? 0;
+  const result = { base: [baseDays[0], baseEnd], n: baseDays.length };
+  for (const metric of ['clicks', 'impressions']) {
+    const xs = baseDays.map((d) => value(d, metric));
+    const mean = xs.reduce((a, b) => a + b, 0) / xs.length;
+    const sd = Math.sqrt(xs.reduce((a, x) => a + (x - mean) ** 2, 0) / (xs.length - 1));
+    const spread = 2 * sd * Math.sqrt(curDays.length);
+    const total = curDays.reduce((a, d) => a + value(d, metric), 0);
+    const [low, high] = [Math.max(0, mean * curDays.length - spread), mean * curDays.length + spread];
+    result[metric] = {
+      mean, sd, low, high, total, inside: total >= low && total <= high, dayLimit: mean + 2 * sd,
+      spikes: curDays.filter((d) => value(d, metric) > mean + 2 * sd).map((d) => `${d}（${value(d, metric)}）`),
+    };
+  }
+  return result;
+}
+
 const tsv = (rows, label) => rows.map((r) => [label(r.keys), r.clicks, r.impressions, (r.ctr * 100).toFixed(1) + '%', r.position.toFixed(1)].join('\t')).join('\n');
 
-async function insight({ cur, prev, now, before, latest }) {
+async function insight({ cur, prev, now, before, latest, spread }) {
   const since35 = ymd(new Date(latest - 34 * day));
   const range = (r) => ({ startDate: r[0], endDate: r[1] });
   const daily = await searchAnalytics(config.site, { startDate: since35, endDate: ymd(latest), dimensions: ['date'] });
@@ -149,6 +185,15 @@ async function insight({ cur, prev, now, before, latest }) {
     'サイトの経緯: 2026-09 にリニューアルし、美容サロン向けから一般業種向けの会社案内に変えた。旧URLは下の「301転送」のとおり新しいページへ転送している。',
     `今回の期間 ${cur[0]}〜${cur[1]}: ${total(now)}`,
     `前回の期間 ${prev[0]}〜${prev[1]}: ${total(before)}`,
+    spread
+      ? [`\n揺れの目安（スクリプトで計算済み。基準期間 ${spread.base[0]}〜${spread.base[1]} の${spread.n}日。データの無い日は0。日ごとの値が独立と仮定。基準期間は 2026-09 のリニューアルをまたぐ）`,
+        ...[['clicks', 'クリック'], ['impressions', '表示回数']].map(([m, name]) => {
+          const v = spread[m];
+          return `- ${name}: 基準の日平均 ${v.mean.toFixed(2)}・標準偏差 ${v.sd.toFixed(2)}。` +
+            `10日合計のふだんの範囲（平均±2σ）${v.low.toFixed(0)}〜${v.high.toFixed(0)}、今回 ${v.total} は${v.inside ? '範囲内' : '範囲外'}。` +
+            `1日の上限（平均+2σ）${v.dayLimit.toFixed(1)} を超えた日: ${v.spikes.join('、') || 'なし'}`;
+        })].join('\n')
+      : '\n揺れの目安: 基準期間のデータが14日未満のため出していない',
     `\n日別（${since35}〜${ymd(latest)}）\n日付${head}\n${tsv(daily, (k) => k[0])}`,
     `\nページ別・今回\nページ${head}\n${tsv(pagesCur, (k) => pagePath(k[0]))}`,
     `\nページ別・前回\nページ${head}\n${tsv(pagesPrev, (k) => pagePath(k[0]))}`,
@@ -178,8 +223,9 @@ async function report() {
   const top = async (dim, sortKey) => (await searchAnalytics(config.site, { startDate: cur[0], endDate: cur[1], dimensions: [dim] }))
     .sort((a, b) => b[sortKey] - a[sortKey]).slice(0, 5);
   const [pages, queries] = [await top('page', 'clicks'), await top('query', 'impressions')];
+  const spread = await variability(cur);
   // 考察が作れなくても数値の要約は送る
-  const analysis = await insight({ cur, prev, now, before, latest })
+  const analysis = await insight({ cur, prev, now, before, latest, spread })
     .catch((e) => `生成できませんでした: ${String(e.message).slice(0, 300)}`);
 
   const sign = (n, digits = 0) => `${n > 0 ? '+' : n < 0 ? '−' : '±'}${Math.abs(n).toFixed(digits)}`;
@@ -191,6 +237,10 @@ async function report() {
     `- 表示回数 **${now.impressions}**（${sign(now.impressions - before.impressions)}）`,
     `- CTR **${(now.ctr * 100).toFixed(1)}%**（${sign((now.ctr - before.ctr) * 100, 1)}pt）`,
     `- 平均順位 **${now.position.toFixed(1)}**（${sign(now.position - before.position, 1)}。小さいほど上位）`,
+    ...(spread ? [`- ふだんの範囲（10日合計・平均±2σ）: ` + [['clicks', 'クリック'], ['impressions', '表示回数']].map(([m, name]) => {
+      const v = spread[m];
+      return `${name} ${v.low.toFixed(0)}〜${v.high.toFixed(0)}（今回${v.total}・${v.inside ? '範囲内' : '範囲外'}）`;
+    }).join('／')] : []),
     '',
     '**ページ上位（クリック順）**',
     ...(pages.length ? pages.map((r, i) => `${i + 1}. ${pagePath(r.keys[0])}　${r.clicks}クリック・${r.impressions}表示`) : ['なし']),
@@ -207,7 +257,7 @@ async function report() {
     `質問への答えや気づきは [気づきテーブル](${config.notesUrl}) へ。次回の考察に入ります。`,
   ];
   const sent = await lark('im', '+messages-send', '--user-id', config.userOpenId, '--markdown', lines.join('\n'), '--idempotency-key', `gsc-report-${Date.now()}`);
-  console.log(`report sent: ${cur[0]}〜${cur[1]} ${sent.data?.message_id ?? ''}\n${analysis}`);
+  console.log(`report sent: ${sent.data?.message_id ?? ''}\n${lines.join('\n')}`);
 }
 
 try {
