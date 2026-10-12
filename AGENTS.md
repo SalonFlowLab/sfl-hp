@@ -14,6 +14,7 @@ HTML/CSS/JavaScriptのみの静的サイトです。公開対象のファイル�
 - `public/internal/index.html`: 内部向けの集約ページ（仕様・判断・確定待ち・料金掲載箇所など）。`functions/internal/_middleware.js` がプレビュー環境とローカル以外では 404 を返す。
 - `functions/internal/_middleware.js`: `/internal/` をプレビュー限定にするミドルウェア。
 - `wrangler.jsonc`: Cloudflare Pages の最小デプロイ設定。
+- `public/google72e986a3b6c69304.html`: Search Console の所有権確認ファイル。どこからもリンクされていないが、消すと所有権が外れるので消さない。
 - `public/_headers` / `public/_redirects`: ヘッダーと旧URLの301転送（転送先は最終ページへ直接。連鎖させない）。
 - `docs/deployment/`: デプロイメモ。
 
@@ -29,7 +30,7 @@ HTML/CSS/JavaScriptのみの静的サイトです。公開対象のファイル�
 - `npm run check`: すべて。
 - `npm run deploy`: Cloudflare Pages へデプロイ（本番反映は必ず確認を取ってから）。
 - `node scripts/gsc.mjs query https://salonflowlab.com/ --dims page`: Search Console の検索データを表示（サービスアカウントの鍵は `~/.config/gsc/sa.json`。リポジトリに入れない）。
-- `node scripts/gsc-sync.mjs`: 検索データを Lark Base「SFL サイト検索データ（GSC）」にため、Lark の個別チャットに直近10日の要約を送る。オーナーの Mac の launchd（`~/Library/LaunchAgents/com.salonflowlab.gsc-sync.plist`）が毎月1・11・21日の 8:00 に実行し、ログは `~/Library/Logs/sfl-gsc-sync.log`。Base・送信先などの設定は `~/.config/gsc/config.json`。
+- `node scripts/gsc-sync.mjs`: 検索データを Lark Base「SFL サイト検索データ（GSC）」にため、Lark の個別チャットに直近10日の要約と考察を送る（考察はこの Mac の `claude -p` が書く。ゴールは問い合わせ（60分無料相談）を増やすこと。Base の「気づき」テーブルの記入が次回の考察に入る）。オーナーの Mac の launchd（`~/Library/LaunchAgents/com.salonflowlab.gsc-sync.plist`）が毎月1・11・21日の 8:00 に実行し、ログは `~/Library/Logs/sfl-gsc-sync.log`。Base・送信先などの設定は `~/.config/gsc/config.json`。
 
 ## アーキテクチャ
 
