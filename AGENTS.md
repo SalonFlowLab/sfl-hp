@@ -28,6 +28,8 @@ HTML/CSS/JavaScriptのみの静的サイトです。公開対象のファイル�
 - `npm run check:font-weight`: 文字の太さ（700 以上はボタンだけ）を検査。
 - `npm run check`: すべて。
 - `npm run deploy`: Cloudflare Pages へデプロイ（本番反映は必ず確認を取ってから）。
+- `node scripts/gsc.mjs query https://salonflowlab.com/ --dims page`: Search Console の検索データを表示（サービスアカウントの鍵は `~/.config/gsc/sa.json`。リポジトリに入れない）。
+- `node scripts/gsc-sync.mjs`: 検索データを Lark Base「SFL サイト検索データ（GSC）」にため、週1回 Lark の個別チャットに週報を送る。オーナーの Mac の launchd（`~/Library/LaunchAgents/com.salonflowlab.gsc-sync.plist`）が毎日 8:00 に実行し、ログは `~/Library/Logs/sfl-gsc-sync.log`。Base・送信先などの設定は `~/.config/gsc/config.json`。
 
 ## アーキテクチャ
 
