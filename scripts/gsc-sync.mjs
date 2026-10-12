@@ -1,13 +1,12 @@
-// Search Console の検索データを Lark Base にため、週1回 Lark の個別チャットに要約を送る。
-// launchd から毎日実行する（~/Library/LaunchAgents/com.salonflowlab.gsc-sync.plist）。
+// Search Console の検索データを Lark Base にため、Lark の個別チャットに要約を送る。
+// launchd が毎月1・11・21日に実行する（~/Library/LaunchAgents/com.salonflowlab.gsc-sync.plist）。
 // Lark は lark-cli の bot 身分で操作する（user トークンは期限切れで無人実行が止まるため）。
-// 設定（Base・テーブル・送信先）は ~/.config/gsc/config.json、週報の送信記録は state.json。
+// 設定（Base・テーブル・送信先）は ~/.config/gsc/config.json。
 //
-//   node scripts/gsc-sync.mjs                 直近10日分を同期し、今週の週報が未送信なら送る
-//   node scripts/gsc-sync.mjs --days 500      さかのぼって同期（初回）
-//   node scripts/gsc-sync.mjs --report-now    送信記録に関係なく週報を送る
+//   node scripts/gsc-sync.mjs              直近35日分を同期し、要約を送る
+//   node scripts/gsc-sync.mjs --days 500   さかのぼって同期（初回）
 import { execFile } from 'node:child_process';
-import { existsSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
+import { mkdtempSync, readFileSync, rmSync } from 'node:fs';
 import { homedir, tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { parseArgs, promisify } from 'node:util';
@@ -15,13 +14,8 @@ import { searchAnalytics, ymd } from './gsc-client.mjs';
 
 const configDir = `${homedir()}/.config/gsc`;
 const config = JSON.parse(readFileSync(`${configDir}/config.json`, 'utf8'));
-const statePath = `${configDir}/state.json`;
-const { values } = parseArgs({
-  options: {
-    days: { type: 'string', default: '10' },
-    'report-now': { type: 'boolean', default: false },
-  },
-});
+// 実行間隔（最長11日）の3倍あれば、Mac が止まっていて1回飛んでも次の実行で埋まる
+const { values } = parseArgs({ options: { days: { type: 'string', default: '35' } } });
 
 const workDir = mkdtempSync(join(tmpdir(), 'gsc-sync-'));
 const run = promisify(execFile);
@@ -109,26 +103,19 @@ async function refreshDashboardRange() {
   }
 }
 
-function isoWeek(d) {
-  const t = new Date(Date.UTC(d.getFullYear(), d.getMonth(), d.getDate()));
-  t.setUTCDate(t.getUTCDate() + 4 - (t.getUTCDay() || 7));
-  const week = Math.ceil(((t - Date.UTC(t.getUTCFullYear(), 0, 1)) / day + 1) / 7);
-  return `${t.getUTCFullYear()}-W${String(week).padStart(2, '0')}`;
-}
-
 async function totals(startDate, endDate) {
   const [r] = await searchAnalytics(config.site, { startDate, endDate });
   return r ?? { clicks: 0, impressions: 0, ctr: 0, position: 0 };
 }
 
-async function report(week) {
-  // 週報は「確定済みの最新7日」とその前の7日を比べる（月曜時点では前日分がまだ確定していないため）
+async function report() {
+  // 「確定済みの最新10日」とその前の10日を比べる（実行日の前日分はまだ確定していないため）
   const dates = await searchAnalytics(config.site, {
     startDate: ymd(new Date(Date.now() - 10 * day)), endDate: ymd(new Date()), dimensions: ['date'],
   });
   const latest = new Date(dates.map((r) => r.keys[0]).sort().at(-1) ?? ymd(new Date(Date.now() - 3 * day)));
-  const range = (back) => [ymd(new Date(latest - (back + 6) * day)), ymd(new Date(latest - back * day))];
-  const [cur, prev] = [range(0), range(7)];
+  const range = (back) => [ymd(new Date(latest - (back + 9) * day)), ymd(new Date(latest - back * day))];
+  const [cur, prev] = [range(0), range(10)];
   const [now, before] = [await totals(...cur), await totals(...prev)];
   const top = async (dim, sortKey) => (await searchAnalytics(config.site, { startDate: cur[0], endDate: cur[1], dimensions: [dim] }))
     .sort((a, b) => b[sortKey] - a[sortKey]).slice(0, 5);
@@ -137,7 +124,7 @@ async function report(week) {
   const sign = (n, digits = 0) => `${n > 0 ? '+' : n < 0 ? '−' : '±'}${Math.abs(n).toFixed(digits)}`;
   const md = (s) => s.slice(5).replace('-', '/');
   const lines = [
-    `**検索データ週報** ${md(cur[0])}〜${md(cur[1])}（前の7日との比較）`,
+    `**検索データ** ${md(cur[0])}〜${md(cur[1])}（前の10日との比較）`,
     '',
     `- クリック **${now.clicks}**（${sign(now.clicks - before.clicks)}）`,
     `- 表示回数 **${now.impressions}**（${sign(now.impressions - before.impressions)}）`,
@@ -152,19 +139,14 @@ async function report(week) {
     '',
     `[ダッシュボードを開く](${config.dashboardUrl})`,
   ];
-  await lark('im', '+messages-send', '--user-id', config.userOpenId, '--markdown', lines.join('\n'), '--idempotency-key', `gsc-report-${week}`);
+  await lark('im', '+messages-send', '--user-id', config.userOpenId, '--markdown', lines.join('\n'), '--idempotency-key', `gsc-report-${ymd(new Date())}`);
   console.log(`report sent: ${cur[0]}〜${cur[1]}`);
 }
 
 try {
   await sync(Number(values.days));
   await refreshDashboardRange();
-  const week = isoWeek(new Date());
-  const state = existsSync(statePath) ? JSON.parse(readFileSync(statePath, 'utf8')) : {};
-  if (values['report-now'] || state.lastReportWeek !== week) {
-    await report(values['report-now'] ? `${week}-${Date.now()}` : week);
-    writeFileSync(statePath, JSON.stringify({ ...state, lastReportWeek: week }));
-  }
+  await report();
 } catch (e) {
   console.error(e);
   await lark('im', '+messages-send', '--user-id', config.userOpenId, '--text', `GSC 集計でエラー: ${String(e.message).slice(0, 500)}`)
