@@ -118,11 +118,13 @@ const insightRules = `あなたは小さな会社のコーポレートサイト�
 - 「事実」には、渡されたデータとサイト変更履歴から直接読めることだけを書く。
 - 「解釈」には、ユーザーの「気づき」に書かれた見立てを、事実と分けて要約する。記入が無ければ「記入なし」とだけ書く。あなた自身の見立てはここに書かない。
 - 「ほかに考えられる説明」には、事実やユーザーの見立てについて考えられる説明を、互いに異なる観点で3つ以上挙げる。どれが正しいかは判定しない。
-- 「揺れの目安」（標準偏差から計算済み）を使い、今回の値がふだんの範囲の内か外かを事実に書く。範囲内の増減は偶然の揺れでも説明できると書く。範囲外でも、それだけで原因は決めない。自分では計算しない。
+- 「揺れの目安」（計算済み）を使い、今回の値がふだんの範囲の内か外かを事実に書く。範囲内の増減は偶然の揺れでも説明できると書く。範囲外でも、それだけで原因は決めない。自分では計算しない。
 - このデータから問い合わせ件数は分からない（Search Console は検索結果での表示とクリックだけ）。問い合わせについて推測しない。
 - 分からない点は推測せず「質問」で聞く。質問は3つまで。
 
 出力: Lark のメッセージに貼る Markdown。見出しは「**事実**」「**解釈**」「**ほかに考えられる説明**」「**質問**」の4つをこの順で、中身は箇条書き。全体で800字以内。前置き・結び・見出し以外の文は書かない。`;
+
+const metricNames = [['clicks', 'クリック'], ['impressions', '表示回数']];
 
 const dayList = (from, to) => {
   const out = [];
@@ -130,7 +132,14 @@ const dayList = (from, to) => {
   return out;
 };
 
-// 日ごとの値が互いに独立だと仮定した目安で、曜日の偏りやリニューアル前後の違いは見ていない。
+// 線形補間のパーセンタイル（p は 0〜1）
+const percentile = (sorted, p) => {
+  const i = (sorted.length - 1) * p;
+  return sorted[Math.floor(i)] + (sorted[Math.ceil(i)] - sorted[Math.floor(i)]) * (i - Math.floor(i));
+};
+
+// 日別の値は0の日が多い偏った分布で正規分布ではないため、合計の範囲は平均±σではなく、
+// 基準期間の連続した合計（区間は重なり合う）の5〜95%で取る。曜日の偏りやリニューアル前後の違いは見ていない。
 // 基準期間が長くなり曜日の偏りが見えたら、曜日別の基準に切り替える
 async function variability(cur) {
   const baseEnd = ymd(new Date(new Date(cur[0]) - day));
@@ -141,19 +150,23 @@ async function variability(cur) {
   // GSC は表示0の日を返さないので0で埋める。データの始まりより前は含めない
   const first = rows.map((r) => r.keys[0]).sort()[0];
   const baseDays = first ? dayList(first, baseEnd) : [];
-  if (baseDays.length < 14) return null;
   const curDays = dayList(...cur);
+  // 連続した合計が20区間に満たないと、5〜95% の幅が当てにならない
+  if (baseDays.length - curDays.length + 1 < 20) return null;
   const value = (date, metric) => byDate.get(date)?.[metric] ?? 0;
   const result = { base: [baseDays[0], baseEnd], n: baseDays.length };
-  for (const metric of ['clicks', 'impressions']) {
+  for (const [metric] of metricNames) {
     const xs = baseDays.map((d) => value(d, metric));
     const mean = xs.reduce((a, b) => a + b, 0) / xs.length;
     const sd = Math.sqrt(xs.reduce((a, x) => a + (x - mean) ** 2, 0) / (xs.length - 1));
-    const spread = 2 * sd * Math.sqrt(curDays.length);
+    const sums = xs.slice(0, xs.length - curDays.length + 1)
+      .map((_, i) => xs.slice(i, i + curDays.length).reduce((a, b) => a + b, 0)).sort((a, b) => a - b);
+    // 合計は整数なので、範囲も整数に寄せて内外の判定と表示をそろえる
+    const [low, high] = [Math.ceil(percentile(sums, 0.05)), Math.floor(percentile(sums, 0.95))];
     const total = curDays.reduce((a, d) => a + value(d, metric), 0);
-    const [low, high] = [Math.max(0, mean * curDays.length - spread), mean * curDays.length + spread];
     result[metric] = {
       mean, sd, low, high, total, inside: total >= low && total <= high, dayLimit: mean + 2 * sd,
+      n: xs.length, zeroDays: xs.filter((x) => x === 0).length, windows: sums.length,
       spikes: curDays.filter((d) => value(d, metric) > mean + 2 * sd).map((d) => `${d}（${value(d, metric)}）`),
     };
   }
@@ -186,14 +199,14 @@ async function insight({ cur, prev, now, before, latest, spread }) {
     `今回の期間 ${cur[0]}〜${cur[1]}: ${total(now)}`,
     `前回の期間 ${prev[0]}〜${prev[1]}: ${total(before)}`,
     spread
-      ? [`\n揺れの目安（スクリプトで計算済み。基準期間 ${spread.base[0]}〜${spread.base[1]} の${spread.n}日。データの無い日は0。日ごとの値が独立と仮定。基準期間は 2026-09 のリニューアルをまたぐ）`,
-        ...[['clicks', 'クリック'], ['impressions', '表示回数']].map(([m, name]) => {
+      ? [`\n揺れの目安（スクリプトで計算済み。基準期間 ${spread.base[0]}〜${spread.base[1]} の${spread.n}日。データの無い日は0。基準期間は 2026-09 のリニューアルをまたぐ）`,
+        ...metricNames.map(([m, name]) => {
           const v = spread[m];
-          return `- ${name}: 基準の日平均 ${v.mean.toFixed(2)}・標準偏差 ${v.sd.toFixed(2)}。` +
-            `10日合計のふだんの範囲（平均±2σ）${v.low.toFixed(0)}〜${v.high.toFixed(0)}、今回 ${v.total} は${v.inside ? '範囲内' : '範囲外'}。` +
+          return `- ${name}: 1日あたり平均 ${v.mean.toFixed(2)}・標準偏差 ${v.sd.toFixed(2)}（0の日が${v.n}日中${v.zeroDays}日ある偏った分布で、正規分布ではない）。` +
+            `10日合計のふだんの範囲（基準期間の連続10日合計${v.windows}区間の5〜95%。区間は重なり合う）${v.low}〜${v.high}、今回 ${v.total} は${v.inside ? '範囲内' : '範囲外'}。` +
             `1日の上限（平均+2σ）${v.dayLimit.toFixed(1)} を超えた日: ${v.spikes.join('、') || 'なし'}`;
         })].join('\n')
-      : '\n揺れの目安: 基準期間のデータが14日未満のため出していない',
+      : '\n揺れの目安: 基準期間のデータが足りないため出していない',
     `\n日別（${since35}〜${ymd(latest)}）\n日付${head}\n${tsv(daily, (k) => k[0])}`,
     `\nページ別・今回\nページ${head}\n${tsv(pagesCur, (k) => pagePath(k[0]))}`,
     `\nページ別・前回\nページ${head}\n${tsv(pagesPrev, (k) => pagePath(k[0]))}`,
@@ -237,10 +250,13 @@ async function report() {
     `- 表示回数 **${now.impressions}**（${sign(now.impressions - before.impressions)}）`,
     `- CTR **${(now.ctr * 100).toFixed(1)}%**（${sign((now.ctr - before.ctr) * 100, 1)}pt）`,
     `- 平均順位 **${now.position.toFixed(1)}**（${sign(now.position - before.position, 1)}。小さいほど上位）`,
-    ...(spread ? [`- ふだんの範囲（10日合計・平均±2σ）: ` + [['clicks', 'クリック'], ['impressions', '表示回数']].map(([m, name]) => {
-      const v = spread[m];
-      return `${name} ${v.low.toFixed(0)}〜${v.high.toFixed(0)}（今回${v.total}・${v.inside ? '範囲内' : '範囲外'}）`;
-    }).join('／')] : []),
+    ...(spread ? [
+      `- 1日あたり（基準${spread.n}日）: ` + metricNames.map(([m, name]) => `${name} 平均${spread[m].mean.toFixed(2)}・標準偏差${spread[m].sd.toFixed(2)}`).join('／'),
+      `- ふだんの範囲（過去の10日合計の5〜95%）: ` + metricNames.map(([m, name]) => {
+        const v = spread[m];
+        return `${name} ${v.low}〜${v.high}（今回${v.total}・${v.inside ? '範囲内' : '範囲外'}）`;
+      }).join('／'),
+    ] : []),
     '',
     '**ページ上位（クリック順）**',
     ...(pages.length ? pages.map((r, i) => `${i + 1}. ${pagePath(r.keys[0])}　${r.clicks}クリック・${r.impressions}表示`) : ['なし']),
