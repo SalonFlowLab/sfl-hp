@@ -7,7 +7,7 @@
 
 ## 環境変数
 
-必須の環境変数はありません。旧・資料請求フォームAPI用の `RESEND_API_KEY` `CONTACT_FROM_EMAIL` `CONTACT_TO_EMAIL` `LARK_CONTACT_WEBHOOK_URL` などは、2026-09 のリニューアルでAPIを廃止したため不要です（Cloudflare 側から削除してよい）。
+必須の環境変数はありません。旧・資料請求フォームAPI用の `RESEND_API_KEY` `CONTACT_FROM_EMAIL` `CONTACT_TO_EMAIL` `LARK_CONTACT_WEBHOOK_URL` などは、2026-10-11 に公開したリニューアルでAPIを廃止したため不要です（Cloudflare 側から削除してよい）。
 
 ## 内部向け集約ページ
 
